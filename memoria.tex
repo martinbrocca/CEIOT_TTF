@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+%chapterinoneline,% Have the chapter title next to the number in one single line
+spanish,
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+parskip, % Uncomment to add space between paragraphs
+%codirector, % Uncomment to add a codirector to the title page
+headsepline, % Uncomment to get a line under the header
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+
+
+%----------------------------------------------------------------------------------------
+%	INFORMACIÓN DE LA MEMORIA
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Monitoreo y gestión remota de controladores de clima y riego} % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
+
+% Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
+%\posgrado{Carrera de Especialización en Sistemas Embebidos} 
+\posgrado{Carrera de Especialización en Internet de las Cosas} 
+%\posgrado{Carrera de Especialización en Intelegencia Artificial}
+%\posgrado{Maestría en Sistemas Embebidos} 
+%\posgrado{Maestría en Internet de las cosas}
+
+\author{Ing. Martín A. Brocca} % Tu nombre, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \authorname
+
+\director{Mg. Ing. Juan Carlos Brocca} % El nombre del director, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \dirname
+\codirector{Nombre del codirector (pertenencia)} % El nombre del codirector si lo hubiera, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \codirname.  Para activar este campo se debe descomentar la opción "codirector" en el comando \documentclass, línea 23.
+
+\juradoUNO{Nombre del jurado 1 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur1name
+\juradoDOS{Nombre del jurado 2 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur2name
+\juradoTRES{Nombre del jurado 3 (pertenencia)} % Nombre y pertenencia del un jurado se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \jur3name
+
+%\ciudad{Ciudad Autónoma de Buenos Aires}
+\ciudad{Ciudad Autónoma de Buenos Aires}
+
+\fechaINICIO{junio de 2022}
+\fechaFINAL{mayo de 2023}
+
+
+\keywords{Sistemas embebidos, FIUBA} % Keywords for your thesis, print it elsewhere with \keywordnames
+
+
+\begin{document}
+
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+
+%----------------------------------------------------------------------------------------
+%	RESUMEN - ABSTRACT 
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+%
+%The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+\centering
+
+
+En la presente memoria se describe el diseño, desarrollo e implementación de un sistema de control y monitoreo de clima y riego para un invernadero de tipo hogareño. El trabajo se compone de una colección de sensores y actuadores basados en hardware de bajo costo y una plataforma de software de código abierto. Este sistema permite la automatización y/o adaptación a diferentes cultivos dependiendo de la estación o preferencia del usuario.
+
+Para completar este proyecto se utilizaron técnicas de selección e integración de circuitos, desarrollo de firmware, evaluación de software y diseño de automatizaciones.
+
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA MEMORIA  - AGRADECIMIENTOS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+%\addchaptertocentry{\acknowledgementname} % Descomentando esta línea se puede agregar los agradecimientos al índice
+\vspace{1.5cm}
+
+Esta sección es para agradecimientos personales y es totalmente \textbf{OPCIONAL}.  
+
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LISTA DE CONTENIDOS/FIGURAS/TABLAS
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA MEMORIA  - DEDICATORIA
+%----------------------------------------------------------------------------------------
+
+\dedicatory{\textbf{Dedicado a... [OPCIONAL]}}  % escribir acá si se desea una dedicatoria
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA MEMORIA  - CAPÍTULOS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Incluir los capítulos como archivos separados desde la carpeta Chapters
+
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2} 
+\include{Chapters/Chapter3}
+\include{Chapters/Chapter4} 
+\include{Chapters/Chapter5} 
+
+%----------------------------------------------------------------------------------------
+%	CONTENIDO DE LA MEMORIA  - APÉNDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % indicativo para indicarle a LaTeX los siguientes "capítulos" son apéndices
+
+% Incluir los apéndices de la memoria como archivos separadas desde la carpeta Appendices
+% Descomentar las líneas a medida que se escriben los apéndices
+
+%\include{Appendices/AppendixA}
+%\include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\Urlmuskip=0mu plus 1mu\relax
+\raggedright
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  
