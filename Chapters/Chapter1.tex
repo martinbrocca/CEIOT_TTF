@@ -1,5 +1,4 @@
 % Chapter 1
-
 \chapter{Introducción general} % Main chapter title
 
 \label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
@@ -18,7 +17,7 @@
 %----------------------------------------------------------------------------------------
 
 %\section{Introducción}
-En este capítulo se introducen conceptos asociados al trabajo realizado y se detallan las razones que motivaron su desarrollo y cuál es el estado del arte. Asimismo, se explican los objetivos y el alcance establecidos.
+En este capítulo se introducen conceptos asociados al uso de Internet de las Cosas (IoT) en invernaderos la motivación del cliente y cuál es el estado del arte. Asimismo, se explican los objetivos y el alcance establecidos.
 % el concepto de vivero inteligente, se exponen la motivación del cliente, sus objetivos y expectativas, como así también una evaluación del estado del arte.
 %----------------------------------------------------------------------------------------
 \section{Introducción}
@@ -27,21 +26,26 @@ En este capítulo se introducen conceptos asociados al trabajo realizado y se de
 %El término Internet de las Cosas (en inglés, \textit{Internet of Things} abreviado IoT) hace referencia a la extensión de conectividad de red y capacidad de cómputo a objetos, sensores y otros dispositivos que normalmente no son considerados computadoras. A través de estos mecanismos pueden generar, intercambiar y consumir datos con mínima intervención humana.\citep{iotOverview}.
 
 
-El término Internet de las Cosas (en inglés, \textit{Internet of Things} abreviado IoT) se refiere a escenarios en los que la conectividad de red y la capacidad de cómputo se extienden a objetos, sensores y artículos de uso diario que habitualmente no se consideran computadoras, permitiendo que estos dispositivos generen, intercambien y consuman datos con una mínima intervención humana \citep{iotOverview}.
+El término Internet de las Cosas (IoT) se refiere a escenarios en los que la conectividad de red y la capacidad de cómputo se extienden a objetos, sensores y artículos de uso diario que habitualmente no se consideran computadoras, permitiendo que estos dispositivos generen, intercambien y consuman datos con una mínima intervención humana \citep{iotOverview}.
 IoT tiene una amplia variedad de campos de aplicación, entre los cuales se destaca la agricultura inteligente aplicada a invernaderos.
-Los invernaderos modernos son sistemas de cultivo intensivo diseñados para alcanzar una alta eficiencia y productividad. Debido a su capacidad para mantener las condiciones ambientales en niveles óptimos o sub-óptimos, facilitan la producción de plantas a lo largo de todo el año en forma independiente a las condiciones climáticas externas \citep{HistoryofControlledEnvironmentHorticultureGreenhouses}.
-La aplicación de IoT a invernaderos ha demostrado una mejora sustancial en la eficiencia de la gestión de los cultivos al mismo tiempo que se ha logrado acelerar la producción y reducir sus costos \citep{IoTparaInvernaderos}.
-Además de las ventajas mencionadas, los invernaderos pueden impactar de forma positiva a los entusiastas de la jardinería, ya que proporcionan beneficios tanto físicos como anímicos especialmente durante las temporadas invernales o de baja temperatura \citep{GreenHousesForHomeOwnersAndGardeners}. \\
+
+Los invernaderos modernos son sistemas de cultivo intensivo diseñados para alcanzar una alta eficiencia y productividad. Debido a su capacidad para mantener las condiciones ambientales en niveles óptimos o subóptimos, facilitan la producción de plantas a lo largo de todo el año en forma independiente a las condiciones climáticas externas \citep{HistoryofControlledEnvironmentHorticultureGreenhouses}.
+
+La aplicación de IoT a invernaderos ha demostrado una mejora sustancial en la eficiencia de la gestión de los cultivos al mismo tiempo que ha logrado acelerar la producción y reducir sus costos \citep{IoTparaInvernaderos}. Además de las ventajas mencionadas, los invernaderos pueden impactar de forma positiva a los entusiastas de la jardinería, ya que proporcionan beneficios tanto físicos como anímicos especialmente durante las temporadas invernales o de baja temperatura \citep{GreenHousesForHomeOwnersAndGardeners}. 
 
 
 \section{Motivación}
 \label{Motivación}
 
-Al igual que en otros países, la jubilación o retiro en los Estados Unidos de América se caracteriza por dos condiciones: por un lado, dejar de formar parte de la fuerza laboral remunerada y, por el otro, percibir ingresos a través del seguro social, pensiones y/u otros mecanismos de ahorro \citep{csreports:1}. \\
-Si bien en ese país es común jubilarse a los 65 años de edad, algunas personas encuentran atractiva la posibilidad de un retiro anticipado que otorga una mayor cantidad de tiempo disponible para explorar nuevos \textit{hobbies}, intereses o actividades. Sin embargo, para llevarlo a cabo de forma exitosa se requiere una base financiera sólida que garantice la seguridad económica \citep{yahoo:1}. \\
-Factores tales como el costo de vida, el acceso a la salud, la proximidad familiar y el clima, en ocasiones pueden motivar a los nuevos jubilados a realizar cambios en su lugar de residencia  \citep{RelocatingAfterRetiring} \citep{Kim2021}. Tal es el caso del cliente de este proyecto, que a raíz de su reciente jubilación anticipada, decidió comenzar una nueva vida en una finca rural ubicada en el estado de Carolina del Norte. \\
-Su intención es convertir la propiedad en una residencia sustentable, capaz de producir diferentes tipos de plantas: por un lado, hortalizas para abastecer el consumo familiar y por otro, especies de árboles para reforestación.  
-Para lograrlo con mínima intervención humana en el proceso, surge la necesidad de instalar un invernadero automatice el control de los cultivos. Frente a la diversidad de especies, las condiciones climáticas y de riego deben ser flexibles para adaptarse a cada siembra. 
+Al igual que en otros países, la jubilación o retiro en los Estados Unidos de América se caracteriza por dos condiciones: por un lado, dejar de formar parte de la fuerza laboral remunerada y, por el otro, percibir ingresos a través del seguro social, pensiones y/u otros mecanismos de ahorro \citep{csreports:1}. 
+
+Si bien en ese país es común jubilarse a los 65 años de edad, algunas personas encuentran atractiva la posibilidad de un retiro anticipado que otorgue una mayor cantidad de tiempo disponible para explorar nuevos \textit{hobbies}, intereses o actividades. Sin embargo, para llevarlo a cabo de forma exitosa se requiere una base financiera sólida que garantice la seguridad económica \citep{yahoo:1}. 
+
+Factores tales como el costo de vida, el acceso a la salud, la proximidad familiar y el clima, en ocasiones pueden motivar a los nuevos jubilados a realizar cambios en su lugar de residencia  \citep{RelocatingAfterRetiring} \citep{Kim2021}. Tal es el caso del cliente de este proyecto, que a raíz de su reciente jubilación anticipada, decidió comenzar una nueva vida en una finca rural ubicada en el estado de Carolina del Norte. 
+
+Su intención es convertir la propiedad en una residencia sustentable, capaz de producir diferentes tipos de plantas: por un lado, hortalizas para abastecer el consumo familiar y por otro, especies de árboles para reforestación. 
+
+Para lograrlo con mínima intervención humana en el proceso, surge la necesidad de instalar un invernadero que automatice el control de los cultivos. Frente a la diversidad de especies de plantas a cultivar, las condiciones climáticas y de riego deben ser flexibles para adaptarse a cada siembra. 
 
 
  
@@ -53,7 +57,7 @@ En la figura \ref{fig:imgInvernadero} se observa un vivero hogareño típico de 
 \begin{figure}[htpb]
 \centering 
 \includegraphics[width=.7\textwidth]{../Figures/invernadero1.jpg}
-\caption{Invernadero hogareño\protect\footnotemark.}
+\caption[Invernadero hogareño]{Invernadero hogareño\protect\footnotemark.}
 \label{fig:imgInvernadero}
 \end{figure}
 
@@ -67,25 +71,27 @@ En la figura \ref{fig:imgInvernadero} se observa un vivero hogareño típico de 
 \section{Estado del arte}
 \label{sec:Estado del arte}
 
-Los invernaderos son estructuras diseñadas para controlar y proteger a las plantas del clima y otros factores ambientales adversos. Tradicionalmente, temperatura, humedad e iluminación se controlaban de forma manual, lo que requería una gran cantidad de mano de obra y recursos. \\
-Sin embargo, debido a los avances tecnológicos se ha popularizado el desarrollo de invernaderos capaces de ajustar las condiciones ambientales mediante el uso de sensores, actuadores y controladores. Estos dispositivos responden en función de configuraciones preprogramadas o a partir de datos en tiempo real.  
-Así, el despliegue de este tipo de sistemas, denominados invernaderos inteligentes, se ha extendido enormemente en los últimos años debido a la eficiencia obtenida durante la producción y al incremento en la resiliencia de los cultivos\citep{agrofacto}.
+Los invernaderos son estructuras diseñadas para controlar y proteger a las plantas del clima y otros factores ambientales adversos. Tradicionalmente, la temperatura, humedad e iluminación se controlaban de forma manual, lo que requería una gran cantidad de mano de obra y recursos. 
 
+Sin embargo, debido a los avances tecnológicos se ha popularizado el desarrollo de invernaderos capaces de ajustar las condiciones ambientales mediante el uso de sensores, actuadores y controladores. Estos dispositivos responden en función de configuraciones preprogramadas o a partir de datos en tiempo real.  
+
+Así el despliegue de este tipo de sistemas, denominados invernaderos inteligentes, se ha extendido enormemente en los últimos años debido a la eficiencia obtenida durante la producción y al incremento en la resiliencia de los cultivos \citep{agrofacto}. 
+
+\pagebreak 
 
 
 Algunas posibles aplicaciones de IoT en viveros incluyen:
-\\
-\\
+
 \begin{itemize}
-	\item Monitoreo y control del clima: diferentes sensores pueden medir la temperatura, humedad, iluminación y otros factores ambientales en el invernadero, para que luego diferentes actuadores automáticos puedan ajustar el clima para crear las condiciones óptimas para el crecimiento de las plantas.
+	\item Monitoreo y control del clima: distintos sensores miden la temperatura, humedad, iluminación y otros factores ambientales en el invernadero, para que luego diferentes actuadores automáticos ajusten el clima y creen las condiciones óptimas para el crecimiento de las plantas.
 
     \item Riego a demanda: la medición continua de la humedad del suelo permite activar sistemas de riego automatizados para mantener los niveles óptimos. Se logra así reducir el desperdicio de agua y disminuir los costos asociados.
 
     \item Seguimiento del crecimiento de las plantas: los sensores IoT pueden medir el crecimiento de las plantas y proporcionar información útil para la gestión del cultivo. Esto puede ayudar a identificar problemas de crecimiento temprano y a tomar medidas que eviten problemas mayores a futuro.
 
-    \item Control de plagas y enfermedades: monitorear sus niveles en el vivero y activar sistemas de control cuando se detecten problemas, ayuda a reducir el uso de pesticidas y otros productos químicos.
+    \item Control de plagas y enfermedades: monitorear sus niveles en el vivero y activar sistemas de control cuando se detecten problemas ayuda a reducir el uso de pesticidas y otros productos químicos.
     
-   \item  Fertirrigación\footnote{Fertirrigar es aportar al suelo los nutrientes que necesitan los cultivos mediante el agua de riego \citep{mapa:1}.}: sensores que midan las características del agua (entre otras, pH o conductividad eléctrica) o configuraciones preprogramadas a la plantación en curso, admiten que el sistema puede administrar de forma óptima y precisa fertilizantes a través del sistema de riego.
+   \item  Fertirrigación: el sistema puede administrar fertilizantes o nutrientes al suelo de forma optimizada y precisa a través del riego, en base a configuraciones acordes a la plantación en curso o mediante sensores que midan las características del agua entre otras, pH o conductividad eléctrica.
 
     \item Automatización de tareas: los sistemas IoT pueden automatizar muchas tareas en el vivero, como la siembra, el trasplante y la recolección de plantas. Esto puede reducir los costos de mano de obra y mejorar la eficiencia de la producción.
 \end{itemize}    
@@ -94,31 +100,30 @@ En la figura \ref{fig:imgInvernaderoInteligente} se representa un invernadero in
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[width=.7\textwidth]{../Figures/SmartGreenhouse.jpeg}
-\caption{Invernadero inteligente controlado por IoT\protect\footnotemark.}
+\includegraphics[width=.9\textwidth]{../Figures/SmartGreenhouse.jpeg}
+\caption[Invernadero inteligente controlado por IoT]{Invernadero inteligente controlado por IoT\protect\footnotemark.}
 \label{fig:imgInvernaderoInteligente}
 \end{figure}
 
-\footnotetext{Imagen adaptada de \textit{Internet of Things Empowered Smart Greenhouse Farming}\citep{9051987}}
+\footnotetext{Imagen adaptada de \textit{Internet of Things Empowered Smart Greenhouse Farming} \citep{9051987}.}
 
 
 
 
-En el mercado internacional se encontraron diferentes proveedores que ofrecen soluciones para el desarrollo de invernaderos inteligentes. A la hora de comparar distintas opciones es necesario considerar los niveles de automatización requerida, la facilidad de uso y las opciones de personalización. Adicionalmente, se debe de considerar el costo y la compatibilidad con la infraestructura existente. \\
+En el mercado internacional se encuentran diferentes proveedores que ofrecen soluciones para el desarrollo de invernaderos inteligentes. A la hora de comparar distintas opciones es necesario considerar los niveles de automatización requeridos, la facilidad de uso y las opciones de personalización. Adicionalmente, se debe considerar el costo y la compatibilidad con la infraestructura existente. 
 
-En la tabla \ref{tab:vendors} se detalla una breve comparación entre los principales proveedores de servicios de invernaderos inteligentes. 
-
+En la tabla \ref{tab:vendors} se observa una breve comparación entre los principales proveedores comerciales de servicios. Allí se observa que en general las soluciones presentadas ofrecen características similares siendo el costo el mayor diferenciador.
 
 
 
 \begin{table}[h]
 \centering
-\caption[Análisis del estado del arte]{Análisis del mercado.}
+\caption[Análisis del estado del arte]{Análisis del estado del arte.}
 
 \begin{tabular}{lcccccc} 
 \toprule
 %\textbf{Funcionalidad} & \textbf{Priva []} & \textbf{Hortimax []} & \textbf{Argus Controls []} &\textbf{Grodan []} & \textbf{Heliospectra []} & \textbf{Growlink []}\\
-\textbf{Funcionalidad} & \textbf{Priva \citep{priva}}  & \textbf{Argus Controls \citep{arguscontrol}} &\textbf{Grodan \citep{grodan}} & \textbf{Growlink \citep{growlink}}\\
+\textbf{Funcionalidad} & \textbf{Priva\footcite{priva}}  & \textbf{Argus Controls \footcite{arguscontrol}} &\textbf{Grodan \footcite{grodan}} & \textbf{Growlink \footcite{growlink}}\\
 
 \midrule
 Gestión de clima   & Sí & Sí & Sí & Sí \\
@@ -133,6 +138,11 @@ Costo              & \$\$\$\$ &  \$\$ & \$\$ &  \$ \\
 \label{tab:vendors}
 \end{table}
 
+A manera de ejemplo, algunas soluciones comerciales ofrecen kits que pueden costar más de USD 200 por sensor, con gastos adicionales asociados al transporte y almacenamiento de datos. De esta forma, las redes inalámbricas de sensores pueden llegar a requerir presupuestos mayores a USD 10 000 por invernadero \citep{digger:1}.
+
+Una solución alternativa es utilizar kits de IoT los provistos por Arduino\citep{arduino}, que es una plataforma de hardware y software de código abierto. Por otro lado, es necesario contar con una comunidad de usuarios que colaboren en el proceso de desarrollo. No obstante, para usarlos de manera efectiva se requieren conocimientos de programación y electrónica, lo que los hace inaccesibles para el cultivador promedio \citep{digger:1}. \\
+
+
 %----------------------------------------------------------------------------------------
 
 \section{Objetivos y alcance}
@@ -140,6 +150,7 @@ Costo              & \$\$\$\$ &  \$\$ & \$\$ &  \$ \\
 
 El propósito de este trabajo es el desarrollo de una plataforma capaz de controlar el clima y riego de un invernadero mediante el uso de sensores y actuadores. Estos dispositivos se comunican con una aplicación instalada en un servidor local que administra los parámetros y las alarmas del sistema.
 
+\pagebreak
 Durante el proyecto se construyó un prototipo completo de invernadero con los siguientes elementos:
  
 \begin{itemize}
