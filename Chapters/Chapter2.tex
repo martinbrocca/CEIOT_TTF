@@ -55,13 +55,24 @@ El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo uti
 \subsection{Protocolo SSL/TLS}
 \label{sec:Protocolo SSL/TLS}
 \textit{Secure Socket Layer/Transport Layer Security} (SSL/TLS) \citep{tls:1} es un protocolo criptográfico que proporciona seguridad de extremo a extremo de los datos enviados entre aplicaciones a través de Internet.
-TLS evolucionó a partir de \textit{Secure Socket Layers} (SSL), que fue desarrollado originalmente por Netscape Communications Corporation en 1994 para proteger las sesiones web. SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 en el que se basa TLS.
-Cabe señalar que TLS no protege los datos en los sistemas finales. Simplemente asegura la entrega segura de datos a través de Internet, evitando posibles escuchas y/o alteración del contenido.
-TLS normalmente se implementa sobre TCP para cifrar los protocolos de la capa de aplicación, como por ejemplo sobre HTTP.
-TLS utiliza una combinación de criptografía simétrica y asimétrica, ya que proporciona un buen compromiso entre rendimiento y seguridad cuando se transmiten datos de forma segura.
+TLS evolucionó a partir de \textit{Secure Socket Layers} (SSL), que fue desarrollado originalmente por Netscape Communications Corporation en 1994 para proteger las sesiones web. SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 en el que se basa TLS.\\
 
-Con TLS también es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública del servidor. Esto normalmente se lleva a cabo utilizando un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza conocido como Autoridad de certificación (CA) que afirma la autenticidad de la clave pública. En algunos casos, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
+Cabe señalar que TLS no protege los datos en los sistemas finales, simplemente asegura la entrega segura de datos a través de Internet, evitando posibles escuchas y/o alteración del contenido.
+TLS normalmente se implementa sobre TCP \citep{rfc793} para cifrar los protocolos de la capa de aplicación, como por ejemplo sobre HTTP.
 
+TLS utiliza una combinación de criptografía simétrica y asimétrica, ya que proporciona un buen compromiso entre rendimiento y seguridad cuando se transmiten datos de forma segura \citep{tls:2}. Para mayor seguridad es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública del servidor. Esto normalmente se lleva a cabo utilizando un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza conocido como Autoridad Certificadora (CA) que afirma la autenticidad de la clave pública. En algunos casos, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
+
+En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua entre dos dispositivos mediante la verificación del certificado presentado.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\textwidth]{./Figures/tls.png}
+	\caption[Proceso de autenticación de dos vías de SSL.]{Proceso de autenticación de dos vías de SSL\protect\footnotemark.}
+	\label{fig:ssl2way}
+
+\end{figure}
+	\footnotetext{Gráfico creado en base a una imagen tomada de: https://www.codit.eu/blog/configuring-two-way-ssl-authentication-part-1.}
+	
 \section{Componentes de hardware utilizado}
 \label{sec:Hardware utilizado}
 
