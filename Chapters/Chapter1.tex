@@ -37,16 +37,9 @@ La aplicación de IoT a invernaderos ha demostrado una mejora sustancial en la e
 \section{Motivación}
 \label{Motivación}
 
-Al igual que en otros países, la jubilación o retiro en los Estados Unidos de América se caracteriza por dos condiciones: por un lado, dejar de formar parte de la fuerza laboral remunerada y, por el otro, percibir ingresos a través del seguro social, pensiones y/u otros mecanismos de ahorro \citep{csreports:1}. 
-
-Si bien en ese país es común jubilarse a los 65 años de edad, algunas personas encuentran atractiva la posibilidad de un retiro anticipado que otorgue una mayor cantidad de tiempo disponible para explorar nuevos \textit{hobbies}, intereses o actividades. Sin embargo, para llevarlo a cabo de forma exitosa se requiere una base financiera sólida que garantice la seguridad económica \citep{yahoo:1}. 
-
-Factores tales como el costo de vida, el acceso a la salud, la proximidad familiar y el clima, en ocasiones pueden motivar a los nuevos jubilados a realizar cambios en su lugar de residencia  \citep{RelocatingAfterRetiring} \citep{Kim2021}. Tal es el caso del cliente de este proyecto, que a raíz de su reciente jubilación anticipada, decidió comenzar una nueva vida en una finca rural ubicada en el estado de Carolina del Norte. 
-
-Su intención es convertir la propiedad en una residencia sustentable, capaz de producir diferentes tipos de plantas: por un lado, hortalizas para abastecer el consumo familiar y por otro, especies de árboles para reforestación. 
+El cliente de este proyecto acaba de comenzar su jubilación y decidió comenzar una nueva vida en una finca rural. Su intención es convertir la propiedad en una residencia sustentable, capaz de producir diferentes tipos de plantas: por un lado, hortalizas para abastecer el consumo familiar y por otro, especies de árboles para reforestación. 
 
 Para lograrlo con mínima intervención humana en el proceso, surge la necesidad de instalar un invernadero que automatice el control de los cultivos. Frente a la diversidad de especies de plantas a cultivar, las condiciones climáticas y de riego deben ser flexibles para adaptarse a cada siembra. 
-
 
  
 En la figura \ref{fig:imgInvernadero} se observa un vivero hogareño típico de producción y dimensiones similares al propuesto.
@@ -77,15 +70,13 @@ Sin embargo, debido a los avances tecnológicos se ha popularizado el desarrollo
 
 Así el despliegue de este tipo de sistemas, denominados invernaderos inteligentes, se ha extendido enormemente en los últimos años debido a la eficiencia obtenida durante la producción y al incremento en la resiliencia de los cultivos \citep{agrofacto}. 
 
-\pagebreak 
-
 
 Algunas posibles aplicaciones de IoT en viveros incluyen:
 
 \begin{itemize}
 	\item Monitoreo y control del clima: distintos sensores miden la temperatura, humedad, iluminación y otros factores ambientales en el invernadero, para que luego diferentes actuadores automáticos ajusten el clima y creen las condiciones óptimas para el crecimiento de las plantas.
 
-    \item Riego a demanda: la medición continua de la humedad del suelo permite activar sistemas de riego automatizados para mantener los niveles óptimos. Se logra así reducir el desperdicio de agua y disminuir los costos asociados.
+    \item Riego a demanda: la medición continua de la humedad del suelo permite activar sistemas de riego automatizados para mantener los niveles óptimos de humedad. Se logra así reducir el desperdicio de agua y disminuir los costos asociados.
 
     \item Seguimiento del crecimiento de las plantas: los sensores IoT pueden medir el crecimiento de las plantas y proporcionar información útil para la gestión del cultivo. Esto puede ayudar a identificar problemas de crecimiento temprano y a tomar medidas que eviten problemas mayores a futuro.
 
@@ -100,7 +91,7 @@ En la figura \ref{fig:imgInvernaderoInteligente} se representa un invernadero in
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[width=.9\textwidth]{../Figures/SmartGreenhouse.jpeg}
+\includegraphics[width=.7\textwidth]{../Figures/SmartGreenhouse.jpeg}
 \caption[Invernadero inteligente controlado por IoT]{Invernadero inteligente controlado por IoT\protect\footnotemark.}
 \label{fig:imgInvernaderoInteligente}
 \end{figure}
@@ -123,22 +114,41 @@ En la tabla \ref{tab:vendors} se observa una breve comparación entre los princi
 \begin{tabular}{lcccccc} 
 \toprule
 %\textbf{Funcionalidad} & \textbf{Priva []} & \textbf{Hortimax []} & \textbf{Argus Controls []} &\textbf{Grodan []} & \textbf{Heliospectra []} & \textbf{Growlink []}\\
-\textbf{Funcionalidad} & \textbf{Priva\footcite{priva}}  & \textbf{Argus Controls \footcite{arguscontrol}} &\textbf{Grodan \footcite{grodan}} & \textbf{Growlink \footcite{growlink}}\\
+\textbf{Funcionalidad} & \textbf{Argus Controls \citep{arguscontrol}} &\textbf{Grodan \citep{grodan}} & \textbf{Growlink \citep{growlink}}\\
 
 \midrule
-Gestión de clima   & Sí & Sí & Sí & Sí \\
-Control de riego   & Sí & Sí & Sí & Sí \\
-Fertirrigación     & Sí & Sí & Sí & Sí \\
-Gestión de energía & Sí & No & Sí & Si \\
-Tamaño de mercado  & Grande &  Grande & Grande & Pequeño \\
-Costo              & \$\$\$\$ &  \$\$ & \$\$ &  \$ \\
+Gestión de clima    & Sí & Sí & Sí \\
+Control de riego    & Sí & Sí & Sí \\
+Fertirrigación      & Sí & Sí & Sí \\
+Gestión de energía  & No & Sí & Si \\
+Tamaño de mercado   & Grande & Grande & Pequeño \\
+Costo               &  \$\$\$\$ & \$\$\$ &  \$\$ \\
 \bottomrule
 \hline
 \end{tabular}
 \label{tab:vendors}
 \end{table}
 
-A manera de ejemplo, algunas soluciones comerciales ofrecen kits que pueden costar más de USD 200 por sensor, con gastos adicionales asociados al transporte y almacenamiento de datos. De esta forma, las redes inalámbricas de sensores pueden llegar a requerir presupuestos mayores a USD 10 000 por invernadero \citep{digger:1}.
+A manera de ejemplo, algunas soluciones comerciales ofrecen kits que pueden costar más de USD 200 por sensor, con gastos adicionales asociados al transporte y almacenamiento de datos. De esta forma, las redes inalámbricas de sensores pueden llegar a requerir presupuestos mayores a USD 10 000 por invernadero \citep{digger:1}. Las figuras \ref{fig:grodan} y \ref{fig:growlink} muestran diferentes componentes de las soluciones comerciales. 
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=.5\textwidth]{../Figures/growlink.jpg}
+\caption[Sistema de control de irrigación de Growlink]{Sistema de control de irrigación de Growlink\protect\footnotemark.}
+\label{fig:grodan}
+\end{figure}
+\footnotetext{Imagen bajo licencia de \url{https://www.growlink.com/}}
+
+
+\begin{figure}[hb]
+\centering 
+\includegraphics[width=.5\textwidth]{../Figures/grodan.jpg}
+\caption[Sistema multisensor de Grodan]{Sistema multisensor de Grodan\protect\footnotemark.}
+\label{fig:growlink}
+\end{figure}
+
+
+\footnotetext{Imagen bajo licencia de \url{https://www.grodan.com/}}
 
 Una solución alternativa es utilizar kits de IoT los provistos por Arduino\citep{arduino}, que es una plataforma de hardware y software de código abierto. Por otro lado, es necesario contar con una comunidad de usuarios que colaboren en el proceso de desarrollo. No obstante, para usarlos de manera efectiva se requieren conocimientos de programación y electrónica, lo que los hace inaccesibles para el cultivador promedio \citep{digger:1}. \\
 
@@ -150,7 +160,6 @@ Una solución alternativa es utilizar kits de IoT los provistos por Arduino\cite
 
 El propósito de este trabajo es el desarrollo de una plataforma capaz de controlar el clima y riego de un invernadero mediante el uso de sensores y actuadores. Estos dispositivos se comunican con una aplicación instalada en un servidor local que administra los parámetros y las alarmas del sistema.
 
-\pagebreak
 Durante el proyecto se construyó un prototipo completo de invernadero con los siguientes elementos:
  
 \begin{itemize}
