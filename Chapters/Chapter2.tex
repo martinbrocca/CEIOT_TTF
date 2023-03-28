@@ -76,8 +76,94 @@ En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua ent
 \section{Componentes de hardware utilizado}
 \label{sec:Hardware utilizado}
 
+\subsection{Raspberry PI}
+\label{sec:Raspberry PI}
+La Raspberry Pi es una serie de ordenadores monoplaca u ordenadores de placa simple (SBC por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
+Una sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos de la computadora física y explorar el Internet de las Cosas.
+A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de cómputo comparable a una computadora de escritorio, es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} \citep{raspberrypi:2}. 
+
+En la tabla \ref{tab:raspberrypi} se listan las principales especificaciones técnicas de la Raspberry Pi modelo 4B
+ 
+\begin{table}[h]
+\centering
+\caption[Especificaciones técnicas de Raspberry Pi 4B]{Especificaciones técnicas de Raspberry PI 4B}
+
+\begin{tabular}{p{3cm} p{8cm}} 
+\toprule
+\textbf{Categoría} & \textbf{Especificación}\\
+
+\midrule
+Procesador	& Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.8GHz \\
+Memoria SDRAM	 & 1, 2, 4 u 8GB LPDDR4-3200 \\
+Wi-Fi	& 2.4 GHz and 5.0 GHz IEEE 802.11ac \\
+Bluietooth	&  5.0, BLE \\
+Ethernet	& Gigabit, con soporte opcional para POE\\
+USB	& 2 puertos  3.0 ; 2 puertos 2.0\\
+GPIO	&	Conector de 40 pines\\
+HDMI	&  2 puertos micro-HDMI\\
+Alimentación	& 5V USB y GPIO\\
+Temperatura	& 0 – 50 °C \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:raspberrypi}
+\end{table}
+ 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\textwidth]{./Figures/rpi.png}
+	\caption[Raspberry PI.]{Raspberry PI\protect\footnotemark.}
+	\label{fig:ssl2way}
+\footnotetext{Imagen tomada de: https://datasheets.raspberrypi.com/.}
+\end{figure}
+
+\subsection{Módulo ESP32}
+\label{sec:Módulo ESP32}
+ESP32 es una familia de chips SoC (System on a Chip) diseñados para aplicaciones móviles, dispositivos electrónicos portátiles e Internet de las cosas y cuenta con tecnología integrada de Wi-Fi y Bluetooth. El mismo contiene uno o dos microprocesadores Xtensa LX6 de 32 bits de bajo consumo, 448 KB de memoria ROM, 520 KB de memoria SRAM y 16 KB de memoria SRAM en el RTC \citep{esp32}. El ESP32 es desarrollado en Shanghai por la empresa china Espressif Systems y es producido por TSMC usando un proceso de 40 nm.  
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.30\textwidth]{./Figures/esp32.jpg}
+	\caption[Módulo de desarrollo ESP32.]{Módulo de desarrollo ESP32.}
+	\label{fig:soilsensor}
+
+\end{figure}
+
+\subsection{Sensores y acturadores}
+\label{sec:Sensores y acturadores}
+Los siguientes son los principales componentes empleados en los sensores y actuadores del sistema de invernadero inteligente:
+\begin{itemize}
+
+\item[] DHT22: es un sensor de temperatura y humedad digital básico y económico. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
+
+\item[] Sensor capacitivo de humedad del suelo: es un sensor compuesto de un material resistente a la corrosión, que mide la humedad del suelo indirectamente, por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC.
+
+\item[] Válvula solenoide de dos vías: válvula neumática de un cuarto de pulgada y 12 VDC. Para poder operarla, se utiliza un relé que es un dispositivo electromecánico que funciona como un interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
+
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.90\textwidth]{./Figures/riego.jpg}
+	\caption[Dispositivos para control de riego.]{Dispositivos para control de riego.}
+	\label{fig:riego}
+
+\end{figure}
+
+
+
+
+
+
+\pagebreak
 \section{Tecnologías de software aplicadas}
 \label{sec:Software aplicado}
+\subsection{ThingsBoard}
+\label{sec:ThingsBoard}
+
+\subsection{Arduino IDE}
+\label{sec:Arduino IDE}
+
+
 
 \section{Requerimientos}
 \label{sec:Requerimientos}
