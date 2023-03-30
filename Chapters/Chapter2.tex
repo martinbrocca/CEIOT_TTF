@@ -5,7 +5,7 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-En este capítulo se describen las tecnologías, herramientas y protocolos utilizados para la realización del trabajo.
+En este capítulo se describen las tecnologías, herramientas y protocolos utilizados para la realización del proyecto.
 
 \section{Tecnologías de comunicación}
 \label{sec:Tecnologías de comunicación}
@@ -18,49 +18,56 @@ A continuación se describen los principales protocolos empleados en el trabajo.
 	\label{fig:IotProtocols}
 
 \end{figure}
-	\footnotetext{Gráfico creado en base a una imagen tomada de: \citep{8088251}.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de \citep{8088251}.}
 
 \subsection{Tecnologías Wi-Fi}
 \label{sec:Tecnologías Wi-Fi}
-El estándar IEEE 802.11 para redes inalámbricas de área local (WLAN) es conocido comercialmente como Wi-Fi. Este estándar presenta dos modos de operación \citep{wifi}
+El estándar IEEE 802.11 para redes inalámbricas de área local (WLAN) es conocido comercialmente como Wi-Fi y presenta dos modos de operación \citep{wifi}:
 \begin{itemize}
-\item Infraestructura: uno o máa \textit{access points} (AP) actúan como puente entre la red cableada y la red inalámbrica. Todas las comunicaciones entre los dispositivos conectados a la red, se realizan a través de los APs. 
+\item Infraestructura: uno o más \textit{access points} (AP) actúan como puente entre la red cableada y la red inalámbrica. Todas las comunicaciones entre los dispositivos conectados a la red se realizan a través de los APs. 
 \item Ad-hoc: cada nodo puede realizar una conexión directa con otro, sin necesidad de un AP central. Para lograr esto, los nodos se organizan en una red donde todos son capaces de enrutar los paquetes.  
 \end{itemize}
 
 \subsection{Protocolo MQTT}
 \label{sec:Protocolo MQTT}
 
-El protocolo MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es adecuado para el uso en IoT \citep{mqtt:1}.\\
-El protocolo MQTT se basa en el paradigma de publicación-suscripción. Este paradigma desvincula un cliente que publica un mensaje o publicador de otros clientes que reciben el mensaje o suscriptores. Sumado a esto, 
-MQTT es un protocolo de mensajería asincrónico, lo que significa que no frena al cliente mientras espera por el mensaje. \\ 
-Un componente principal del protocolo es el \textit{broker}, su función principal es la de recibir los mensajes de los publicadores y enviarlos  a los clientes suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para filtrar a los clientes que recibirán el mensaje. De esta manera, el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
+MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es adecuado para el uso en IoT \citep{mqtt:1}.
 
+Su funcionamiento se basa en el paradigma de publicación-suscripción que consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Sumado a esto, MQTT es un protocolo asincrónico, lo que significa que el cliente puede seguir operando mientras espera un nuevo mensaje.
+
+Un componente principal del protocolo es el \textit{broker}; su función primaria es la de recibir los mensajes de los publicadores y enviarlos  a los clientes suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera, el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
+En la figura \ref{fig:arqmqtt} se observa la arquitectura del protocolo.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{./Figures/mqtt.jpeg}
 	\caption[Arquitectura del protocolo MQTT.]{Arquitectura del protocolo MQTT\protect\footnotemark.}
-	\label{fig:IotProtocols}
+	\label{fig:arqmqtt}
 
 \end{figure}
 
-	\footnotetext{Gráfico creado en base a una imagen tomada de: \citep{mqtt:1}.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de  \citep{mqtt:1}.}
 
 
 \subsection{Protocolo HTTP}
 \label{sec:Protocolo HTTP}
 
-El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo utilizado en la web para el desarrollo de aplicaciones basado en el paradigma cliente-servidor mediante un modelo de \textit{request/response}. En los últimos tiempos se ha asociado a HTTP con la arquitectura REST (\textit{Representational State Transfer})\citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estandares de CRUD (\textit{create, read, update, delete}\citep{10.1145/3292674}. Las funciones de CRUD son mapeadas a los métodos Post, Get, Put y Delete de HTTP respectivamente \citep{GLAROUDIS2020107037}. 
+El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo utilizado en la Web para el desarrollo de aplicaciones y está basado en el paradigma cliente-servidor. Aquí el cliente utiliza un agente intermediario (por lo general un \textit{browser}) para realizar un pedido de información y el servidor proporciona una respuesta. Esto se conoce con el nombre de modelo \textit{request/response}.
+
+HTTP es un protocolo que no guarda información de estado, esto significa que el servidor no es capaz de reconocer la relación entre múltiples pedidos de un mismo usuario dado que no mantiene un registro de clientes luego de haber enviado la respuesta \citep{oreilly:1}.
+
+En los últimos tiempos se ha asociado a HTTP con la arquitectura REST (\textit{Representational State Transfer})\citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estándares de tipo CRUD (\textit{create, read, update, delete})  \citep{10.1145/3292674}. Dichas funciones a su vez se traducen a los métodos HTTP POST, GET, PUT y DELETE respectivamente \citep{GLAROUDIS2020107037}. 
 
 \subsection{Protocolo SSL/TLS}
 \label{sec:Protocolo SSL/TLS}
 \textit{Secure Socket Layer/Transport Layer Security} (SSL/TLS) \citep{tls:1} es un protocolo criptográfico que proporciona seguridad de extremo a extremo de los datos enviados entre aplicaciones a través de Internet.
-TLS evolucionó a partir de \textit{Secure Socket Layers} (SSL), que fue desarrollado originalmente por Netscape Communications Corporation en 1994 para proteger las sesiones web. SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 en el que se basa TLS.\\
+TLS evolucionó a partir de \textit{Secure Socket Layer} (SSL), que fue desarrollado originalmente por Netscape Communications Corporation en 1994 para proteger las sesiones web. 
 
-Cabe señalar que TLS no protege los datos en los sistemas finales, simplemente asegura la entrega segura de datos a través de Internet, evitando posibles escuchas y/o alteración del contenido.
-TLS normalmente se implementa sobre TCP \citep{rfc793} para cifrar los protocolos de la capa de aplicación, como por ejemplo sobre HTTP.
+SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 que proporcionó las bases para la posterior creación de TLS. 
 
-TLS utiliza una combinación de criptografía simétrica y asimétrica, ya que proporciona un buen compromiso entre rendimiento y seguridad cuando se transmiten datos de forma segura \citep{tls:2}. Para mayor seguridad es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública del servidor. Esto normalmente se lleva a cabo utilizando un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza conocido como Autoridad Certificadora (CA) que afirma la autenticidad de la clave pública. En algunos casos, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
+Cabe señalar que TLS no protege los datos en los sistemas finales, simplemente garantiza la entrega segura de datos a través de Internet y al mismo tiempo evita posibles escuchas y/o alteraciones del contenido.
+TLS normalmente se implementa sobre TCP \citep{rfc793} para cifrar los protocolos de la capa de aplicación, como por ejemplo HTTP.
+
+TLS utiliza una combinación de criptografía simétrica y asimétrica que proporciona un buen compromiso entre rendimiento y seguridad al momento de transmitir la información \citep{tls:2}. Para mayor protección es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública ofrecida por este. Normalmente dicho verificación se lleva a cabo utilizando un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza conocido como Autoridad Certificadora (CA) que afirma la autenticidad de la clave pública. En algunos casos, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
 
 En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua entre dos dispositivos mediante la verificación del certificado presentado.
 
@@ -71,38 +78,38 @@ En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua ent
 	\label{fig:ssl2way}
 
 \end{figure}
-	\footnotetext{Gráfico creado en base a una imagen tomada de: https://www.codit.eu/blog/configuring-two-way-ssl-authentication-part-1.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de https://www.codit.eu/blog/configuring-two-way-ssl-authentication-part-1.}
 	
 \section{Componentes de hardware utilizado}
 \label{sec:Hardware utilizado}
 
-\subsection{Raspberry PI}
-\label{sec:Raspberry PI}
-La Raspberry Pi es una serie de ordenadores monoplaca u ordenadores de placa simple (SBC por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
-Una sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos de la computadora física y explorar el Internet de las Cosas.
-A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de cómputo comparable a una computadora de escritorio, es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} \citep{raspberrypi:2}. 
+\subsection{Raspberry Pi}
+\label{sec:Raspberry Pi}
+Se denomina así a una serie de ordenadores monoplaca u ordenadores de placa simple (SBC, por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
+Una de sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos y otros dispositivos en el ámbito de Internet de las Cosas.
+A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesamiento comparable a una computadora de escritorio y es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} o aplicaciones industriales \citep{raspberrypi:2}. 
 
-En la tabla \ref{tab:raspberrypi} se listan las principales especificaciones técnicas de la Raspberry Pi modelo 4B
+En la figura \ref{fig:rpi} se muestra una Raspberry Pi modelo 4B similar a la utilizada en el proyecto y en la tabla \ref{tab:raspberrypi} se listan sus principales características: 
  
 \begin{table}[h]
 \centering
-\caption[Especificaciones técnicas de Raspberry Pi 4B]{Especificaciones técnicas de Raspberry PI 4B}
+\caption[Especificaciones técnicas de la Raspberry Pi 4B.]{Especificaciones técnicas de la Raspberry Pi 4B.}
 
 \begin{tabular}{p{3cm} p{8cm}} 
 \toprule
 \textbf{Categoría} & \textbf{Especificación}\\
 
 \midrule
-Procesador	& Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.8GHz \\
-Memoria SDRAM	 & 1, 2, 4 u 8GB LPDDR4-3200 \\
-Wi-Fi	& 2.4 GHz and 5.0 GHz IEEE 802.11ac \\
-Bluietooth	&  5.0, BLE \\
+Procesador	& Broadcom BCM2711, quad-core Cortex-A72 (ARM v8) 64 bits SoC @ 1,8 GHz \\
+Memoria SDRAM	 & 1, 2, 4 u 8 GB LPDDR4-3200 \\
+Wi-Fi	& 2,4 GHz and 5,0 GHz IEEE 802.11ac \\
+Bluetooth	&  5.0, BLE \\
 Ethernet	& Gigabit, con soporte opcional para POE\\
 USB	& 2 puertos  3.0 ; 2 puertos 2.0\\
 GPIO	&	Conector de 40 pines\\
 HDMI	&  2 puertos micro-HDMI\\
-Alimentación	& 5V USB y GPIO\\
-Temperatura	& 0 – 50 °C \\
+Alimentación	& 5 V USB y GPIO\\
+Temperatura	& 0 °C a 50 °C \\
 \bottomrule
 \hline
 \end{tabular}
@@ -112,33 +119,39 @@ Temperatura	& 0 – 50 °C \\
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{./Figures/rpi.png}
-	\caption[Raspberry PI.]{Raspberry PI\protect\footnotemark.}
-	\label{fig:ssl2way}
-\footnotetext{Imagen tomada de: https://datasheets.raspberrypi.com/.}
+	\caption[Raspberry Pi.]{Raspberry Pi\protect\footnotemark.}
+	\label{fig:rpi}
+\footnotetext{Imagen tomada de https://datasheets.raspberrypi.com/.}
 \end{figure}
 
 \subsection{Módulo ESP32}
 \label{sec:Módulo ESP32}
-ESP32 es una familia de chips SoC (System on a Chip) diseñados para aplicaciones móviles, dispositivos electrónicos portátiles e Internet de las cosas y cuenta con tecnología integrada de Wi-Fi y Bluetooth. El mismo contiene uno o dos microprocesadores Xtensa LX6 de 32 bits de bajo consumo, 448 KB de memoria ROM, 520 KB de memoria SRAM y 16 KB de memoria SRAM en el RTC \citep{esp32}. El ESP32 es desarrollado en Shanghai por la empresa china Espressif Systems y es producido por TSMC usando un proceso de 40 nm.  
+ESP32 es una familia de microcontroladores de baja potencia  desarrollada por la empresa china Espressif. Estos chips cuentan con una amplia variedad de usos en IoT tanto en el ámbito profesional/industrial como en el de los aficionados. 
+
+El módulo ESP32-WROOM-32 empleado en este proyecto cuenta con Wi-Fi, Bluetooth 4.2 y BLE integrados. Adicionalmente, el hardware de este módulo cuenta con dos microprocesadores Xtensa LX6 de 32 bits de bajo consumo, 448 KB de memoria ROM, 520 KB de memoria SRAM y 8 KB de memoria SRAM en el RTC (\textit{Real Time Clock}). El sistema operativo elegido para estos dispositivos es freeRTOS\citep{esp32}.
+
+En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia ESP32.
+
+
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.30\textwidth]{./Figures/esp32.jpg}
 	\caption[Módulo de desarrollo ESP32.]{Módulo de desarrollo ESP32.}
-	\label{fig:soilsensor}
+	\label{fig:esp32}
 
 \end{figure}
 
-\subsection{Sensores y acturadores}
-\label{sec:Sensores y acturadores}
-Los siguientes son los principales componentes empleados en los sensores y actuadores del sistema de invernadero inteligente:
+\subsection{Sensores y actuadores}
+\label{sec:Sensores y actuadores}
+Los principales sensores y actuadores que componen el sistema del invernadero inteligente son los siguientes:
 \begin{itemize}
 
-\item[] DHT22: es un sensor de temperatura y humedad digital básico y económico. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
+\item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es desde -40 °C hasta 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
 
-\item[] Sensor capacitivo de humedad del suelo: es un sensor compuesto de un material resistente a la corrosión, que mide la humedad del suelo indirectamente, por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC.
+\item Sensor capacitivo de humedad del suelo: compuesto de un material resistente a la corrosión, mide la humedad del suelo indirectamente por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC \citep{soilsensor}.
 
-\item[] Válvula solenoide de dos vías: válvula neumática de un cuarto de pulgada y 12 VDC. Para poder operarla, se utiliza un relé que es un dispositivo electromecánico que funciona como un interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
+\item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarlo, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
 
 \end{itemize}
 \begin{figure}[h]
@@ -159,12 +172,90 @@ Los siguientes son los principales componentes empleados en los sensores y actua
 \label{sec:Software aplicado}
 \subsection{ThingsBoard}
 \label{sec:ThingsBoard}
+ThingsBoard es una plataforma de código abierto que permite el desarrollo, administración y expansión de proyectos de IoT. Esta aplicación permite la gestión de las comunicaciones, el almacenamiento y la visualización de los datos que provienen de los sensores u otros dispositivos que formen parte del sistema \citep{thingsboard:1}.
+Se ofrece en las siguientes versiones:
+\begin{itemize}
+
+\item Professional Edition (edición profesional) es la versión comercial, con varios tipos de licenciamiento y costos según sea el sistema a implementar. Esta edición posee soporte técnico, ilimitada cantidad de dispositivos a conectar y soporte para almacenamiento híbrido entre otras funcionalidades.
+
+\item Cloud: similar a la edición profesional, pero alojada en la nube de ThingsBoard. En este caso el proveedor se encarga del manejo de los componentes de la plataforma.
+ 
+\item Community edition: (edición para la comunidad) es la edición libre de licenciamientos y es la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
+\end{itemize}
+%
+%\begin{table}[h]
+%\centering
+%\caption[Comparación de versiones de ThingsBoard]{Especificaciones técnicas de Raspberry PI 4B}
+%
+%\begin{tabular}{p{0.30\textwidth} p{0.15\textwidth} p{0.15\textwidth} p{0.15\textwidth}} 
+%\toprule
+%\textbf{Categoría} & \textbf{Community Edition} & \textbf{Professional Edition} & \textbf{Cloud}\\
+%
+%\midrule
+%Gestión de activos y recopilación de datos				&	Sí &	Sí &	Sí\\
+%Paneles de control en tiempo real para usuarios finales &	Sí &	Sí &	Sí\\
+%Cadenas de reglas personalizables, widgets				&	Sí &	Sí &	Sí\\
+%Transporte MQTT, HTTP, CoAP, OPC-UA						&	Sí &	Sí &	Sí\\
+%Integraciones con sistemas BigData						&	Sí &	Sí &	Sí\\
+%Soporte NB-IoT, SigFox, LoRaWAN				&	Sí &	Sí &	Sí\\
+%Motor de reglas							& Básico & Avanzado & Avanzado\\
+%Grupos de entidades										& Básico & Avanzado & Avanzado	\\	
+%RBAC avanzado para IoT									&	No & Sí & Sí\\
+%\textit{Scheduler}										&	No & Sí & Sí	\\
+%Reportes												&	No & Sí & Sí\\
+%Personalización de marca								&	No & Sí & Sí\\
+%Exportación de datos							&	No & Sí & Sí\\
+%Integraciones								&	No & Sí & Sí\\
+%Gestión de dominios										&	No	& No & No\\
+%\bottomrule
+%\hline
+%\end{tabular}
+%\label{tab:raspberrypi}
+%\end{table}
 
 \subsection{Arduino IDE}
 \label{sec:Arduino IDE}
 
+Arduino IDE (\textit{Integrated Development Environment}) es un software de código abierto que se utiliza para escribir y cargar código a placas Arduino. Sin embargo por medio de la instalación de paquetes de expansión, el IDE soporta hardware de terceros entre los que encuentran las módulos ESP32/ESP8266 \citep{Arduinosupport} como los empleados en este proyecto.
 
+El código de los programas se realiza en lenguaje C o C++ y los archivos resultantes se denominan \textit{sketches}. Estos son compilados y cargados en las diferentes placas en uso por cada proyecto desde el mismo IDE \citep{arduinoide}.
+
+Este software es una herramienta fácil de utilizar tanto por usuarios experimentados como por principiantes. Es frecuentemente empleada por aquellos que se inician en la programación electrónica y la robótica o al momento de construir prototipos interactivos \citep{arduinoide:2} 
+ 
 
 \section{Requerimientos}
 \label{sec:Requerimientos}
 
+A continuación se listan los principales requerimientos funcionales,  no funcionales y de documentación del proyecto:
+
+\begin{itemize}
+\item Requerimientos funcionales:
+\begin{enumerate}
+
+\item El estado del sistema podrá ser consultado desde Internet.
+\item La aplicación soporta múltiples usuarios de forma concurrente.
+\item La aplicación permite crear roles de usuarios con diferentes permisos.
+\end{enumerate}
+\end{itemize} 
+\begin{itemize}
+\item Requerimientos no funcionales:
+\begin{enumerate}
+\item El rango de tensión de alimentación de los nodos debe ser de 3,3 a 5 VDC.
+\item El sistema de riego debe operar con una tensión de alimentación de 12 VDC.
+\item El sistema debe estar basado en software de código abierto.
+\item El firmware debe desarrollarse en plataformas de código abierto.
+\item El trabajo debe realizarse sobre dispositivos de bajo costo y fácil reposición.
+\item Los datos deben almacenarse localmente.
+\item La aplicación debe soportar MQTT.
+\end{enumerate}
+
+
+\end{itemize} 
+\begin{itemize}
+\item Requerimientos de documentación:
+\begin{enumerate}
+\item Los manuales y/o guías estarán redactados en inglés.
+\end{enumerate}
+
+
+\end{itemize}

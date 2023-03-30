@@ -17,7 +17,7 @@
 %----------------------------------------------------------------------------------------
 
 %\section{Introducción}
-En este capítulo se introducen conceptos asociados al uso de Internet de las Cosas (IoT) en invernaderos la motivación del cliente y cuál es el estado del arte. Asimismo, se explican los objetivos y el alcance establecidos.
+En este capítulo se introducen conceptos asociados al uso de Internet de las Cosas (IoT) en invernaderos, la motivación del cliente y cuál es el estado del arte. Asimismo, se explican los objetivos y el alcance establecidos.
 % el concepto de vivero inteligente, se exponen la motivación del cliente, sus objetivos y expectativas, como así también una evaluación del estado del arte.
 %----------------------------------------------------------------------------------------
 \section{Introducción}
@@ -82,7 +82,7 @@ Algunas posibles aplicaciones de IoT en viveros incluyen:
 
     \item Control de plagas y enfermedades: monitorear sus niveles en el vivero y activar sistemas de control cuando se detecten problemas ayuda a reducir el uso de pesticidas y otros productos químicos.
     
-   \item  Fertirrigación: el sistema puede administrar fertilizantes o nutrientes al suelo de forma optimizada y precisa a través del riego, en base a configuraciones acordes a la plantación en curso o mediante sensores que midan las características del agua entre otras, pH o conductividad eléctrica.
+   \item  Fertirrigación: el sistema puede administrar fertilizantes o nutrientes al suelo de forma optimizada y precisa a través del riego, en base a configuraciones acordes a la plantación en curso o mediante sensores que midan las características del agua, el pH o la conductividad eléctrica entre otras.
 
     \item Automatización de tareas: los sistemas IoT pueden automatizar muchas tareas en el vivero, como la siembra, el trasplante y la recolección de plantas. Esto puede reducir los costos de mano de obra y mejorar la eficiencia de la producción.
 \end{itemize}    
@@ -91,7 +91,7 @@ En la figura \ref{fig:imgInvernaderoInteligente} se representa un invernadero in
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[width=.7\textwidth]{../Figures/SmartGreenhouse.jpeg}
+\includegraphics[width=.9\textwidth]{../Figures/SmartGreenhouse.jpeg}
 \caption[Invernadero inteligente controlado por IoT]{Invernadero inteligente controlado por IoT\protect\footnotemark.}
 \label{fig:imgInvernaderoInteligente}
 \end{figure}
@@ -129,6 +129,7 @@ Costo               &  \$\$\$\$ & \$\$\$ &  \$\$ \\
 \label{tab:vendors}
 \end{table}
 
+\pagebreak
 A manera de ejemplo, algunas soluciones comerciales ofrecen kits que pueden costar más de USD 200 por sensor, con gastos adicionales asociados al transporte y almacenamiento de datos. De esta forma, las redes inalámbricas de sensores pueden llegar a requerir presupuestos mayores a USD 10 000 por invernadero \citep{digger:1}. Las figuras \ref{fig:grodan} y \ref{fig:growlink} muestran diferentes componentes de las soluciones comerciales. 
 
 \begin{figure}[htb]
@@ -150,13 +151,13 @@ A manera de ejemplo, algunas soluciones comerciales ofrecen kits que pueden cost
 
 \footnotetext{Imagen bajo licencia de \url{https://www.grodan.com/}}
 
-Una solución alternativa es utilizar kits de IoT los provistos por Arduino\citep{arduino}, que es una plataforma de hardware y software de código abierto. Por otro lado, es necesario contar con una comunidad de usuarios que colaboren en el proceso de desarrollo. No obstante, para usarlos de manera efectiva se requieren conocimientos de programación y electrónica, lo que los hace inaccesibles para el cultivador promedio \citep{digger:1}. \\
+Una solución alternativa es utilizar kits de IoT provistos por Arduino \citep{arduino}, que es una plataforma de hardware y software de código abierto. Por otro lado, es necesario contar con una comunidad de usuarios que colaboren en el proceso de desarrollo. No obstante, para usarlos de manera efectiva se requieren conocimientos de programación y electrónica, lo que los hace inaccesibles para el cultivador promedio \citep{digger:1}. \\
 
 
 %----------------------------------------------------------------------------------------
 
 \section{Objetivos y alcance}
-
+\label{sec:objetivos}
 
 El propósito de este trabajo es el desarrollo de una plataforma capaz de controlar el clima y riego de un invernadero mediante el uso de sensores y actuadores. Estos dispositivos se comunican con una aplicación instalada en un servidor local que administra los parámetros y las alarmas del sistema.
 
