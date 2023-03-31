@@ -9,7 +9,9 @@ En este capítulo se describen las tecnologías, herramientas y protocolos utili
 
 \section{Tecnologías de comunicación}
 \label{sec:Tecnologías de comunicación}
-A continuación se describen los principales protocolos empleados en el trabajo. En la figura \ref{fig:IotProtocols} se observa su posicionamiento en la pila de protocolos para IoT.
+Los principales protocolos de IoT empleados en el trabajo y su posicionamiento en la pila de comunicaciones se muestran resaltados en la figura \ref{fig:IotProtocols}.
+
+%A continuación se describen los principales protocolos empleados en el trabajo. En la figura \ref{fig:IotProtocols} se observa su posicionamiento en la pila de protocolos para IoT.
 
 \begin{figure}[h]
 	\centering
@@ -25,7 +27,7 @@ A continuación se describen los principales protocolos empleados en el trabajo.
 El estándar IEEE 802.11 para redes inalámbricas de área local (WLAN) es conocido comercialmente como Wi-Fi y presenta dos modos de operación \citep{wifi}:
 \begin{itemize}
 \item Infraestructura: uno o más \textit{access points} (AP) actúan como puente entre la red cableada y la red inalámbrica. Todas las comunicaciones entre los dispositivos conectados a la red se realizan a través de los APs. 
-\item Ad-hoc: cada nodo puede realizar una conexión directa con otro, sin necesidad de un AP central. Para lograr esto, los nodos se organizan en una red donde todos son capaces de enrutar los paquetes.  
+\item Ad-hoc: cada nodo puede realizar una conexión directa con otro, sin necesidad de un AP central. En este caso, los nodos se organizan en una red donde todos son capaces de enrutar los paquetes.  
 \end{itemize}
 
 \subsection{Protocolo MQTT}
@@ -85,7 +87,7 @@ En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua ent
 
 \subsection{Raspberry Pi}
 \label{sec:Raspberry Pi}
-Se denomina así a una serie de ordenadores monoplaca u ordenadores de placa simple (SBC, por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
+Se denomina así a una serie de computadoras monoplaca o computadoras de placa simple (SBC, por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
 Una de sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos y otros dispositivos en el ámbito de Internet de las Cosas.
 A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesamiento comparable a una computadora de escritorio y es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} o aplicaciones industriales \citep{raspberrypi:2}. 
 
@@ -124,11 +126,43 @@ Temperatura	& 0 °C a 50 °C \\
 \footnotetext{Imagen tomada de https://datasheets.raspberrypi.com/.}
 \end{figure}
 
-\subsection{Módulo ESP32}
-\label{sec:Módulo ESP32}
-ESP32 es una familia de microcontroladores de baja potencia  desarrollada por la empresa china Espressif. Estos chips cuentan con una amplia variedad de usos en IoT tanto en el ámbito profesional/industrial como en el de los aficionados. 
+\subsection{Módulos ESP}
+\label{sec:Módulos ESP}
+ESP es una familia de microcontroladores de baja potencia  desarrollada por la empresa china Espressif. Estos chips cuentan con una amplia variedad de usos en IoT tanto en el ámbito profesional/industrial como en el de los aficionados \citep{esp32} \citep{esp8266}. 
 
-El módulo ESP32-WROOM-32 empleado en este proyecto cuenta con Wi-Fi, Bluetooth 4.2 y BLE integrados. Adicionalmente, el hardware de este módulo cuenta con dos microprocesadores Xtensa LX6 de 32 bits de bajo consumo, 448 KB de memoria ROM, 520 KB de memoria SRAM y 8 KB de memoria SRAM en el RTC (\textit{Real Time Clock}). El sistema operativo elegido para estos dispositivos es freeRTOS\citep{esp32}.
+En la tabla \ref{tab:esp} se observa una comparación entre los modelos ESP32-WROOM-32 y ESP8266 utilizados en el presente trabajo.
+
+%El primero de ellos cuenta con Wi-Fi, Bluetooth 4.2 y BLE integrados. Adicionalmente, el hardware de este módulo cuenta con dos microprocesadores Xtensa LX6 de 32 bits de bajo consumo, 448 KB de memoria ROM, 520 KB de memoria SRAM y 8 KB de memoria SRAM en el RTC (\textit{Real Time Clock}). El modelo ESP8266MOD por otro lado,  es una versión anterior al ESP32 que cuenta con un único microprocesador, menor cantidad de memoria disponible y carece de Bluetooth. Por estas razones constituye una opción económica cuando los requerimientos de conectividad y rendimiento van de la mano con sus prestaciones.   
+
+
+
+\begin{table}[h]
+\centering
+\caption[Especificaciones de los microcontroladores ESP.]{Especificaciones de los microcontroladores ESP.}
+
+\begin{tabular} {p{4cm} p{4cm} p{4cm}} 
+\toprule
+\textbf{Características} & \textbf{ESP32} & \textbf{ESP8266} \\
+\midrule
+Procesador		& 2 x Xtensa 32 bits LX6	& Tensilica L106 32 bits\\
+Memoria ROM	 	& 448 KB	& No dispone\\	
+Memoria SRAM	& 520 KB	& 160 KB\\
+Wi-Fi			& 802.11 b/g/n & 802.11 b/g/n\\
+Bluetooth		& 4.2, BLE & No dispone\\
+GPIOs			& 34 pines & 17 pines\\
+Consumo normal	& \textasciitilde 500 mA & \textasciitilde 80 mA \\
+Temperatura		& -40 °C a 85 °C & -40 °C a 125 °C \\
+Sistema Operativo &	freeRTOS	& freeRTOS \\
+Costo en USD	& \$ 6 a \$ 12  & \$ 3 a  \$ 6 \\
+\bottomrule
+\hline
+\end{tabular}
+\label{tab:esp}
+\end{table}
+
+El modelo ESP8266 es una versión anterior al ESP32 y ofrece una menor variedad de características. Sin embargo, constituye una opción económica cuando los requerimientos de conectividad y rendimiento van de la mano con sus prestaciones.
+
+ 
 
 En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia ESP32.
 
@@ -144,7 +178,7 @@ En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia E
 
 \subsection{Sensores y actuadores}
 \label{sec:Sensores y actuadores}
-Los principales sensores y actuadores que componen el sistema del invernadero inteligente son los siguientes:
+Los principales sensores y actuadores empleados en el sistema del invernadero inteligente son los siguientes:
 \begin{itemize}
 
 \item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es desde -40 °C hasta 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
@@ -153,12 +187,14 @@ Los principales sensores y actuadores que componen el sistema del invernadero in
 
 \item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarlo, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
 
+La figura \ref{fig:sensores} muestra imágenes de los componentes listados previamente.
+
 \end{itemize}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.90\textwidth]{./Figures/riego.jpg}
-	\caption[Dispositivos para control de riego.]{Dispositivos para control de riego.}
-	\label{fig:riego}
+	\includegraphics[width=0.90\textwidth]{./Figures/sensores.jpg}
+	\caption[Principales sensores y actuadores empleados en el invernadero.]{Principales sensores y actuadores empleados en el invernadero.}
+	\label{fig:sensores}
 
 \end{figure}
 
@@ -176,11 +212,11 @@ ThingsBoard es una plataforma de código abierto que permite el desarrollo, admi
 Se ofrece en las siguientes versiones:
 \begin{itemize}
 
-\item Professional Edition (edición profesional) es la versión comercial, con varios tipos de licenciamiento y costos según sea el sistema a implementar. Esta edición posee soporte técnico, ilimitada cantidad de dispositivos a conectar y soporte para almacenamiento híbrido entre otras funcionalidades.
+\item Professional Edition: es la versión comercial, con varios tipos de licenciamiento y costos según sea el sistema a implementar. Esta edición posee soporte técnico, ilimitada cantidad de dispositivos a conectar y soporte para almacenamiento híbrido entre otras funcionalidades.
 
 \item Cloud: similar a la edición profesional, pero alojada en la nube de ThingsBoard. En este caso el proveedor se encarga del manejo de los componentes de la plataforma.
  
-\item Community edition: (edición para la comunidad) es la edición libre de licenciamientos y es la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
+\item Community edition: es la edición libre de licenciamientos y es la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
 \end{itemize}
 %
 %\begin{table}[h]
@@ -233,20 +269,21 @@ A continuación se listan los principales requerimientos funcionales,  no funcio
 \begin{enumerate}
 
 \item El estado del sistema podrá ser consultado desde Internet.
-\item La aplicación soporta múltiples usuarios de forma concurrente.
-\item La aplicación permite crear roles de usuarios con diferentes permisos.
+\item La aplicación soportará múltiples usuarios de forma concurrente.
+\item La aplicación permitirá crear roles de usuarios con diferentes permisos.
 \end{enumerate}
 \end{itemize} 
 \begin{itemize}
 \item Requerimientos no funcionales:
 \begin{enumerate}
-\item El rango de tensión de alimentación de los nodos debe ser de 3,3 a 5 VDC.
-\item El sistema de riego debe operar con una tensión de alimentación de 12 VDC.
-\item El sistema debe estar basado en software de código abierto.
-\item El firmware debe desarrollarse en plataformas de código abierto.
-\item El trabajo debe realizarse sobre dispositivos de bajo costo y fácil reposición.
-\item Los datos deben almacenarse localmente.
-\item La aplicación debe soportar MQTT.
+\item El rango de tensión de alimentación de los nodos será de 3,3 a 5 VDC.
+\item El sistema de riego operará con una tensión de alimentación de 12 VDC.
+\item El sistema deberá estar basado en software de código abierto.
+\item El firmware deberá desarrollarse en plataformas de código abierto.
+\item El trabajo se realizará sobre dispositivos de bajo costo y fácil reposición.
+\item Los datos se almacenarán localmente.
+\item La aplicación soportará MQTT.
+\item Los sensores de humedad del suelo tendrán una protección IP65 \citep{ip65}. 
 \end{enumerate}
 
 
