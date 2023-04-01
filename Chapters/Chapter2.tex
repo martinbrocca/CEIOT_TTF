@@ -5,7 +5,7 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-En este capítulo se describen las tecnologías, herramientas y protocolos utilizados para la realización del proyecto.
+En este capítulo se describen las tecnologías y los protocolos de comunicación, los componentes de hardware, las herramientas de software y los requerimientos para la realización del proyecto.
 
 \section{Tecnologías de comunicación}
 \label{sec:Tecnologías de comunicación}
@@ -20,7 +20,7 @@ Los principales protocolos de IoT empleados en el trabajo y su posicionamiento e
 	\label{fig:IotProtocols}
 
 \end{figure}
-	\footnotetext{Gráfico creado en base a una imagen tomada de \citep{8088251}.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de \citep{8088251}}
 
 \subsection{Tecnologías Wi-Fi}
 \label{sec:Tecnologías Wi-Fi}
@@ -37,7 +37,8 @@ MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo mu
 
 Su funcionamiento se basa en el paradigma de publicación-suscripción que consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Sumado a esto, MQTT es un protocolo asincrónico, lo que significa que el cliente puede seguir operando mientras espera un nuevo mensaje.
 
-Un componente principal del protocolo es el \textit{broker}; su función primaria es la de recibir los mensajes de los publicadores y enviarlos  a los clientes suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera, el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
+Un componente principal del protocolo es el \textit{broker} cuya función primaria es la de recibir los mensajes de los publicadores y enviarlos a los  suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera, el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
+
 En la figura \ref{fig:arqmqtt} se observa la arquitectura del protocolo.
 \begin{figure}[h]
 	\centering
@@ -47,17 +48,17 @@ En la figura \ref{fig:arqmqtt} se observa la arquitectura del protocolo.
 
 \end{figure}
 
-	\footnotetext{Gráfico creado en base a una imagen tomada de  \citep{mqtt:1}.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de  \citep{mqtt:1}}
 
 
 \subsection{Protocolo HTTP}
 \label{sec:Protocolo HTTP}
 
-El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo utilizado en la Web para el desarrollo de aplicaciones y está basado en el paradigma cliente-servidor. Aquí el cliente utiliza un agente intermediario (por lo general un \textit{browser}) para realizar un pedido de información y el servidor proporciona una respuesta. Esto se conoce con el nombre de modelo \textit{request/response}.
+El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo utilizado en la Web para el desarrollo de aplicaciones y está basado en el paradigma cliente-servidor. Aquí el cliente emplea un agente intermediario (por lo general un \textit{browser}) para realizar un pedido de información y el servidor proporciona una respuesta. Esto se conoce con el nombre de modelo \textit{request/response}.
 
-HTTP es un protocolo que no guarda información de estado, esto significa que el servidor no es capaz de reconocer la relación entre múltiples pedidos de un mismo usuario dado que no mantiene un registro de clientes luego de haber enviado la respuesta \citep{oreilly:1}.
+HTTP es un protocolo que no guarda información de estado, esto significa que el servidor no es capaz de reconocer la relación entre múltiples pedidos de un mismo usuario  \citep{oreilly:1}.
 
-En los últimos tiempos se ha asociado a HTTP con la arquitectura REST (\textit{Representational State Transfer})\citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estándares de tipo CRUD (\textit{create, read, update, delete})  \citep{10.1145/3292674}. Dichas funciones a su vez se traducen a los métodos HTTP POST, GET, PUT y DELETE respectivamente \citep{GLAROUDIS2020107037}. 
+En la actualidad, HTTP se utiliza en conjunto con la arquitectura REST (\textit{Representational State Transfer}) \citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estándares de tipo CRUD (\textit{create, read, update, delete})  \citep{10.1145/3292674}. Dichas funciones a su vez se traducen a los métodos HTTP POST, GET, PUT y DELETE respectivamente \citep{GLAROUDIS2020107037}. 
 
 \subsection{Protocolo SSL/TLS}
 \label{sec:Protocolo SSL/TLS}
@@ -69,18 +70,19 @@ SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado ráp
 Cabe señalar que TLS no protege los datos en los sistemas finales, simplemente garantiza la entrega segura de datos a través de Internet y al mismo tiempo evita posibles escuchas y/o alteraciones del contenido.
 TLS normalmente se implementa sobre TCP \citep{rfc793} para cifrar los protocolos de la capa de aplicación, como por ejemplo HTTP.
 
-TLS utiliza una combinación de criptografía simétrica y asimétrica que proporciona un buen compromiso entre rendimiento y seguridad al momento de transmitir la información \citep{tls:2}. Para mayor protección es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública ofrecida por este. Normalmente dicho verificación se lleva a cabo utilizando un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza conocido como Autoridad Certificadora (CA) que afirma la autenticidad de la clave pública. En algunos casos, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
+TLS utiliza una combinación de criptografía simétrica y asimétrica que proporciona un buen compromiso entre rendimiento y seguridad al momento de transmitir la información \citep{tls:2}. Para mayor protección es deseable que un cliente que se conecta a un servidor pueda validar la veracidad de la clave pública ofrecida por este. Normalmente dicha verificación se lleva a cabo por medio de un certificado digital X.509 \citep{x509:1} emitido por un tercero de confianza denominado Autoridad Certificadora (CA). Dicha CA está encargada de  afirmar la autenticidad de la clave pública. En los casos en los que no se dispone de una CA, un servidor puede usar un certificado autofirmado en el que el cliente debe confiar explícitamente \citep{tls:2}.
 
-En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación mutua entre dos dispositivos mediante la verificación del certificado presentado.
+
+En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación y verificación con certificados e inicio de una conexión segura.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.75\textwidth]{./Figures/tls.png}
-	\caption[Proceso de autenticación de dos vías de SSL.]{Proceso de autenticación de dos vías de SSL\protect\footnotemark.}
+	\includegraphics[width=0.9\textwidth]{./Figures/tls.png}
+	\caption[Proceso de autenticación de TLS]{Proceso de autenticación de TLS\protect\footnotemark.}
 	\label{fig:ssl2way}
 
 \end{figure}
-	\footnotetext{Gráfico creado en base a una imagen tomada de https://www.codit.eu/blog/configuring-two-way-ssl-authentication-part-1.}
+	\footnotetext{Gráfico creado en base a una imagen tomada de http://www.herongyang.com/PKI/HTTPS-Communication-Data-Encryption.html}
 	
 \section{Componentes de hardware utilizado}
 \label{sec:Hardware utilizado}
@@ -91,7 +93,7 @@ Se denomina así a una serie de computadoras monoplaca o computadoras de placa s
 Una de sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos y otros dispositivos en el ámbito de Internet de las Cosas.
 A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesamiento comparable a una computadora de escritorio y es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} o aplicaciones industriales \citep{raspberrypi:2}. 
 
-En la figura \ref{fig:rpi} se muestra una Raspberry Pi modelo 4B similar a la utilizada en el proyecto y en la tabla \ref{tab:raspberrypi} se listan sus principales características: 
+En la figura \ref{fig:rpi} se muestra una Raspberry Pi modelo 4B similar a la utilizada en el trabajo y en la tabla \ref{tab:raspberrypi} se listan sus principales características: 
  
 \begin{table}[h]
 \centering
@@ -140,9 +142,9 @@ En la tabla \ref{tab:esp} se observa una comparación entre los modelos ESP32-WR
 \centering
 \caption[Especificaciones de los microcontroladores ESP.]{Especificaciones de los microcontroladores ESP.}
 
-\begin{tabular} {p{4cm} p{4cm} p{4cm}} 
+\begin{tabular} {p{4.5cm} p{3.7cm} p{3.7cm}} 
 \toprule
-\textbf{Características} & \textbf{ESP32} & \textbf{ESP8266} \\
+\textbf{Características} & \textbf{ESP32} \citep{esp32}  & \textbf{ESP8266} \citep{esp8266} \\
 \midrule
 Procesador		& 2 x Xtensa 32 bits LX6	& Tensilica L106 32 bits\\
 Memoria ROM	 	& 448 KB	& No dispone\\	
@@ -151,8 +153,8 @@ Wi-Fi			& 802.11 b/g/n & 802.11 b/g/n\\
 Bluetooth		& 4.2, BLE & No dispone\\
 GPIOs			& 34 pines & 17 pines\\
 Consumo normal	& \textasciitilde 500 mA & \textasciitilde 80 mA \\
-Temperatura		& -40 °C a 85 °C & -40 °C a 125 °C \\
-Sistema Operativo &	freeRTOS	& freeRTOS \\
+Temperatura de operación		& -40 °C a 85 °C & -40 °C a 125 °C \\
+Sistema operativo &	freeRTOS	& freeRTOS \\
 Costo en USD	& \$ 6 a \$ 12  & \$ 3 a  \$ 6 \\
 \bottomrule
 \hline
@@ -181,7 +183,7 @@ En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia E
 Los principales sensores y actuadores empleados en el sistema del invernadero inteligente son los siguientes:
 \begin{itemize}
 
-\item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es desde -40 °C hasta 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
+\item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 °C a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
 
 \item Sensor capacitivo de humedad del suelo: compuesto de un material resistente a la corrosión, mide la humedad del suelo indirectamente por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC \citep{soilsensor}.
 
@@ -190,15 +192,39 @@ Los principales sensores y actuadores empleados en el sistema del invernadero in
 La figura \ref{fig:sensores} muestra imágenes de los componentes listados previamente.
 
 \end{itemize}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.90\textwidth]{./Figures/sensores.jpg}
-	\caption[Principales sensores y actuadores empleados en el invernadero.]{Principales sensores y actuadores empleados en el invernadero.}
-	\label{fig:sensores}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.90\textwidth]{./Figures/sensores.jpg}
+%	\caption[Principales sensores y actuadores empleados en el invernadero.]{Principales sensores y actuadores empleados en el invernadero.}
+%	\label{fig:sensores}
+%
+%\end{figure}
 
+\begin{figure}[!htpb]
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=.65\textwidth]{./Figures/dht22.jpg}
+         \caption{Sensor de temperatura y humedad.}
+         \label{fig:dht22}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=.65\textwidth]{./Figures/soilsensor}
+         \caption{Sensor de humedad del suelo.}
+         \label{fig:soilsensor}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=.65\textwidth]{./Figures/valve.jpg}
+         \caption{Válvula solenoide de dos vías.}
+         \label{fig:valve}
+     \end{subfigure}
+        \caption[Principales sensores y actuadores empleados en el invernadero.]{Principales sensores y actuadores empleados en el invernadero.}
+        \label{fig:sensores}
 \end{figure}
-
-
 
 
 
@@ -215,7 +241,7 @@ Se ofrece en las siguientes versiones:
 
 \item Cloud: similar a la edición profesional, pero alojada en la nube de ThingsBoard. En este caso el proveedor se encarga del manejo de los componentes de la plataforma.
  
-\item Community edition: es la edición libre de licenciamientos y es la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
+\item Community edition: es la edición libre de licenciamientos y la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
 \end{itemize}
 %
 %\begin{table}[h]
@@ -251,12 +277,20 @@ Se ofrece en las siguientes versiones:
 \subsection{Arduino IDE}
 \label{sec:Arduino IDE}
 
-Arduino IDE (\textit{Integrated Development Environment}) es un software de código abierto que se utiliza para escribir y cargar código a placas Arduino. Sin embargo por medio de la instalación de paquetes de expansión, el IDE soporta hardware de terceros entre los que encuentran las módulos ESP32/ESP8266 \citep{Arduinosupport} como los empleados en este proyecto.
+Arduino IDE (\textit{Integrated Development Environment}) es un software de código abierto que se utiliza para escribir y cargar código a placas Arduino. Sin embargo por medio de la instalación de paquetes de expansión, el IDE soporta hardware de terceros entre los que encuentran las módulos ESP32/ESP8266 \citep{Arduinosupport} empleados en este proyecto.
 
-El código de los programas se realiza en lenguaje C o C++ y los archivos resultantes se denominan \textit{sketches}. Estos son compilados y cargados en las diferentes placas en uso por cada proyecto desde el mismo IDE \citep{arduinoide}.
+El código de los programas se realiza en lenguaje C o C++ y los archivos resultantes se denominan \textit{sketches}. Estos son compilados y cargados en las placas desde el mismo IDE \citep{arduinoide}.
 
-Este software es una herramienta fácil de utilizar tanto por usuarios experimentados como por principiantes. Es frecuentemente empleada por aquellos que se inician en la programación electrónica y la robótica o al momento de construir prototipos interactivos \citep{arduinoide:2} 
+Este software es una herramienta fácil de utilizar tanto por usuarios experimentados como por principiantes. Es frecuentemente empleada por aquellos que se inician en la programación electrónica y la robótica o al momento de construir prototipos interactivos \citep{arduinoide:2}. 
+
+\subsection{Telegram}
+\label{sec:Telegram}
+
+Telegram es una aplicación de mensajería multiplataforma rápida, simple y gratuita. Está basada en la nube y cuenta con sincronización constante, lo que significa que se puede acceder a los mensajes desde diferentes dispositivos simultáneamente. 
+
+Tanto el código de los clientes de Telegram como el de su API son abiertos, lo que permite crear otras aplicaciones a partir de ellos. Adicionalmente cuenta con una API para \textit{bots} que facilita la implementación de herramientas basadas en Telegram, la integración de servicios o la realización pagos \citep{telegram}.
  
+  
 
 \section{Requerimientos}
 \label{sec:Requerimientos}
@@ -277,7 +311,7 @@ A continuación se listan los principales requerimientos funcionales,  no funcio
 \begin{enumerate}
 \item El rango de tensión de alimentación de los nodos será de 3,3 a 5 VDC.
 \item El sistema de riego operará con una tensión de alimentación de 12 VDC.
-\item El sistema deberá estar basado en software de código abierto.
+\item El sistema estará basado en software de código abierto.
 \item El firmware deberá desarrollarse en plataformas de código abierto.
 \item El trabajo se realizará sobre dispositivos de bajo costo y fácil reposición.
 \item Los datos se almacenarán localmente.
