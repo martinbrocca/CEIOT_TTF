@@ -9,46 +9,41 @@ En este capítulo se describen las tecnologías y los protocolos de comunicació
 
 \section{Tecnologías de comunicación}
 \label{sec:Tecnologías de comunicación}
-Los principales protocolos de IoT empleados en el trabajo y su posicionamiento en la pila de comunicaciones se muestran resaltados en la figura \ref{fig:IotProtocols}.
+Los principales protocolos de IoT empleados en el trabajo son: MQTT \citep{mqtt}, HTTP \citep{rfc1057}, SSL/TLS \citep{tls:1} e IEEE 802.11 \citep{802.11}. 
+Según el modelo TCP/IP \citep{rfc1180} los tres primeros se encuentran en la capa de aplicación mientras que el cuarto se ubica en la capa de enlace. La figura \ref{fig:IotProtocols} esquematiza el posicionamiento en ese  modelo.
 
 %A continuación se describen los principales protocolos empleados en el trabajo. En la figura \ref{fig:IotProtocols} se observa su posicionamiento en la pila de protocolos para IoT.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{./Figures/protocols.jpeg}
-	\caption[Pila de protocolos para IoT.]{Pila de protocolos para IoT\protect\footnotemark.}
+	\caption[Ubicación de los protocolos de IoT en la pila TCP/IP]{Ubicación de los protocolos de IoT en la pila TCP/IP\protect\footnotemark.}
 	\label{fig:IotProtocols}
 
 \end{figure}
-	\footnotetext{Gráfico creado en base a una imagen tomada de \citep{8088251}}
+	\footnotetext{Gráfico creado modificando una imagen tomada de \citep{8088251}}
 
-\subsection{Tecnologías Wi-Fi}
-\label{sec:Tecnologías Wi-Fi}
-El estándar IEEE 802.11 para redes inalámbricas de área local (WLAN) es conocido comercialmente como Wi-Fi y presenta dos modos de operación \citep{wifi}:
-\begin{itemize}
-\item Infraestructura: uno o más \textit{access points} (AP) actúan como puente entre la red cableada y la red inalámbrica. Todas las comunicaciones entre los dispositivos conectados a la red se realizan a través de los APs. 
-\item Ad-hoc: cada nodo puede realizar una conexión directa con otro, sin necesidad de un AP central. En este caso, los nodos se organizan en una red donde todos son capaces de enrutar los paquetes.  
-\end{itemize}
+
 
 \subsection{Protocolo MQTT}
 \label{sec:Protocolo MQTT}
 
 MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es adecuado para el uso en IoT \citep{mqtt:1}.
 
-Su funcionamiento se basa en el paradigma de publicación-suscripción que consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Sumado a esto, MQTT es un protocolo asincrónico, lo que significa que el cliente puede seguir operando mientras espera un nuevo mensaje.
+Su funcionamiento se basa en el paradigma de publicación-suscripción, que consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Otra característica importante a mencionar es que, al ser un protocolo asincrónico, el cliente puede seguir operando mientras espera un nuevo mensaje.
 
-Un componente principal del protocolo es el \textit{broker} cuya función primaria es la de recibir los mensajes de los publicadores y enviarlos a los  suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera, el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
+Un componente principal del protocolo es el \textit{broker} cuya función primaria es la de recibir los mensajes de los publicadores y enviarlos a los  suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
 
 En la figura \ref{fig:arqmqtt} se observa la arquitectura del protocolo.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.75\textwidth]{./Figures/mqtt.jpeg}
-	\caption[Arquitectura del protocolo MQTT.]{Arquitectura del protocolo MQTT\protect\footnotemark.}
+	\includegraphics[width=0.90\textwidth]{./Figures/mqtt.jpeg}
+	\caption[Arquitectura del protocolo MQTT]{Arquitectura del protocolo MQTT.}
 	\label{fig:arqmqtt}
 
 \end{figure}
 
-	\footnotetext{Gráfico creado en base a una imagen tomada de  \citep{mqtt:1}}
+
 
 
 \subsection{Protocolo HTTP}
@@ -58,14 +53,15 @@ El \textit{Hypertext Transfer Protocol} (HTTP)\citep{http:1} es un protocolo uti
 
 HTTP es un protocolo que no guarda información de estado, esto significa que el servidor no es capaz de reconocer la relación entre múltiples pedidos de un mismo usuario  \citep{oreilly:1}.
 
-En la actualidad, HTTP se utiliza en conjunto con la arquitectura REST (\textit{Representational State Transfer}) \citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estándares de tipo CRUD (\textit{create, read, update, delete})  \citep{10.1145/3292674}. Dichas funciones a su vez se traducen a los métodos HTTP POST, GET, PUT y DELETE respectivamente \citep{GLAROUDIS2020107037}. 
+En la actualidad, HTTP se utiliza en conjunto con la arquitectura REST (\textit{Representational State Transfer}) \citep{rest} para facilitar la interacción entre distintas entidades sobre servicios basados en red. Esta asociación permite que los dispositivos interactúen mediante funciones estándares de tipo CRUD (\textit{create, read, update, delete})  \citep{10.1145/3292674}. Dichas funciones a su vez se traducen en los métodos HTTP POST, GET, PUT y DELETE respectivamente \citep{GLAROUDIS2020107037}. 
+
 
 \subsection{Protocolo SSL/TLS}
 \label{sec:Protocolo SSL/TLS}
-\textit{Secure Socket Layer/Transport Layer Security} (SSL/TLS) \citep{tls:1} es un protocolo criptográfico que proporciona seguridad de extremo a extremo de los datos enviados entre aplicaciones a través de Internet.
+\textit{Secure Socket Layer/Transport Layer Security} (SSL/TLS) es un protocolo criptográfico que proporciona seguridad de extremo a extremo de los datos enviados entre aplicaciones a través de Internet.
 TLS evolucionó a partir de \textit{Secure Socket Layer} (SSL), que fue desarrollado originalmente por Netscape Communications Corporation en 1994 para proteger las sesiones web. 
 
-SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 que proporcionó las bases para la posterior creación de TLS. 
+%SSL 1.0 nunca se lanzó públicamente, mientras que SSL 2.0 fue reemplazado rápidamente por SSL 3.0 que proporcionó las bases para la posterior creación de TLS. 
 
 Cabe señalar que TLS no protege los datos en los sistemas finales, simplemente garantiza la entrega segura de datos a través de Internet y al mismo tiempo evita posibles escuchas y/o alteraciones del contenido.
 TLS normalmente se implementa sobre TCP \citep{rfc793} para cifrar los protocolos de la capa de aplicación, como por ejemplo HTTP.
@@ -83,37 +79,45 @@ En la figura \ref{fig:ssl2way} se detalla el esquema de autenticación y verific
 
 \end{figure}
 	\footnotetext{Gráfico creado en base a una imagen tomada de http://www.herongyang.com/PKI/HTTPS-Communication-Data-Encryption.html}
-	
+
+\subsection{Tecnologías Wi-Fi}
+\label{sec:Tecnologías Wi-Fi}
+El estándar IEEE 802.11 para redes inalámbricas de área local (WLAN) es conocido comercialmente como Wi-Fi y presenta dos modos de operación \citep{wifi}:
+\begin{itemize}
+\item Infraestructura: uno o más \textit{access points} (AP) actúan como puente entre la red cableada y la red inalámbrica. Todas las comunicaciones entre los dispositivos conectados a la red se realizan a través de los APs. 
+\item Ad-hoc: cada nodo puede realizar una conexión directa con otro, sin necesidad de un AP central. En este caso, los nodos se organizan en una red donde todos son capaces de enrutar los paquetes.  
+\end{itemize}
+
 \section{Componentes de hardware utilizado}
 \label{sec:Hardware utilizado}
 
 \subsection{Raspberry Pi}
 \label{sec:Raspberry Pi}
-Se denomina así a una serie de computadoras monoplaca o computadoras de placa simple (SBC, por \textit{Single Board Computer}) de bajo costo desarrollados por la Raspberry Pi Foundation \citep{raspberrypi:1}.
-Una de sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output} que permiten controlar componentes electrónicos y otros dispositivos en el ámbito de Internet de las Cosas.
-A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesamiento comparable a una computadora de escritorio y es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} o aplicaciones industriales \citep{raspberrypi:2}. 
+Se denomina así a una serie de computadoras monoplaca o computadoras de placa simple (SBC, por \textit{Single Board Computer}) de bajo costo desarrolladas por la Raspberry Pi Foundation \citep{raspberrypi:1}.
+Una de sus principales características es proveer un conjunto de pines de GPIO (\textit{general purpose input/output}) que permiten controlar componentes electrónicos y otros dispositivos en el ámbito de Internet de las Cosas.
+A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesamiento comparable a una computadora de escritorio y es por ello que su uso se ha expandido en proyectos que incluyen domótica, \textit{edge computing} y aplicaciones industriales \citep{raspberrypi:2}. 
 
 En la figura \ref{fig:rpi} se muestra una Raspberry Pi modelo 4B similar a la utilizada en el trabajo y en la tabla \ref{tab:raspberrypi} se listan sus principales características: 
  
 \begin{table}[h]
 \centering
-\caption[Especificaciones técnicas de la Raspberry Pi 4B.]{Especificaciones técnicas de la Raspberry Pi 4B.}
+\caption[Especificaciones técnicas de la Raspberry Pi 4B]{Especificaciones técnicas de la Raspberry Pi 4B.}
 
-\begin{tabular}{p{3cm} p{8cm}} 
+\begin{tabular}{p{2.5cm} p{7.5cm} } 
 \toprule
-\textbf{Categoría} & \textbf{Especificación}\\
+\textbf{Categoría} & \textbf{Especificación}\citep{rpi4b }\\
 
 \midrule
 Procesador	& Broadcom BCM2711, quad-core Cortex-A72 (ARM v8) 64 bits SoC @ 1,8 GHz \\
 Memoria SDRAM	 & 1, 2, 4 u 8 GB LPDDR4-3200 \\
-Wi-Fi	& 2,4 GHz and 5,0 GHz IEEE 802.11ac \\
-Bluetooth	&  5.0, BLE \\
+Wi-Fi	& 2,4 GHz y 5,0 GHz IEEE 802.11ac \\
+Bluetooth	&  5.0 y BLE \\
 Ethernet	& Gigabit, con soporte opcional para POE\\
-USB	& 2 puertos  3.0 ; 2 puertos 2.0\\
+USB	& 2 puertos  3.0 y 2 puertos 2.0\\
 GPIO	&	Conector de 40 pines\\
 HDMI	&  2 puertos micro-HDMI\\
 Alimentación	& 5 V USB y GPIO\\
-Temperatura	& 0 °C a 50 °C \\
+Temperatura de operación	& 0 °C a 50 °C \\
 \bottomrule
 \hline
 \end{tabular}
@@ -123,14 +127,14 @@ Temperatura	& 0 °C a 50 °C \\
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{./Figures/rpi.png}
-	\caption[Raspberry Pi.]{Raspberry Pi\protect\footnotemark.}
+	\caption[Raspberry Pi]{Raspberry Pi\protect\footnotemark.}
 	\label{fig:rpi}
-\footnotetext{Imagen tomada de https://datasheets.raspberrypi.com/.}
-\end{figure}
 
+\end{figure}
+\footnotetext{Imagen tomada de https://datasheets.raspberrypi.com/.}
 \subsection{Módulos ESP}
 \label{sec:Módulos ESP}
-ESP es una familia de microcontroladores de baja potencia  desarrollada por la empresa china Espressif. Estos chips cuentan con una amplia variedad de usos en IoT tanto en el ámbito profesional/industrial como en el de los aficionados \citep{esp32} \citep{esp8266}. 
+ESP es una familia de microcontroladores de baja potencia  desarrollada por la empresa china Espressif. Estos chips cuentan con una amplia variedad de usos en IoT tanto en el ámbito profesional o industrial como en el de los aficionados \citep{esp32} \citep{esp8266}. 
 
 En la tabla \ref{tab:esp} se observa una comparación entre los modelos ESP32-WROOM-32 y ESP8266 utilizados en este trabajo.
 
@@ -140,7 +144,7 @@ En la tabla \ref{tab:esp} se observa una comparación entre los modelos ESP32-WR
 
 \begin{table}[h]
 \centering
-\caption[Especificaciones de los microcontroladores ESP.]{Especificaciones de los microcontroladores ESP.}
+\caption[Especificaciones de los microcontroladores ESP]{Especificaciones de los microcontroladores ESP.}
 
 \begin{tabular} {p{4.5cm} p{3.7cm} p{3.7cm}} 
 \toprule
@@ -162,21 +166,45 @@ Costo en USD	& \$ 6 a \$ 12  & \$ 3 a  \$ 6 \\
 \label{tab:esp}
 \end{table}
 
-El modelo ESP8266 es una versión anterior al ESP32 y ofrece una menor variedad de características que este último. Sin embargo, constituye una opción económica cuando los requerimientos de conectividad y rendimiento van de la mano con sus prestaciones.
+%El modelo ESP8266 es una versión anterior al ESP32 y ofrece una menor variedad de características. Sin embargo, constituye una opción económica cuando los requerimientos de conectividad y rendimiento van de la mano con sus prestaciones.
 
- 
+El modelo ESP8266 es una versión anterior y con menores prestaciones que el ESP32 y constituye una opción económica para soluciones en las que los requerimientos de conectividad, cantidad de periféricos y demandas computacionales no son tan exigentes.
 
-En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia ESP32.
+En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia ESP32, mientras que el ESP8266 puede verse en la figura \ref{fig:esp8266}. 
 
 
-
-\begin{figure}[h]
+\begin{figure}[!htpb]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.60\textwidth]{./Figures/esp32.jpg}
+		\caption[Módulo de desarrollo ESP32]{Módulo de desarrollo ESP32.}
+		\label{fig:esp32}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-	\includegraphics[width=0.30\textwidth]{./Figures/esp32.jpg}
-	\caption[Módulo de desarrollo ESP32.]{Módulo de desarrollo ESP32.}
-	\label{fig:esp32}
-
+		\includegraphics[width=0.60\textwidth]{./Figures/esp8266_2.jpg}
+		\caption[Módulo de desarrollo ESP8266]{Módulo de desarrollo ESP8266.}
+		\label{fig:esp8266}
+     \end{subfigure}
+     \hfill
+        \caption[Módulo de desarrollo ESP empleados en el proyecto]{Módulo de desarrollo ESP empleados en el proyecto.}
+        \label{fig:microESP}
 \end{figure}
+
+
+
+
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.30\textwidth]{./Figures/esp32.jpg}
+%	\caption[Módulo de desarrollo ESP32.]{Módulo de desarrollo ESP32.}
+%	\label{fig:esp32}
+%
+%\end{figure}
+\pagebreak
 
 \subsection{Sensores y actuadores}
 \label{sec:Sensores y actuadores}
@@ -185,7 +213,7 @@ Los principales sensores y actuadores empleados en el sistema del invernadero in
 
 \item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 °C a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
 
-\item Sensor capacitivo de humedad del suelo: compuesto de un material resistente a la corrosión, mide la humedad del suelo indirectamente por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC \citep{soilsensor}.
+\item Sensor capacitivo de humedad del suelo: módulo analógico compuesto de un material resistente a la corrosión que mide la humedad del suelo indirectamente por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC y entrega un valor de tensión que varía entre 0V para un suelo seco a aproximadamente 3,15 V en un suelo completamente húmedo \citep{soilsensor}.
 
 \item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarlo, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
 
@@ -222,7 +250,7 @@ La figura \ref{fig:sensores} muestra imágenes de los componentes listados previ
          \caption{Válvula solenoide de dos vías.}
          \label{fig:valve}
      \end{subfigure}
-        \caption[Principales sensores y actuadores empleados en el invernadero.]{Principales sensores y actuadores empleados en el invernadero.}
+        \caption[Principales sensores y actuadores empleados en el invernadero]{Principales sensores y actuadores empleados en el invernadero.}
         \label{fig:sensores}
 \end{figure}
 
@@ -233,7 +261,7 @@ La figura \ref{fig:sensores} muestra imágenes de los componentes listados previ
 \label{sec:Software aplicado}
 \subsection{ThingsBoard}
 \label{sec:ThingsBoard}
-ThingsBoard es una plataforma de código abierto que permite el desarrollo, administración y expansión de proyectos de IoT. Esta aplicación permite la gestión de las comunicaciones, el almacenamiento y la visualización de los datos que provienen de los sensores u otros dispositivos que formen parte del sistema \citep{thingsboard:1}.
+ThingsBoard es una plataforma de código abierto que permite el desarrollo, administración y expansión de proyectos de IoT. Esta aplicación permite la gestión de las comunicaciones, el almacenamiento y la visualización de los datos que provienen de los sensores u otros dispositivos que forman parte del sistema \citep{thingsboard:1}.
 Se ofrece en las siguientes versiones:
 \begin{itemize}
 
