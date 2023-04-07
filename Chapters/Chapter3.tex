@@ -23,15 +23,31 @@ Para garantizar el acceso de los usuarios desde Internet se desarrolló una inte
 \subsection{Componentes del sistema}
 \label{Componentes del sistema}
 
-En la figura \ref{fig:blockdiagram} se observa un diagrama en bloques de la arquitectura diseñada y sus componentes.
+En la figura \ref{fig:blockdiagram} se observa el diagrama en bloques de la arquitectura diseñada, que está compuesta por los siguientes elementos: 
 
 \begin{itemize}
-\item El sistema de monitoreo y control de clima, organizado en dos bloques:
+\item Sistema de monitoreo y control de clima, formado por dos módulos:
 \begin{itemize}
 \item Sensores de temperatura y humedad con sus correspondientes microcontroladores.
-\item Unidad de control de temperatura formada por un microcontrolador, relé y ventiladores. 
+\item Unidad de control de temperatura y humedad comprendida por un microcontrolador, relé y ventiladores. 
 \end{itemize}
-Los sensores miden la temperatura y humedad ambiente en el invernadero y envían estas variables a la aplicación central por medio del microcontrolador. En base a los valores recibidos, la aplicación determina si es necesario emitir una señal para que la unidad de control de temperatura encienda los ventiladores.
+Los sensores miden la temperatura y humedad ambiente en el invernadero y envían estas variables a la aplicación central por medio del microcontrolador. De acuerdo con los valores recibidos, la aplicación determina si es necesario emitir una señal para que la unidad de control encienda los ventiladores.
+
+
+
+\item Sistema de control de riego, dividido en dos partes:
+\begin{itemize}
+\item Conjunto de sensores de humedad de suelo con sus respectivos microcontroladores.
+\item Unidad de control de riego constituida por un microcontrolador, relés, bomba de agua y válvulas.
+\end{itemize}
+
+Los sensores envían las mediciones a la aplicación central que se encarga de procesar los valores recibidos. En caso de ser necesario, se disparan las señales de encendido a través de la unidad de control. Primero se activa la válvula que corresponda y luego se enciende la bomba de agua para comenzar el riego. El orden de estas actividades es importante para evitar daños en la bomba o las cañerías.
+
+\item Aplicación central. Constituye el cerebro del invernadero y es la encargada de almacenar los parámetros de configuración de los diversos sensores y actuadores, procesar los mensajes recibidos, disparar acciones y alertas y visualizar el estado general.
+
+\item Sistema de acceso remoto. Permite a los usuarios obtener reportes del sistema en forma segura desde Internet.   
+\end{itemize}
+
 
 
 \begin{figure}[h]
@@ -41,23 +57,7 @@ Los sensores miden la temperatura y humedad ambiente en el invernadero y envían
 	\label{fig:blockdiagram}
 
 \end{figure}
-%
-%\item Módulo de monitoreo de clima: es responsable de sensar la temperatura y humedad ambiente en el invernadero y enviar estas variables a la aplicación central para determinar las acciones a tomar en cuanto al control del clima.
 
-%\item Sistema de control de riego: está compuesto por múltiples sensores de humedad de suelo con sus respectivos microcontroladores que se distribuyen conforme a los circuitos de riego configurados. Los sensores proceden a enviar las mediciones a la aplicación central en donde se procesan los valores y en caso de ser necesario se dispara la señal de encendido a la válvula del circuito que corresponda, y luego a la bomba de agua para así comenzar el riego. Al mismo tiempo, el usuario recibe un alerta de accionamiento de la bomba.
-
-\item El sistema de control de riego, compuesto por dos módulos bien diferenciados:
-\begin{itemize}
-\item Conjunto de sensores de humedad de suelo con sus respectivos microcontroladores.
-\item Unidad de control de riego constituida por un microcontrolador, relés, bomba de agua y válvulas.
-\end{itemize}
-
-Los sensores envían las mediciones a la aplicación central que se encarga de procesar los valores recibidos. En caso de ser necesario, se disparan las señales de encendido a través de la unidad de control. Primero se activa la válvula que corresponda y luego se enciende la bomba de agua para comenzar el riego. El orden de estas actividades es importante para evitar daños en la bomba o las cañerías.
-
-\item La aplicación central que constituye el cerebro del invernadero y es la encargada de almacenar los parámetros de configuración de los diversos sensores y actuadores, procesar los mensajes recibidos, disparar acciones y alertas y visualizar el estado general.
-
-\item El sistema de acceso remoto que permite a los usuarios obtener reportes del sistema en forma segura desde Internet.   
-\end{itemize}
 
 \subsection{Protocolos de comunicación}
 \label{Protocolos de comunicación}
@@ -109,11 +109,12 @@ En esta sección se describen en detalle los esquemas de conexión de los distin
 \label{Módulos sensores de humedad del suelo}
 
 
-En el proyecto se desarrollaron dos configuraciones distintas de módulos para medir humedad del suelo en macetas de distinto tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266 pero incorporan un distinto número de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
+En el proyecto se desarrollaron dos configuraciones diferentes de módulos para medir la humedad del suelo en macetas de diverso tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266 pero incorporan un distinto número de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
 
-Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto responde a que estos sensores estarán desplegados en múltiples ubicaciones dentro del invernadero, donde no siempre es posible alimentarlos con una fuente de energía. 
+Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto se debe a que los sensores pueden estar desplegados en múltiples ubicaciones dentro del invernadero y no siempre es posible conectarlos a la red eléctrica. 
 
-El ahorro de energía se logra al utilizar ciclos de apagado en los períodos donde no se realizan lecturas. A este mecanismo se lo conoce como \textit{deep sleep} y se implementó por medio de un puente entre los pines A0 (GPIO0) y RST del chip ESP8266. Esta conexión le permite reactivarse luego de un período de hibernación por medio de su reloj interno. En base a esta funcionalidad se logra una reducción del consumo de energía a valores muy pequeños que rondan los 0,3 mA durante el período de inactividad.
+El ahorro de energía necesario para permitir el uso de  baterías se logra a través de ciclos de apagado en los períodos donde no se realizan lecturas. A este mecanismo se lo que conoce como \textit{deep sleep} y una vez que el microcontrolador se encuentra en este estado se requiere un pulso eléctrico en el pin de \textit{reset} para que retorne al modo activo. 
+Para habilitar la reactivación se interconectaron los pines D0 (GPIO16) y RST del chip ESP8266. En base a esta funcionalidad se logra una reducción del consumo de energía a valores muy pequeños que rondan los 0,3 mA durante el período de inactividad.
 
 
 
@@ -123,18 +124,18 @@ El ahorro de energía se logra al utilizar ciclos de apagado en los períodos do
      \begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=0.9\textwidth]{./Figures/soil_schem_simple.png}
-		\caption[Esquema de conexión de módulo de sensor simple]{Esquema de conexión de módulo de sensor simple.}
+		\caption[Módulo sensor simple]{Módulo sensor simple.}
 		\label{fig:soilschem1}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.45\textwidth}
 	\centering
 		\includegraphics[width=1\textwidth]{./Figures/soil_schem_doble.png}
-		\caption[Esquema de conexión de módulo de sensor doble]{Esquema de conexión de módulo de sensor doble.}
+		\caption[Módulo sensor doble]{Módulo sensor doble.}
 		\label{fig:soilschem2}
      \end{subfigure}
      \hfill
-        \caption[Conexión del sensor de humedad del suelo]{Conexión del sensor de humedad del suelo.}	\label{fig:soilschem}
+        \caption[Esquema de conexión de módulos sensores de humedad del suelo]{Esquema de conexión de módulos sensores de humedad del suelo.}	\label{fig:soilschem}
 \end{figure}
 %\begin{figure}[!h]
 %	\centering
@@ -143,7 +144,9 @@ El ahorro de energía se logra al utilizar ciclos de apagado en los períodos do
 %	\label{fig:soilschem}
 %\end{figure}
 
-Dado que estos dispositivos están sujetos a riesgos de salpicaduras o contacto con agua, se procedió a cubrir la electrónica expuesta de los sensores mediante el uso de tubos adhesivos termocontraibles, los cuales al aplicarles calor generan una sello a prueba de agua. Para la protección del chip ESP8266, se utilizó una caja de polipropileno transparente sellada. En las figuras \ref{fig:soil3} y \ref{fig:soil4} se muestran los componentes y sus protecciones. 
+La integración de los componentes de los sensores se  realizó en forma manual por medio de placas de circuitos impresos (PCB) experimentales. En las figuras \ref{fig:soil1} y \ref{fig:soil2} se muestran los componentes empleados y un módulo ensamblado.
+
+Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubos adhesivos termocontraíbles que al aplicarles calor generan una protección a prueba de agua. Para el resguardo del chip ESP8266 se utilizó una caja de polipropileno transparente sellada. En las figuras \ref{fig:soil3} y \ref{fig:soil4} se muestran los componentes y sus protecciones. 
 
 \begin{figure}[!h]
      \centering
@@ -173,7 +176,7 @@ Dado que estos dispositivos están sujetos a riesgos de salpicaduras o contacto 
 		\label{fig:soil4}
      \end{subfigure}
      \hfill
-        \caption[Módulos de sensores de humendad de suelo  empleados en el proyecto]{Módulo de sensores de humendad de suelo  empleados en el proyecto.}
+        \caption[Módulos de sensores de humendad del suelo  empleados en el proyecto]{Módulo de sensores de humendad del suelo  empleados en el proyecto.}
         \label{fig:soilsenors}
 \end{figure}
 
@@ -183,16 +186,26 @@ Dado que estos dispositivos están sujetos a riesgos de salpicaduras o contacto 
 \subsection{Módulo controlador del riego}
 \label{Módulo controlador del riego}
 
-Este es el módulo de mayor complejidad del invernadero, se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatro canales, un regulador DC-DC \textit{step down} de voltaje LM2596 y una pantalla LCD/OLED SSH1106. El esquema de conexiones entre estos componentes se detalla en la fig \ref{fig:riegochem}.
+Se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatro canales, un regulador DC-DC \textit{step down} de voltaje LM2596 y una pantalla LCD/OLED SSH1106. El esquema de conexiones entre estos componentes se detalla en la figura \ref{fig:riegochem}.
 
-El sistema está conectado a fuente de 12 VDC, que alimenta adicionalmente al conjunto de bomba y válvulas de riego. Al pasar por el regulador LM2596, la tensión es reducida a 5 VDC para alimentar al ESP32, la pantalla y el circuito de control del relé.
+Todo el sistema (microcontrolador, bomba y válvulas de riego) se alimenta por medio de una fuente de 12 VDC. El regulador LM2596 reduce la tensión a 5 VDC para alimentar al chip ESP32, la pantalla y el circuito de control del relé.
+
+Para la construcción del prototipo se realizó la integración del microcontrolador con la pantalla LCD mediante una placa PCB experimental. Tanto para el módulo regulador de tensión como para el conjunto de relés se emplearon circuitos preensamblados. En la figura \ref{fig:riego_control} se muestra todos los componentes ensamblados dentro de una caja protectora.   
+
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{./Figures/pump_schem.png}
-	\caption[Conexión del modulo de control de riego]{Conexión del modulo de control de riego.}
+	\caption[Conexión del módulo de control de riego]{Conexión del módulo de control de riego.}
 	\label{fig:riegochem}
 \end{figure}
+
+
+Para el prototipo se construyó un módulo 
+
+
+
+
 
 \begin{figure}[!h]
 	\centering
@@ -206,8 +219,17 @@ El sistema está conectado a fuente de 12 VDC, que alimenta adicionalmente al co
 \subsection{Módulo sensor de temperatura y humedad}
 \label{Módulo sensor de temperatura y humedad}
 
-Compuesto por un microcontrolador ESP8266, un sensor DHT22, al que se le integra una pantalla LCD/OLED SSH1106 para visualizar los valores de temperatura y humedad  \textit{in situ} en tiempo real. 
-Para la construcción se utilizó una caja de polipropileno transparente a la que se adaptó para la entrada de alimentación y la exposición del DHT22. 
+Está compuesto por un microcontrolador ESP8266, un sensor DHT22 y una pantalla LCD/OLED SSH1106 para visualizar los valores de temperatura y humedad  \textit{in situ} en tiempo real. El esquema de conexión de los componentes se puede ver en la figura \ref{fig:tempschem}.
+
+A diferencia de los sensores de humedad del suelo, el sensor de temperatura y humedad está pensado para instalarse en forma permanente en un lugar determinado
+con acceso a la red eléctrica. Por este motivo no se consideró necesario optimizar las conexiones para el uso de baterías.
+
+%Dicha ubicación se elige de manera de lograr una medición representativa de las condiciones ambientales del invernadero. 
+
+ 
+
+La construcción del módulo se realizó sobre placa PCB experimental en forma similar a los demás sistemas.
+Para proteger los componentes se utilizó una caja de polipropileno transparente adaptada para permitir la entrada de alimentación y lograr que el sensor DHT22 quede expuesto al aire para medir las condiciones ambientales. 
 
 
 \begin{figure}[!h]
@@ -227,10 +249,16 @@ Para la construcción se utilizó una caja de polipropileno transparente a la qu
 \end{figure}
 
 \pagebreak
-\subsection{Módulos controladores de clima}
-\label{Módulos controladores de clima}
+\subsection{Módulo controlador de clima}
+\label{Módulo controlador de clima}
 
-El módulo responsable de accionar los ventiladores en el invernadero. Para la construcción se utilizó un ESP8266 conectado a un relé de una vía. Dado que la salida del microcontrolador es de 3,3 V y la activación del relé es de 5V, se evaluó incorporar un convertidor de tensión DC-DC \textit{step up}, pero luego de las pruebas realizadas se comprobó que no era necesario. 
+Es el módulo responsable de accionar los ventiladores en el invernadero. Para el diseño se utilizó un chip ESP8266 conectado a un relé de una vía como se muestra en la figura \ref{fig:ventschem}. 
+
+Dado que la salida del microcontrolador es de 3,3 V se seleccionó un relé que pueda ser accionado con ese valor de tensión, para evitar el uso de componentes adicionales tales como convertidores de tensión DC-DC \textit{step up}. 
+
+En la figura\ref{fig:ventcontrol} ilustra el proceso de construcción del módulo. 
+
+
 
 \begin{figure}[!h]
 	\centering
@@ -263,7 +291,7 @@ El módulo responsable de accionar los ventiladores en el invernadero. Para la c
      \end{subfigure}
      \hfill
         \caption[Módulo de control del clima]{Módulo de control del clima.}
-        \label{fig:soilsenors}
+        \label{fig:ventcontrol}
 \end{figure}
 
 
