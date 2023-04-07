@@ -10,7 +10,7 @@ En este capítulo se describen las tecnologías y los protocolos de comunicació
 \section{Tecnologías de comunicación}
 \label{sec:Tecnologías de comunicación}
 Los principales protocolos de IoT empleados en el trabajo son: MQTT \citep{mqtt}, HTTP \citep{rfc1057}, SSL/TLS \citep{tls:1} e IEEE 802.11 \citep{802.11}. 
-Según el modelo TCP/IP \citep{rfc1180} los tres primeros se encuentran en la capa de aplicación mientras que el cuarto se ubica en la capa de enlace. La figura \ref{fig:IotProtocols} esquematiza el posicionamiento en ese  modelo.
+Según el modelo TCP/IP \citep{rfc1180} los tres primeros se encuentran en la capa de aplicación mientras que el cuarto se ubica en la capa de enlace. Esto se esquematiza en la figura \ref{fig:IotProtocols}.
 
 %A continuación se describen los principales protocolos empleados en el trabajo. En la figura \ref{fig:IotProtocols} se observa su posicionamiento en la pila de protocolos para IoT.
 
@@ -30,7 +30,12 @@ Según el modelo TCP/IP \citep{rfc1180} los tres primeros se encuentran en la ca
 
 MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es adecuado para el uso en IoT \citep{mqtt:1}.
 
-Su funcionamiento se basa en el paradigma de publicación-suscripción, que consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Otra característica importante a mencionar es que, al ser un protocolo asincrónico, el cliente puede seguir operando mientras espera un nuevo mensaje.
+Su funcionamiento se basa en el paradigma de publicación-suscripción \citep{pubsub}, el cual consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Otra característica importante a mencionar es que, al ser un protocolo asincrónico, el cliente puede seguir operando mientras espera un nuevo mensaje.
+
+
+%Se basa en el paradigma de publicación-suscripción \citep{pubsub}, donde el agente que publica un mensaje (publicador) no mantiene ningún vínculo directo con otros clientes que reciben el mensaje (suscriptores). Por tratarse de un protocolo asincrónico, los clientes pueden seguir operando mientras esperan un nuevo mensaje.
+
+
 
 Un componente principal del protocolo es el \textit{broker} cuya función primaria es la de recibir los mensajes de los publicadores y enviarlos a los  suscriptores. Para realizar esta tarea, el \textit{broker} utiliza temas o \textit{topics} para agrupar clientes que necesitan recibir los mismos mensajes. De esta manera el \textit{topic} es un canal virtual que conecta a los publicadores con sus suscriptores \citep{mqtt:1}.
 
@@ -168,7 +173,7 @@ Costo en USD	& \$ 6 a \$ 12  & \$ 3 a  \$ 6 \\
 
 %El modelo ESP8266 es una versión anterior al ESP32 y ofrece una menor variedad de características. Sin embargo, constituye una opción económica cuando los requerimientos de conectividad y rendimiento van de la mano con sus prestaciones.
 
-El modelo ESP8266 es una versión anterior y con menores prestaciones que el ESP32 y constituye una opción económica para soluciones en las que los requerimientos de conectividad, cantidad de periféricos y demandas computacionales no son tan exigentes.
+El modelo ESP8266 es una versión anterior y con menores prestaciones que el ESP32. Constituye una opción económica para soluciones en las que los requerimientos de conectividad, cantidad de periféricos y demandas computacionales no son tan exigentes.
 
 En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia ESP32, mientras que el ESP8266 puede verse en la figura \ref{fig:esp8266}. 
 
@@ -189,7 +194,7 @@ En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia E
 		\label{fig:esp8266}
      \end{subfigure}
      \hfill
-        \caption[Módulo de desarrollo ESP empleados en el proyecto]{Módulo de desarrollo ESP empleados en el proyecto.}
+        \caption[Módulos de desarrollo ESP empleados en el proyecto]{Módulos de desarrollo ESP empleados en el proyecto.}
         \label{fig:microESP}
 \end{figure}
 
@@ -213,7 +218,7 @@ Los principales sensores y actuadores empleados en el sistema del invernadero in
 
 \item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 °C a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
 
-\item Sensor capacitivo de humedad del suelo: módulo analógico compuesto de un material resistente a la corrosión que mide la humedad del suelo indirectamente por medio de la capacidad observada. Opera con una alimentación de 3,3 a 5,5 VDC y entrega un valor de tensión que varía entre 0V para un suelo seco a aproximadamente 3,15 V en un suelo completamente húmedo \citep{soilsensor}.
+\item Sensor capacitivo de humedad del suelo: módulo analógico compuesto de un material resistente a la corrosión que mide la humedad del suelo indirectamente por medio de la capacitancia observada. Opera con una alimentación de 3,3 a 5,5 VDC y entrega un valor de tensión que varía entre 0 V para un suelo seco a aproximadamente 3,15 V en un suelo completamente húmedo \citep{soilsensor}.
 
 \item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarlo, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
 
@@ -269,7 +274,7 @@ Se ofrece en las siguientes versiones:
 
 \item Cloud: similar a la edición profesional, pero alojada en la nube de ThingsBoard. En este caso el proveedor se encarga del manejo de los componentes de la plataforma.
  
-\item Community edition: es la edición libre de licenciamientos y la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
+\item Community edition: se encuentra bajo licencia Apache 2.0 \citep{apache2.0} y  es la que se utilizó en este trabajo. Si bien no tiene limitaciones en cuanto a la cantidad de dispositivos a conectar, carece de ciertas funcionalidades como por ejemplo la descarga de datos de dispositivos desde la interfaz web o la ejecución programada de tareas (\textit{scheduler}).
 \end{itemize}
 %
 %\begin{table}[h]
@@ -316,7 +321,7 @@ Este software es una herramienta fácil de utilizar tanto por usuarios experimen
 
 Telegram es una aplicación de mensajería multiplataforma rápida, simple y gratuita. Está basada en la nube y cuenta con sincronización constante, lo que significa que se puede acceder a los mensajes desde diferentes dispositivos simultáneamente. 
 
-Tanto el código de los clientes de Telegram como el de su API son abiertos, lo que permite crear otras aplicaciones a partir de ellos. Adicionalmente cuenta con una API para \textit{bots} que facilita la implementación de herramientas basadas en Telegram, la integración de servicios o la realización pagos \citep{telegram}.
+Tanto el código de los clientes de Telegram como el de su API tienen licencias abiertas, lo que permite crear otras aplicaciones a partir de ellos. Adicionalmente cuenta con una API para \textit{bots} que facilita la implementación de herramientas basadas en Telegram, la integración de servicios o la realización pagos \citep{telegram}.
  
   
 
