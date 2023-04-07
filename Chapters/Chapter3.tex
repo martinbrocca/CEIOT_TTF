@@ -31,7 +31,7 @@ En la figura \ref{fig:blockdiagram} se observa el diagrama en bloques de la arqu
 \item Sensores de temperatura y humedad con sus correspondientes microcontroladores.
 \item Unidad de control de temperatura y humedad comprendida por un microcontrolador, relé y ventiladores. 
 \end{itemize}
-Los sensores miden la temperatura y humedad ambiente en el invernadero y envían estas variables a la aplicación central por medio del microcontrolador. De acuerdo con los valores recibidos, la aplicación determina si es necesario emitir una señal para que la unidad de control encienda los ventiladores.
+Los sensores miden la temperatura y humedad ambiente en el invernadero y envían estos valores a la aplicación central por medio del microcontrolador. De acuerdo con los datos recibidos, la aplicación determina si es necesario emitir una señal para que la unidad de control encienda los ventiladores.
 
 
 
@@ -41,7 +41,7 @@ Los sensores miden la temperatura y humedad ambiente en el invernadero y envían
 \item Unidad de control de riego constituida por un microcontrolador, relés, bomba de agua y válvulas.
 \end{itemize}
 
-Los sensores envían las mediciones a la aplicación central que se encarga de procesar los valores recibidos. En caso de ser necesario, se disparan las señales de encendido a través de la unidad de control. Primero se activa la válvula que corresponda y luego se enciende la bomba de agua para comenzar el riego. El orden de estas actividades es importante para evitar daños en la bomba o las cañerías.
+Los sensores envían las mediciones a la aplicación central que se encarga de procesarlas. En caso de ser necesario, se disparan las señales de encendido a través de la unidad de control. Primero se activa la válvula que corresponda y luego se enciende la bomba de agua para comenzar el riego. El orden de estas actividades es importante para evitar daños en la bomba o las cañerías.
 
 \item Aplicación central. Constituye el cerebro del invernadero y es la encargada de almacenar los parámetros de configuración de los diversos sensores y actuadores, procesar los mensajes recibidos, disparar acciones y alertas y visualizar el estado general.
 
@@ -67,7 +67,7 @@ Los sensores envían las mediciones a la aplicación central que se encarga de p
 
 En esta sección se describe cómo se comunican los sistemas con la aplicación central y los protocolos usados en cada caso. En la figura \ref{fig:blockprotos} se aprecia un esquema simplificado que ilustra dichas interacciones.
 
-Si bien tanto los módulos de hardware como el software soportan una gran variedad de protocolos,  se implementó MQTT en la mayoría de los casos conforme a los requerimientos. En algunas situaciones donde esto no fue técnicamente posible, se utilizó HTTP. Adicionalmente, para garantizar la seguridad de las comunicaciones, se incorporó un certificado autofirmado TLS en el servidor.
+Si bien los módulos de hardware y el software soportan una gran variedad de protocolos,  se implementó MQTT en la mayoría de los casos conforme a los requerimientos. En algunas situaciones donde esto no fue técnicamente posible, se utilizó HTTP. Adicionalmente, para garantizar la seguridad de las comunicaciones, se incorporó un certificado autofirmado TLS en el servidor.
 
 \begin{figure}[h]
 	\centering
@@ -78,15 +78,14 @@ Si bien tanto los módulos de hardware como el software soportan una gran varied
 
 
 \pagebreak
- A continuación se describen las interacciones principales entre los bloques componentes de la arquitectura:
+Las interacciones principales entre los bloques componentes son:
  
  \begin{itemize}
-	\item Sistema de monitoreo y control de clima: las comunicaciones desde y hasta este sistema son con la aplicación central.
-	El módulo sensor envía las mediciones realizadas por medio de MQTT.
-	En el caso que las variables del clima requieran una acción, la aplicación central comanda el encendido de los ventiladores por medio de un mensaje enviado por RPC \citep{rfc1057} sobre MQTT.
+	\item Sistema de monitoreo y control de clima: las comunicaciones se realizan exclusivamente con aplicación central.
+	El módulo sensor envía las mediciones realizadas por medio de MQTT y en caso de requerir una acción, la aplicación central comanda el encendido de los ventiladores por medio de un mensaje enviado por RPC \citep{rfc1057} sobre MQTT.
 	
-	\item Sistema de control de riego: las comunicaciones desde y hasta este sistema son con la aplicación central.
-	El módulo sensor realiza dos conexiones, una para el envío de las mediciones y otra para recibir variables de configuración tales como el período de \textit{deep sleep}. Debido a limitaciones en la configuración de la persistencia de los mensajes en las colas de MQTT, se optó por utilizar llamadas HTTP (GET y POST) para realizar estas comunicaciones.
+	\item Sistema de control de riego: las comunicaciones se realizan con la aplicación central de manera bidireccional.
+	El módulo sensor efectúa dos conexiones, una para el envío de las mediciones y otra para recibir valores de atributos tales como la duración del tiempo de riego. Debido a limitaciones en la configuración de la persistencia de los mensajes en las colas de MQTT, se optó por utilizar llamadas HTTP (GET y POST) para realizarlas.
 	Al igual que en el control de clima, la aplicación central inicia el riego por medio de mensajes RCP sobre MQTT hacia el controlador de la bomba y de las válvulas.
 	
 	\item Sistema de acceso remoto: la interfaz se comunica con la aplicación por medio de pedidos HTTP GET y POST para consultar el reporte de estado de los diferentes componentes. A continuación este se envia hacia la interfaz de usuario por medio de una solicitud HTTP POST.
@@ -109,12 +108,12 @@ En esta sección se describen en detalle los esquemas de conexión de los distin
 \label{Módulos sensores de humedad del suelo}
 
 
-En el proyecto se desarrollaron dos configuraciones diferentes de módulos para medir la humedad del suelo en macetas de diverso tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266 pero incorporan un distinto número de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
+En el proyecto se desarrollaron dos configuraciones diferentes de módulos para medir la humedad del suelo en macetas de diverso tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266 pero incorporan distinta cantidad de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
 
-Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto se debe a que los sensores pueden estar desplegados en múltiples ubicaciones dentro del invernadero y no siempre es posible conectarlos a la red eléctrica. 
+Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto se debe a que estas sondas pueden estar desplegados en múltiples ubicaciones dentro del invernadero y no siempre es posible conectarlas a la red eléctrica. 
 
 El ahorro de energía necesario para permitir el uso de  baterías se logra a través de ciclos de apagado en los períodos donde no se realizan lecturas. A este mecanismo se lo que conoce como \textit{deep sleep} y una vez que el microcontrolador se encuentra en este estado se requiere un pulso eléctrico en el pin de \textit{reset} para que retorne al modo activo. 
-Para habilitar la reactivación se interconectaron los pines D0 (GPIO16) y RST del chip ESP8266. En base a esta funcionalidad se logra una reducción del consumo de energía a valores muy pequeños que rondan los 0,3 mA durante el período de inactividad.
+Para habilitar la reactivación se interconectaron los pines D0 (GPIO16) y RST del chip ESP8266. Se logra así una reducción del consumo de energía a valores muy pequeños que rondan los 0,3 mA durante el período de inactividad.
 
 
 
@@ -146,7 +145,7 @@ Para habilitar la reactivación se interconectaron los pines D0 (GPIO16) y RST d
 
 La integración de los componentes de los sensores se  realizó en forma manual por medio de placas de circuitos impresos (PCB) experimentales. En las figuras \ref{fig:soil1} y \ref{fig:soil2} se muestran los componentes empleados y un módulo ensamblado.
 
-Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubos adhesivos termocontraíbles que al aplicarles calor generan una protección a prueba de agua. Para el resguardo del chip ESP8266 se utilizó una caja de polipropileno transparente sellada. En las figuras \ref{fig:soil3} y \ref{fig:soil4} se muestran los componentes y sus protecciones. 
+Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubos adhesivos termocontraíbles que, al aplicarles calor, generan una protección a prueba de agua. Para el resguardo del chip ESP8266 se utilizó una caja de polipropileno transparente sellada. En las figuras \ref{fig:soil3} y \ref{fig:soil4} se muestran los componentes y sus protecciones. 
 
 \begin{figure}[!h]
      \centering
@@ -186,11 +185,11 @@ Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubo
 \subsection{Módulo controlador del riego}
 \label{Módulo controlador del riego}
 
-Se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatro canales, un regulador DC-DC \textit{step down} de voltaje LM2596 y una pantalla LCD/OLED SSH1106. El esquema de conexiones entre estos componentes se detalla en la figura \ref{fig:riegochem}.
+Se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatro canales, una pantalla LCD/OLED SSH1106 y un regulador de voltaje DC-DC \textit{step down} LM2596. El esquema de conexiones entre estos componentes se detalla en la figura \ref{fig:riegochem}.
 
-Todo el sistema (microcontrolador, bomba y válvulas de riego) se alimenta por medio de una fuente de 12 VDC. El regulador LM2596 reduce la tensión a 5 VDC para alimentar al chip ESP32, la pantalla y el circuito de control del relé.
+El módulo se alimenta con una fuente de 12 VDC y para energizar a los circuitos electrónicos el regulador LM2596 reduce la tensión a 5 VDC.
 
-Para la construcción del prototipo se realizó la integración del microcontrolador con la pantalla LCD mediante una placa PCB experimental. Tanto para el módulo regulador de tensión como para el conjunto de relés se emplearon circuitos preensamblados. En la figura \ref{fig:riego_control} se muestra todos los componentes ensamblados dentro de una caja protectora.   
+Para la construcción del prototipo se realizó la integración del microcontrolador con la pantalla LCD mediante una placa PCB experimental. Tanto para el módulo regulador de tensión como para el conjunto de relés se emplearon circuitos preensamblados. En la figura \ref{fig:riego_control} se muestran los componentes y su conexionado dentro de una caja protectora.   
 
 
 \begin{figure}[!h]
@@ -199,9 +198,6 @@ Para la construcción del prototipo se realizó la integración del microcontrol
 	\caption[Conexión del módulo de control de riego]{Conexión del módulo de control de riego.}
 	\label{fig:riegochem}
 \end{figure}
-
-
-Para el prototipo se construyó un módulo 
 
 
 
@@ -221,15 +217,13 @@ Para el prototipo se construyó un módulo
 
 Está compuesto por un microcontrolador ESP8266, un sensor DHT22 y una pantalla LCD/OLED SSH1106 para visualizar los valores de temperatura y humedad  \textit{in situ} en tiempo real. El esquema de conexión de los componentes se puede ver en la figura \ref{fig:tempschem}.
 
-A diferencia de los sensores de humedad del suelo, el sensor de temperatura y humedad está pensado para instalarse en forma permanente en un lugar determinado
-con acceso a la red eléctrica. Por este motivo no se consideró necesario optimizar las conexiones para el uso de baterías.
+A diferencia de las sondas de humedad del suelo, el sensor de temperatura y humedad está pensado para instalarse en una ubicación fija 
+con acceso a la red eléctrica. Por este motivo no se consideró configurarlo para soportar \textit{deep sleep}.
 
-%Dicha ubicación se elige de manera de lograr una medición representativa de las condiciones ambientales del invernadero. 
 
- 
 
 La construcción del módulo se realizó sobre placa PCB experimental en forma similar a los demás sistemas.
-Para proteger los componentes se utilizó una caja de polipropileno transparente adaptada para permitir la entrada de alimentación y lograr que el sensor DHT22 quede expuesto al aire para medir las condiciones ambientales. 
+Para proteger los componentes se utilizó una caja de polipropileno transparente. El sensor DHT22 quedó expuesto para medir las condiciones ambientales como muestra la figura \ref{fig:temp_sensor}.
 
 
 \begin{figure}[!h]
@@ -252,11 +246,11 @@ Para proteger los componentes se utilizó una caja de polipropileno transparente
 \subsection{Módulo controlador de clima}
 \label{Módulo controlador de clima}
 
-Es el módulo responsable de accionar los ventiladores en el invernadero. Para el diseño se utilizó un chip ESP8266 conectado a un relé de una vía como se muestra en la figura \ref{fig:ventschem}. 
+Es el responsable de accionar los ventiladores en el invernadero. Para el diseño se utilizó un chip ESP8266 conectado a un relé de una vía como se muestra en la figura \ref{fig:ventschem}. 
 
-Dado que la salida del microcontrolador es de 3,3 V se seleccionó un relé que pueda ser accionado con ese valor de tensión, para evitar el uso de componentes adicionales tales como convertidores de tensión DC-DC \textit{step up}. 
+Dado que la salida del microcontrolador es de 3,3 V para el prototipo se seleccionó un relé que pueda ser accionado con ese valor de tensión, para evitar el uso de componentes adicionales tales como convertidores de tensión DC-DC \textit{step up}. 
 
-En la figura\ref{fig:ventcontrol} ilustra el proceso de construcción del módulo. 
+En la figura \ref{fig:ventcontrol} ilustra el proceso de construcción del módulo. 
 
 
 
@@ -280,7 +274,7 @@ En la figura\ref{fig:ventcontrol} ilustra el proceso de construcción del módul
      \begin{subfigure}[b]{0.45\textwidth}
 	\centering
 		\includegraphics[width=0.80\textwidth]{./Figures/vent_proto.jpg}
-		\caption{Configuración del módulo.}
+		\caption{Conexionado.}
 		\label{fig:vent2}
      \end{subfigure}	
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -297,9 +291,10 @@ En la figura\ref{fig:ventcontrol} ilustra el proceso de construcción del módul
 
 \pagebreak
 
-\section{Detalle del firmware desarrollado}
+\section{Desarrollo del firmware}
 \label{sec:Desarrollo del firmware}
 
+\textcolor{gray}{A desarrollar: en esta sección explicaré los diferentes códigos de firmware e incluiré diagramas de ejecución en los diferentes módulos.}
 
 %\subsection{Programación del microcontrolador de medición de clima}
 %\label{Programación del microcontrolador de medición de clima}
@@ -308,5 +303,9 @@ En la figura\ref{fig:ventcontrol} ilustra el proceso de construcción del módul
 \section{Selección y configuración del software}
 \label{sec:Selección y configuración del software}
 
+\textcolor{gray}{A desarrollar: en esta sección explicaré los criterios de selección y configuración del software central como así también el diseño de la interfaz de acceso remoto vía Telegram. }
+
 \section{Ciberseguridad del sistema}
 \label{sec:Ciberseguridad del sistema}
+\textcolor{gray}{A desarrollar: en esta sección explicaré el uso de TLS en las comunicaciones, las limitaciones encontradas y los riesgos residuales. }
+
