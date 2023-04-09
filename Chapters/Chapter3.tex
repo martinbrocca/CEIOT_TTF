@@ -88,7 +88,7 @@ Las interacciones principales entre los bloques componentes son:
 	El módulo sensor efectúa dos conexiones, una para el envío de las mediciones y otra para recibir valores de atributos tales como la duración del tiempo de riego. Debido a limitaciones en la configuración de la persistencia de los mensajes en las colas de MQTT, se optó por utilizar llamadas HTTP (GET y POST) para realizarlas.
 	Al igual que en el control de clima, la aplicación central inicia el riego por medio de mensajes RCP sobre MQTT hacia el controlador de la bomba y de las válvulas.
 	
-	\item Sistema de acceso remoto: la interfaz se comunica con la aplicación por medio de pedidos HTTP GET y POST para consultar el reporte de estado de los diferentes componentes. A continuación este se envia hacia la interfaz de usuario por medio de una solicitud HTTP POST.
+	\item Sistema de acceso remoto: la interfaz se comunica con la aplicación por medio de pedidos HTTP GET y POST para consultar el reporte de estado de los diferentes componentes. A continuación este se envía hacia la interfaz de usuario por medio de una solicitud HTTP POST.
  
  
  
@@ -110,7 +110,7 @@ En esta sección se describen en detalle los esquemas de conexión de los distin
 
 En el proyecto se desarrollaron dos configuraciones diferentes de módulos para medir la humedad del suelo en macetas de diverso tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266 pero incorporan distinta cantidad de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
 
-Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto se debe a que estas sondas pueden estar desplegados en múltiples ubicaciones dentro del invernadero y no siempre es posible conectarlas a la red eléctrica. 
+Si bien en el prototipo los sensores se conectaron a una fuente de alimentación, la configuración y conexión del sistema está optimizada para el uso de baterías. Esto se debe a que las sondas pueden estar desplegadas en múltiples ubicaciones dentro del invernadero y no siempre es posible conectarlas a la red eléctrica. 
 
 El ahorro de energía necesario para permitir el uso de  baterías se logra a través de ciclos de apagado en los períodos donde no se realizan lecturas. A este mecanismo se lo que conoce como \textit{deep sleep} y una vez que el microcontrolador se encuentra en este estado se requiere un pulso eléctrico en el pin de \textit{reset} para que retorne al modo activo. 
 Para habilitar la reactivación se interconectaron los pines D0 (GPIO16) y RST del chip ESP8266. Se logra así una reducción del consumo de energía a valores muy pequeños que rondan los 0,3 mA durante el período de inactividad.
@@ -151,31 +151,31 @@ Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubo
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
 		\centering
-		\includegraphics[width=0.60\textwidth]{./Figures/soil1.jpeg}
+		\includegraphics[width=0.80\textwidth]{./Figures/soil1.jpeg}
 		\caption[Módulo con un sensor de humedad del suelo]{Módulo con un sensor de humedad del suelo.}
 		\label{fig:soil1}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-		\includegraphics[width=0.60\textwidth]{./Figures/soil2.jpeg}
+		\includegraphics[width=0.80\textwidth]{./Figures/soil2.jpeg}
 		\caption[Módulo con dos sensores de humedad del suelo]{Módulo con dos sensores de humedad del suelo.}
 		\label{fig:soil2}
      \end{subfigure}
       \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-		\includegraphics[width=0.60\textwidth]{./Figures/soil_compare.jpg}
+		\includegraphics[width=0.80\textwidth]{./Figures/soil_compare.jpg}
 		\caption[Detalle de protección de circuitos en los sensores]{Detalle de protección de circuitos en los sensores.}
 		\label{fig:soil3}
      \end{subfigure}	
 			\begin{subfigure}[b]{0.45\textwidth}
 	\centering
-		\includegraphics[width=0.60\textwidth]{./Figures/soil3.jpg}
+		\includegraphics[width=0.80\textwidth]{./Figures/soil3.jpg}
 		\caption[Módulo en su caja protectora]{Módulo en su caja protectora.}
 		\label{fig:soil4}
      \end{subfigure}
      \hfill
-        \caption[Módulos de sensores de humendad del suelo  empleados en el proyecto]{Módulo de sensores de humendad del suelo  empleados en el proyecto.}
+        \caption[Módulos de sensores de humedad del suelo  empleados en el proyecto]{Módulo de sensores de humedad del suelo  empleados en el proyecto.}
         \label{fig:soilsenors}
 \end{figure}
 
@@ -189,7 +189,7 @@ Se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatr
 
 El módulo se alimenta con una fuente de 12 VDC y para energizar a los circuitos electrónicos el regulador LM2596 reduce la tensión a 5 VDC.
 
-Para la construcción del prototipo se realizó la integración del microcontrolador con la pantalla LCD mediante una placa PCB experimental. Tanto para el módulo regulador de tensión como para el conjunto de relés se emplearon circuitos preensamblados. En la figura \ref{fig:riego_control} se muestran los componentes y su conexionado dentro de una caja protectora.   
+Para la construcción del prototipo se realizó la integración del microcontrolador con la pantalla LCD mediante una placa PCB experimental. Tanto para el módulo regulador de tensión como para el conjunto de relés se emplearon circuitos preensamblados. En la figura \ref{fig:riego_control} se muestran los componentes, su conexionado y la versión final de la unidad dentro de una caja protectora.   
 
 
 \begin{figure}[!h]
@@ -201,14 +201,45 @@ Para la construcción del prototipo se realizó la integración del microcontrol
 
 
 
-
-
 \begin{figure}[!h]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Figures/control_riego1.jpg}
+		\caption[Detalle de los componentes]{Detalle de los componentes.}
+		\label{fig:riego1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-	\includegraphics[width=0.5\textwidth]{./Figures/riego1.jpg}
-	\caption[Modulo completo en su caja protectora]{Modulo completo en su caja protectora.}
-	\label{fig:riego_control}
+		\includegraphics[width=1\textwidth]{./Figures/control_riego2.jpg}
+		\caption[Conexionado]{Conexionado.}
+		\label{fig:riego2}
+     \end{subfigure}
+      \begin{subfigure}[b]{0.45\textwidth}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./Figures/control_riego3.jpg}
+		\caption[Conexionado]{Módulo finalizado en su caja protectora.}
+		\label{fig:riego3}
+     \end{subfigure}	
+%			\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%		\includegraphics[width=0.60\textwidth]{./Figures/soil3.jpg}
+%		\caption[Módulo en su caja protectora]{Módulo en su caja protectora.}
+%		\label{fig:soil4}
+%     \end{subfigure}
+     \hfill
+        \caption[Módulo de control de riego]{Módulo de control de riego.}
+        \label{fig:riego_control}
 \end{figure}
+
+
+%\begin{figure}[!h]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{./Figures/riego1.jpg}
+%	\caption[Módulo completo en su caja protectora]{Módulo completo en su caja protectora.}
+%	\label{fig:riego_control}
+%\end{figure}
  
 \pagebreak
 
@@ -229,8 +260,7 @@ Para proteger los componentes se utilizó una caja de polipropileno transparente
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./Figures/temp_sensor.png}
-	\caption[Conexión del sensor de temperatura y humedad]{Conexión del sensor de temperatura y humedad
-	.}
+	\caption[Conexión del sensor de temperatura y humedad]{Conexión del sensor de temperatura y humedad.}
 	\label{fig:tempschem}
 \end{figure}
 
@@ -238,11 +268,11 @@ Para proteger los componentes se utilizó una caja de polipropileno transparente
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./Figures/sensor_temp.jpg}
-	\caption[Modulo completo en su caja protectora]{Modulo completo en su caja protectora.}
+	\caption[Módulo completo en su caja protectora]{Módulo completo en su caja protectora.}
 	\label{fig:temp_sensor}
 \end{figure}
 
-\pagebreak
+
 \subsection{Módulo controlador de clima}
 \label{Módulo controlador de clima}
 
@@ -250,14 +280,14 @@ Es el responsable de accionar los ventiladores en el invernadero. Para el diseñ
 
 Dado que la salida del microcontrolador es de 3,3 V para el prototipo se seleccionó un relé que pueda ser accionado con ese valor de tensión, para evitar el uso de componentes adicionales tales como convertidores de tensión DC-DC \textit{step up}. 
 
-En la figura \ref{fig:ventcontrol} ilustra el proceso de construcción del módulo. 
+En la figura \ref{fig:ventcontrol} se ilustra el proceso de construcción del módulo. 
 
 
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./Figures/vent_schem.png}
-	\caption[Conexión del modulo de control de clima]{Conexión del modulo de control de clima.}
+	\caption[Conexión del módulo de control de clima]{Conexión del módulo de control de clima.}
 	\label{fig:ventschem}
 \end{figure}
 
@@ -294,12 +324,143 @@ En la figura \ref{fig:ventcontrol} ilustra el proceso de construcción del módu
 \section{Desarrollo del firmware}
 \label{sec:Desarrollo del firmware}
 
-\textcolor{gray}{A desarrollar: en esta sección explicaré los diferentes códigos de firmware e incluiré diagramas de ejecución en los diferentes módulos.}
+Para la realización del proyecto se optó por desarrollar el firmware de todos los módulos en C++ por medio de la aplicación Arduino IDE. Los criterios utilizados para esta selección se basaron en la baja curva de aprendizaje de la herramienta, la amplia disponibilidad de librerías y ejemplos para el uso de componentes y la vasta comunidad de soporte para entusiastas de IoT existente en Internet.  Estos factores resultaron fundamentales para la elección debido a que el soporte y extensión del sistema quedará a cargo del cliente.
 
-%\subsection{Programación del microcontrolador de medición de clima}
-%\label{Programación del microcontrolador de medición de clima}
+En líneas generales, el firmware de todos los módulos sigue el mismo patrón:
+
+\begin{enumerate}
+\item Comienzo: se corresponde al encendido del chip.
+\item Setup: Es una función especial que se ejecuta una única vez al inicio del programa y se utiliza para inicializar cualquier variable, configurar los pines de entrada y salida y establecer cualquier comunicación que se precise.
+
+\item Loop : Es una función que se ejecuta continuamente en un bucle que por lo general, solo se interrumpe al apagar al dispositivo. En esta sección se coloca el código principal del firmware.
+\end{enumerate}
+Adicionalmente, el código puede contener variables, funciones y bibliotecas.
 
 
+Para facilitar la conexión a la aplicación Thingsboard, se hizo uso de la Arduino Thingsboard SDK \citep{tbsdk}, que provee mecanismos para el manejo de MQTT, RPC y provee la opción de realizar actualizaciones de firmware de forma inalámbrica (OTA de \textit{over the air}). 
+
+
+
+
+\subsection{Firmware de los módulos sensores de humedad del suelo}
+\label{Firmware de los módulos sensores de humedad del suelo}
+
+Este es el único módulo que utiliza HTTP para la comunicación con la aplicación central debido a limitaciones en la aplicación Thignsboard, al no permitir configurar los períodos de retención de mensajes en las colas de MQTT para soportar configuraciones prolongadas de  \textit{deep sleep}. 
+
+El proceso de ejecución es similar al resto, con la diferencia que luego del inicio, el programa realiza una llamada HTTP para obtener el tiempo de configuración de hibernación. La lectura de los sensores se realiza a continuación y varia de acuerdo a si es una configuración simple o doble. Esto es debido a que el ESP8266 posee un solo pin de conversión analógica a digital (ADC) al que todos las sondas deberán compartir. Para resolver este problema se procede a conectar la alimentación (VCC) de cada una de las sondas un pin GPIO diferente. De esta manera, al encender o apagar estos pines en forma secuencial, se energiza al sensor correspondiente y se procede a leer el valor en el pin ADC, para finalmente apagarlo y repetir el ciclo para el próximo sensor.
+
+Para que el módulo pueda reportar un valor que represente la humedad del suelo, es necesario realizar una conversión del voltaje leído en el pin ADC. Se decidió seguir el método descripto en \citep{soilcalibration} que consiste en realizar mediciones en suelo seco para luego ir agregando cantidades precisas de agua sobre las que se evalúa la diferencia de potencial observada en cada caso. Del proceso resulta una fórmula lineal que calcula el contenido volumétrico de agua presente en la tierra.
+
+Una vez obtenido el o los valores se los reporta a la aplicación por medio una llamada HTTP POST, luego de lo cual el sensor comienza el período de \textit{deep sleep} por la cantidad de tiempo definida en el atributo leído en primera instancia.
+
+En la figura \ref{fig:flow_soilsensor} se diagrama la ejecución del módulo.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareSoilSensor.jpg}
+	\caption[Diagrama de flujo del firmware de los módulos sensores de humedad del suelo]{Diagrama de flujo del firmware de los módulos sensores de humedad del suelo.}
+	\label{fig:flow_soilsensor}
+\end{figure}
+
+
+\pagebreak
+\subsection{Firmware del módulo controlador del riego}
+\label{Firmware del módulo controlador del riego}
+
+Este es el módulo de mayor complejidad lo que puede verse reflejado en las figuras \ref{fig:flow_riegocontrol}, \ref{fig:flow_valvecontrol}  y \ref{fig:flow_bombacontrol}.
+
+La ejecución se inicializa con el proceso estándar de carga de variables, entre las que se incluye un valor por defecto para la duración del riego, y el estado de la bomba y cada válvula presente. Luego de la conexión a la red Wi-Fi, el programa se registra a la aplicación y se subscribe a los \textit{getter topics} y a los  \textit{setter topics}, que se corresponden a los canales para reportar los estados a la aplicación o recibir comandos para prender o apagar dispositivos respectivamente.
+
+En el caso de recibir un mensaje para informar el estado de los pines de GPIO, asociados con las válvulas o la bomba, o de la variable de duración de riego, el código reporta sobre el \textit{topic} de respuesta el estado requerid. En cambio, si el mensaje recibido para realizar un cambio, puede suceder una de las siguientes situaciones: es para comenzar el riego, el programa realiza una serie de verificaciones para asegurar la integridad de la bomba y cañerías del sistema de riego:
+\begin{itemize}
+\item Pedido de reconfigurar el tiempo de riego: el código actualiza la variable y retorna la comienzo del bucle.
+
+\item Pedido de apertura o cierre de válvula:
+    \begin{itemize}
+    \item Apertura: Se procede a abrir la válvula seleccionada y se comprueba si la bomba esta en estado de pedido de encendido (bomba lista), en cuyo caso se ordena el encendido de la bomba.
+    \item Cierre: se realiza una comprobación si hay otras válvulas abiertas, de ser así se procede con el cierre. En caso de ser la última, se ordena el apagado de la bomba y por último se procede al cierre de válvula.
+    
+    \end{itemize}
+
+\item Pedido de prendido o apagado de la bomba:
+    \begin{itemize}
+    \item Prendido: En el caso de haber una válvula abierta, se procede a encender la bomba por el tiempo que marque la variable de duración de riego, luego de lo cual se procede al apagado de la bomba y cierre de las válvulas, en ese orden. De no haber válvulas abiertas, se configura la variable de bomba lista en positivo, indicando que el riego fue pedido pero aún no están dadas las condiciones.
+    \item Apagado: En el caso de pedir una interrupción en el riego, se ordena el apagado de la bomba y el cierre de las válvula.
+    
+    \end{itemize}
+
+
+
+\end{itemize}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareRiegoControl.jpg}
+	\caption[Diagrama de flujo del firmware del módulo de control de riego]{Diagrama de flujo del firmware del módulo de control de riego.}
+	\label{fig:flow_riegocontrol}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{./Figures/chapter3/FirmwareValveControl.jpg}
+	\caption[Diagrama de flujo del firmware del módulo de control de riego - Control de válvulas]{Diagrama de flujo del firmware del módulo de control de riego - Control de válvulas.}
+	\label{fig:flow_valvecontrol}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{./Figures/chapter3/FirmwarePumpControl.jpg}
+	\caption[Diagrama de flujo del firmware del módulo de control de riego - Control de bomba]{Diagrama de flujo del firmware del módulo de control de riego - Control de bomba.}
+	\label{fig:flow_bombacontrol}
+\end{figure}
+
+
+
+
+
+
+
+\pagebreak
+\subsection{Firmware de los módulos sensores de temperatura y humedad}
+\label{Firmware de los módulos sensores de de temperatura y humedad}
+
+Se encarga de obtener las medidas de temperatura y humedad y reportarlas a la aplicación al mismo tiempo que imprime los valores en la pantalla LCD. Para reducir la cantidad de mensajes enviados, se incorpora un contador que indica cuántas iteraciones del ciclo son necesarias por cada envío de datos. Esto no se contempla para el reporte en la pantalla.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Figures/chapter3/FirmwareTempSensor.jpg}
+	\caption[Diagrama de flujo del firmware del módulos sensores de temperatura y humedad]{Diagrama de flujo del firmware del módulos sensores de temperatura y humedad.}
+	\label{fig:flow_tempsensor}
+\end{figure}
+
+\pagebreak
+\subsection{Firmware del módulo de control de clima}
+\label{Firmware del módulo de control de clima}
+
+Es el que se encarga del encendido y apagado de los ventiladores para el control de clima.
+Luego de la comienzo, el programa se conecta a la red, se subscribe en los \textit{topics} correspondientes, y queda a la espera de los mensajes. En el caso de recibir un pedido de reporte, responde con el estado del pin GPIO asociado con el ventilador. Si recibe un pedido de prendido o apagado, realiza la acción correspondiente y retorna al inicio del bucle.
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Figures/chapter3/FirmwareVentControl.jpg}
+	\caption[Diagrama de flujo del firmware del módulo de control de clima]{Diagrama de flujo del firmware del módulo de control de clima.}
+	\label{fig:flow_climacontrol}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\pagebreak
 \section{Selección y configuración del software}
 \label{sec:Selección y configuración del software}
 
