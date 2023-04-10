@@ -466,6 +466,49 @@ Luego de la comienzo, el programa se conecta a la red, se subscribe en los \text
 
 \textcolor{gray}{A desarrollar: en esta sección explicaré los criterios de selección y configuración del software central como así también el diseño de la interfaz de acceso remoto vía Telegram. }
 
+
+
+Para la realización del trabajo se eligió como plataforma para la aplicación central a Thingsboard CE dado que cumplía con los requerimientos de licencia, funcionalidades y documentación de soporte.
+Adicionalmente es una plataforma de bajos requerimientos de sistema, buen diseño de seguridad y posibilidad de expansión a nuevos sistemas comerciales o de desarrollo propio. \textit{quiero decir aca cosas do it yourself}.
+
+\subsection{Servidor de la aplicación}
+\label{sec:Servidor de la aplicación}
+
+Para la instalación de la aplicación se utilizó una Raspberry Pi 4B de 8 GB de memoria RAM. 
+Se seleccionó el sistema operativo Linux Raspbian versión 11 instalado sobre una tarjeta de memoria SD de 64 GB de capacidad.
+Para simplicidad del prototipo, se empleó la misma red Wi-Fi existente en área de desarrollo, pero es la intención del modelo final emplear la red cableada para el acceso a internet y emplear la placa inalámbrica de la Raspberry para una red de tipo Ad-hoc con los sensores.
+
+
+
+\subsection{Configuración de la aplicación}
+\label{sec:Configuración de la aplicación}
+
+Para la instalación de la aplicación Thingsboard, se utilizaron las instrucciones provistas por el desarrollador en su página oficial \citep{tb_install}.
+Thingsboard require de una base de datos para almacenar los valores de las telemetrías y atributos. Para sistemas con una carga de hasta 5000 mensajes por segundo se recomienda el uso de PostgreSQL como base de datos para capa de persistencia. Dado que en este proyecto la cantidad de mensajes enviados en de aproximadamente 4 por minuto, una única base de datos en el mismo servidor fue suficiente.
+
+\subsection{Manejos de dispositivos}
+\label{sec:Manejos de dispositivos}
+
+
+\subsection{Reglas de automatización}
+\label{sec:Reglas de automatización}
+ Una de las principales ventajas de la aplicación es la capacidad de crear reglas de automatización por medio de un desarrollo \textit{low-code/no-code}\citep{lcnc}. Thingsboard posee un motor de reglas utilizando para crear flujos de trabajo basados en eventos. Posee 3 componentes principales:
+ \begin{itemize}
+ \item Mensaje: cualquier evento que ingrese, pueden ser datos provenientes de un dispositivo, un pedido por medio de la API REST (HTTP), RPC, etc.
+ \item Nodo de regla: es una función que se ejecuta sobre un mensaje entrante. Los nodos pueden ser para filtrar, transformar o ejecutar alguna acción sobre el mensaje.
+ \item Cadena de reglas: los nodos se conectan entre sí por medio de relaciones de forma tal que la salida de un nodo es enviada a los próximos nodos conectados.
+ \end{itemize}
+
+Para el proyecto se desarrollaron una o más reglas por subsistema, de manera de conectar a las unidades de control con los respectivos sensores que informan el estado del invernadero. La figura \ref{fig:rule_riego} muestra a manera de ejemplo la regla creada para el control de riego en función de los mensajes recibidos por parte de los sensores de humedad del suelo.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Rule_Soil.jpg}
+	\caption[Regla de automatización para el control de riego]{Regla de automatización para el control de riego.}
+	\label{fig:rule_riego}
+\end{figure}
+
+\pagebreak
 \section{Ciberseguridad del sistema}
 \label{sec:Ciberseguridad del sistema}
 \textcolor{gray}{A desarrollar: en esta sección explicaré el uso de TLS en las comunicaciones, las limitaciones encontradas y los riesgos residuales. }
