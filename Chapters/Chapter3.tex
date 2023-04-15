@@ -314,7 +314,7 @@ En la figura \ref{fig:ventcontrol} se ilustra el proceso de construcción del m�
 		\label{fig:vent3}
      \end{subfigure}
      \hfill
-        \caption[Módulo de control del clima]{Módulo de control del clima.}
+        \caption[Módulo de control de clima]{Módulo de control de clima.}
         \label{fig:ventcontrol}
 \end{figure}
 
@@ -324,20 +324,20 @@ En la figura \ref{fig:ventcontrol} se ilustra el proceso de construcción del m�
 \section{Desarrollo del firmware}
 \label{sec:Desarrollo del firmware}
 
-Como el soporte y la expansión del sistema quedará a cargo del cliente, se optó por desarrollar el firmware en C++ mediante de la aplicación Arduino IDE. Esta elección se fundamenta en la baja curva de aprendizaje de la herramienta, la amplia disponibilidad de librerías y ejemplos para el uso de componentes, además de contar con una vasta comunidad de entusiastas de IoT en Internet.
+Como el soporte y la expansión del sistema quedará a cargo del cliente, se optó por desarrollar el firmware en C++ mediante la aplicación Arduino IDE. Esta elección se fundamenta en la baja curva de aprendizaje de la herramienta, la amplia disponibilidad de librerías y ejemplos para el uso de componentes, además de contar con una vasta comunidad de entusiastas de IoT en Internet.
 
 En líneas generales, el firmware de todos los módulos respetan una misma estructura de tres bloques:
 
 \begin{enumerate}
 \item Inicio: corresponde al encendido del chip.
-\item Setup(): función que se ejecuta una única vez al inicio del programa y se utiliza para inicializar las variables, configurar los pines de entrada y salida, y establecer las comunicaciones necesarias, tales como la velocidad del puerto serial, o la conexión a la red Wi-Fi.
+\item Setup(): función que se ejecuta una única vez al comienzo del programa y se utiliza para inicializar las variables, configurar los pines de entrada y salida, y establecer las comunicaciones necesarias, tales como la velocidad del puerto serial o la conexión a la red Wi-Fi.
 
-\item Loop(): función que se ejecuta continuamente en un bucle que, por lo general, solo se interrumpe al apagar al dispositivo. En esta sección se encuentra el código principal del firmware.
+\item Loop(): función que se ejecuta continuamente en un bucle que, por lo general, solo se interrumpe al apagar el dispositivo. En esta sección se encuentra el código principal del firmware.
 \end{enumerate}
 Adicionalmente, el código puede contener variables, funciones y bibliotecas.
 
 
-Para facilitar la conexión a la aplicación Thingsboard se utilizó el kit de desarrollo Arduino Thingsboard SDK \citep{tbsdk} que, entre otras funciones, provee mecanismos para el manejo de los protocolos MQTT, RPC y permite la actualización OTA \citep{8999425} del firmware.
+Para facilitar la conexión a la aplicación ThingsBoard se utilizó el kit de desarrollo Arduino ThingsBoard SDK \citep{tbsdk} que, entre otras funciones, provee mecanismos para el manejo de los protocolos MQTT y RPC a la vez que permite la actualización OTA \citep{8999425} del firmware.
 
 
 
@@ -347,9 +347,9 @@ Para facilitar la conexión a la aplicación Thingsboard se utilizó el kit de d
 
 
 
-En este caso, debido a que Thingsboard no permitió ajustar los períodos de retención de las colas de MQTT para soportar configuraciones prolongadas de \textit{deep sleep}, se resolvió utilizar el protocolo HTTP para las comunicaciones entre el módulo y la aplicación central. 
+En este caso, debido a que ThingsBoard no permite ajustar los períodos de retención de las colas de MQTT para soportar configuraciones prolongadas de \textit{deep sleep}, se resolvió utilizar el protocolo HTTP para las comunicaciones entre el módulo y la aplicación central. 
 
-Luego del inicio, el programa realiza una llamada HTTP para obtener el valor del tiempo de hibernación. A continuación lleva a cabo la lectura los sensores según el caso:
+Luego del inicio, el programa realiza una llamada HTTP para obtener el valor del tiempo de hibernación. A continuación lleva a cabo la lectura de los sensores según el caso:
 \begin{itemize}
 \item Sensor simple: lee el valor del pin de conversión analógica a digital (ADC).
 \item Sensor doble: como el chip ESP8266 posee un único pin ADC compartido por ambas sondas, se procede al energizado secuencial de los sensores, al activar la salida GPIO correspondiente, como se mostró en la figura \ref{fig:soilschem2}. 
@@ -359,37 +359,37 @@ Luego del inicio, el programa realiza una llamada HTTP para obtener el valor del
 
 Para que el módulo pueda reportar un medición que represente la humedad del suelo, es necesario llevar a cabo una conversión del valor leído en el pin ADC. A fin de realizar esta calibración, se utilizó una variante respecto del método descrito por Joshua Hrisko \citep{soilcalibration} que consiste en realizar mediciones en suelo seco para luego ir agregando cantidades precisas de agua sobre las que se evalúa la diferencia de potencial observada en cada caso. Del proceso resulta una expresión que permite estimar el contenido volumétrico de agua presente.
 
-Una vez obtenido el o los valores, se los reporta a la aplicación por medio una llamada HTTP POST y se da inicio al período de \textit{deep sleep} durante el período establecido.
+Una vez obtenido el o los valores, se los reporta a la aplicación por medio una llamada HTTP POST y se da inicio al período de \textit{deep sleep} durante el lapso de tiempo establecido.
 
-El flujo de ejecución del código para un módulo doble se visualiza la figura \ref{fig:flow_soilsensor}.
+El flujo de ejecución del código para un módulo doble se visualiza en la figura \ref{fig:flow_soilsensor}.
 
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareSoilSensor.jpg}
+	\includegraphics[width=1\textwidth]{./Figures/chapter3/FirmwareSoilSensor.jpg}
 	\caption[Diagrama de flujo del firmware de los módulos sensores de humedad del suelo]{Diagrama de flujo del firmware de los módulos sensores de humedad del suelo.}
 	\label{fig:flow_soilsensor}
 \end{figure}
 
 
-\pagebreak
+
 \subsection{Módulo controlador del riego}
 \label{Módulo controlador del riego}
 
-Es el módulo de mayor complejidad, tal como puede verse reflejado en las figuras \ref{fig:flow_riegocontrol}, \ref{fig:flow_valvecontrol}  y \ref{fig:flow_bombacontrol}.
+Es el módulo de mayor complejidad, tal como se refleja en las figuras \ref{fig:flow_riegocontrol}, \ref{fig:flow_valvecontrol}  y \ref{fig:flow_bombacontrol}.
 
-La ejecución inicia con la carga de variables, donde se destacan:
+La ejecución inicia con la carga de variables, entre las que se destacan:
 \begin{itemize}
 \item Tiempo de riego: define la duración de encendido de la bomba en segundos.
 \item Bomba lista: variable lógica que indica el pedido de encendido de la bomba.
 \item Estado de válvulas: controlan las GPIOs de las válvulas.
-\item Estado de bomba: controla sobre la GPIO de la bomba.
+\item Estado de bomba: controla la GPIO de la bomba.
 \end{itemize}
 
 Luego de la conexión a la red Wi-Fi, el firmware se registra con la aplicación y se subscribe a los \textit{getter} y \textit{setter topics} para reportar los estados a la aplicación o recibir comandos.
 
 
-En el caso de recibir un mensaje de pedido de información, el código reporta el o los valores de las variables solicitadas en el \textit{topic} de respuesta. En cambio, si el mensaje recibido indica realizar un cambio de estado, se pueden presentar las siguientes situaciones:
+En el caso de recibir un mensaje de pedido de información, el código reporta el o los valores de las variables solicitadas en el \textit{topic} de respuesta. Por otro lado, si el mensaje recibido indica realizar un cambio de estado, se pueden presentar las siguientes situaciones:
 
 \begin{itemize}
 \item Pedido de reconfigurar el tiempo de riego: el código actualiza la variable y reinicia el bucle.
@@ -397,14 +397,14 @@ En el caso de recibir un mensaje de pedido de información, el código reporta e
 \item Pedido de apertura o cierre de válvula:
     \begin{itemize}
     \item Apertura: procede a abrir la válvula seleccionada y  comprueba si la bomba se encuentra en estado de pedido de encendido (bomba lista), en cuyo caso ordena el encendido.
-    \item Cierre: comprueba si otras válvulas están abiertas, en caso afirmativo, procede con el cierre. Si se trata de la última, ordena el apagado de la bomba y luego la cierra.
+    \item Cierre: verifica si otras válvulas están abiertas y en caso afirmativo, procede con el cierre. Si se trata de la última, ordena el apagado de la bomba y luego la cierra.
     
     \end{itemize}
 
 \item Pedido de encendido o apagado de la bomba:
     \begin{itemize}
-    \item Encendido: En el caso de haber al menos una válvula abierta, procede a encender la bomba durante el tiempo que indique la variable de duración de riego. Una vez finalizado, procede ordenadamente al apagado de la bomba y cierre de las válvulas. De no haber válvulas abiertas, se configura la variable de bomba lista en positivo, indicando que el riego fue pedido pero aún no están dadas las condiciones para habilitarlo.
-    \item Apagado: En el caso de requerir una interrupción en el riego, se ordena el apagado de la bomba y el cierre de las válvulas.
+    \item Encendido: en el caso de haber al menos una válvula abierta, procede a encender la bomba durante el tiempo que indique la variable de duración de riego. Una vez finalizado, procede ordenadamente al apagado de la bomba y al cierre de las válvulas. De no haber válvulas abiertas, se configura la variable de bomba lista en positivo, indicando que el riego fue pedido pero aún no están dadas las condiciones para habilitarlo.
+    \item Apagado: en el caso de requerir una interrupción en el riego, se ordena el apagado de la bomba y el cierre de las válvulas.
     
     \end{itemize}
 
@@ -415,22 +415,22 @@ En el caso de recibir un mensaje de pedido de información, el código reporta e
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareRiegoControl.jpg}
+	\includegraphics[width=1.0\textwidth]{./Figures/chapter3/FirmwareRiegoControl.jpg}
 	\caption[Diagrama de flujo del firmware del módulo de control de riego]{Diagrama de flujo del firmware del módulo de control de riego.}
 	\label{fig:flow_riegocontrol}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{./Figures/chapter3/FirmwareValveControl.jpg}
-	\caption[Diagrama de flujo del firmware del módulo de control de riego - Control de válvulas]{Diagrama de flujo del firmware del módulo de control de riego - Control de válvulas.}
+	\includegraphics[width=0.8\textwidth]{./Figures/chapter3/FirmwareValveControl.jpg}
+	\caption[Diagrama de flujo del firmware del módulo de control de riego - control de válvulas]{Diagrama de flujo del firmware del módulo de control de riego - control de válvulas.}
 	\label{fig:flow_valvecontrol}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{./Figures/chapter3/FirmwarePumpControl.jpg}
-	\caption[Diagrama de flujo del firmware del módulo de control de riego - Control de bomba]{Diagrama de flujo del firmware del módulo de control de riego - Control de bomba.}
+	\caption[Diagrama de flujo del firmware del módulo de control de riego - control de bomba]{Diagrama de flujo del firmware del módulo de control de riego - control de bomba.}
 	\label{fig:flow_bombacontrol}
 \end{figure}
 
@@ -449,8 +449,8 @@ La figura \ref{fig:flow_tempsensor} describe el funcionamiento de este módulo. 
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{./Figures/chapter3/FirmwareTempSensor.jpg}
-	\caption[Diagrama de flujo del firmware del módulos sensores de temperatura y humedad]{Diagrama de flujo del firmware del módulos sensores de temperatura y humedad.}
+	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareTempSensor.jpg}
+	\caption[Diagrama de flujo del firmware del módulo sensor de temperatura y humedad]{Diagrama de flujo del firmware del módulo sensor de temperatura y humedad.}
 	\label{fig:flow_tempsensor}
 \end{figure}
 
@@ -458,14 +458,14 @@ La figura \ref{fig:flow_tempsensor} describe el funcionamiento de este módulo. 
 \subsection{Módulo de control de clima}
 \label{Módulo de control de clima}
 
-Es el encargado del encendido y apagado de los ventiladores para el control de clima.
+Es el encargado del encendido y apagado de los ventiladores para controlar el clima.
 Luego del inicio, el programa se conecta a la red, se subscribe en los \textit{topics} correspondientes e ingresa en la función de loop() a la espera de mensajes. En caso de recibir un pedido de reporte, responde con el estado del pin GPIO asociado con el ventilador. Si recibe una orden de encendido o apagado, realiza la acción correspondiente y retorna al inicio del bucle.
 
 En la figura \ref{fig:flow_climacontrol} se describe el flujo del código para este módulo.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{./Figures/chapter3/FirmwareVentControl.jpg}
+	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/FirmwareVentControl.jpg}
 	\caption[Diagrama de flujo del firmware del módulo de control de clima]{Diagrama de flujo del firmware del módulo de control de clima.}
 	\label{fig:flow_climacontrol}
 \end{figure}
@@ -483,7 +483,7 @@ En la figura \ref{fig:flow_climacontrol} se describe el flujo del código para e
 \section{Selección y configuración del software}
 \label{sec:Selección y configuración del software}
 
-La propiedad del cliente se encuentra en una zona rural con acceso a Internet limitado, por tal motivo se decidió el uso de una solución local basada en  Thingsboard Community Edition.
+La propiedad del cliente se encuentra en una zona rural con acceso a Internet limitado, por tal motivo se implementó de una solución local basada en  ThingsBoard Community Edition.
 Esta plataforma tiene bajos requerimientos de hardware, buen diseño de seguridad y ofrece amplias posibilidades de expansión.
 
 \subsection{Servidor de la aplicación}
@@ -491,30 +491,58 @@ Esta plataforma tiene bajos requerimientos de hardware, buen diseño de segurida
 
 La instalación se realizó sobre una Raspberry Pi 4B de 8 GB de memoria RAM, con sistema operativo Linux Raspbian versión 11, todo instalado sobre una tarjeta de memoria SD de 64 GB de capacidad.
 
-Por simplicidad, durante la construcción del prototipo se utilizó  una red única, pero es intención que el modelo final emplee la placa de red ethernet de la Raspberry PI para el acceso a Internet y la placa inalámbrica para establecer una red de tipo Ad-hoc con los módulos.
+Por simplicidad, durante la construcción del prototipo se utilizó una red única, pero es intención que el modelo final emplee la placa Ethernet de la Raspberry PI para el acceso a Internet y la inalámbrica para establecer una red de tipo \textit{ad hoc} con los módulos.
 
 
 \subsection{Configuración de la aplicación}
 \label{sec:Configuración de la aplicación}
 
 La instalación de la aplicación se realizó conforme a las instrucciones provistas por el desarrollador en su página oficial \citep{tb_install}.
-Thingsboard requiere de una base de datos para almacenar los valores de las telemetrías y atributos. Con una carga de hasta 5000 mensajes por segundo se recomienda el uso de PostgreSQL \citep{postgresql}. Dado que la cantidad de mensajes enviados es de aproximadamente 4 por minuto en el prototipo y no se espera un crecimiento desmedido en el pasaje a producción, la capacidad de memoria y procesamiento empleados resulta suficiente para la instalación conjunta de la base de datos y la aplicación.
+ThingsBoard requiere de una base de datos para almacenar los valores de las telemetrías y atributos. Para una carga de hasta 5000 mensajes por segundo se recomienda el uso de PostgreSQL \citep{postgresql}. Dado que la cantidad de mensajes enviados es de aproximadamente 4 por minuto en el prototipo y no se espera un crecimiento desmedido en el pasaje a producción, la capacidad de memoria y procesamiento empleados resulta suficiente para la instalación conjunta de la base de datos y la aplicación.
 
-\subsection{Manejos de dispositivos}
-\label{sec:Manejos de dispositivos}
+\subsection{Manejo de dispositivos}
+\label{sec:Manejo de dispositivos}
 
 La baja cardinalidad de módulos creados para el proyecto permitió emplear la interfaz web para gestionarlos en lugar de la opción programática mediante la API REST.
 Al no contar con una CA para la generación de certificados, la autenticación de los dispositivos se resolvió mediante el empleo de tokens.
 
-La figura \ref{fig:tb_devices} muestra la pantalla con los dispositivos creados, focalizando en las características de un sensor de humedad del suelo doble. Desde allí se puede navegar a los atributos del dispositivo, sus alarmas y eventos, e incluso desvinculado.
+La figura \ref{fig:tb_devices3} muestra la pantalla con los dispositivos creados, mientras que en la figura \ref{fig:tb_devices4} se observan las características de un sensor de humedad del suelo doble. Desde allí se puede navegar a los atributos del dispositivo, sus alarmas y eventos, e incluso desvincularlo.
 
 
 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices2.jpg}
-	\caption[Dispositivos configurados para el proyecto]{Dispositivos configurados para el proyecto.}
-	\label{fig:tb_devices}
+%\begin{figure}[!h]
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices2.jpg}
+%	\caption[Dispositivos configurados para el proyecto]{Dispositivos configurados para el proyecto.}
+%	\label{fig:tb_devices}
+%\end{figure}
+%
+%\begin{figure}[!h]
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices3.jpg}
+%	\caption[Dispositivos configurados para el proyecto]{Dispositivos configurados para el proyecto.}
+%	\label{fig:tb_devices2}
+%\end{figure}
+
+
+
+\begin{figure}[!htpb]
+     \centering
+     \begin{subfigure}[b]{0.75\textwidth}
+		\centering
+	    \includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices4.jpg}
+	    \caption[Listado de dispositivos del proyecto]{Listado de dispositivos del proyecto.}
+	    \label{fig:tb_devices3}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.75\textwidth}
+	     \centering
+	     \includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices5.jpg}
+	     \caption[Configuración de las características de un sensor]{Configuración de las características de un sensor.}
+	    \label{fig:tb_devices4}
+     \end{subfigure}
+    \caption[Pantallas de manejo de dispositivos creados en el proyecto]{Pantallas de manejo de dispositivos creados en el proyecto.}
+	\label{fig:tb_devices}	
 \end{figure}
 
 
@@ -523,7 +551,7 @@ La figura \ref{fig:tb_devices} muestra la pantalla con los dispositivos creados,
 \label{sec:Reglas de automatización}
  
  
-ThingsBoard posee un motor de reglas \citep{TB_Rules} para la creación de flujos de trabajo basados en eventos. Una de sus principales ventajas es la de permitir el desarrollo de automatizaciones bajo la metodología \textit{low-code/no-code}\citep{lcnc}.
+ThingsBoard posee un motor de reglas \citep{TB_Rules} para la creación de flujos de trabajo basados en eventos. Una de sus principales ventajas es la de permitir el desarrollo de automatizaciones bajo la metodología \textit{low-code/no-code} \citep{lcnc}.
 
 Las reglas se componen principalmente de:
  
@@ -541,12 +569,12 @@ El procesamiento de mensajes ofrece tres resultados posibles: éxito, error y \t
 
 
 
-Para el proyecto se desarrollaron una o más reglas por subsistema, de manera de conectar a las unidades de control con los respectivos sensores que informan sobre el estado del invernadero, y para el manejo de alertas a los usuarios. La figura \ref{fig:rule_riego} muestra, a manera de ejemplo, la regla creada para el control de riego a partir de los mensajes recibidos desde los sensores de humedad del suelo. Allí se visualizan los nodos en diferentes colores de acuerdo a su función y las cadenas como las flechas que los unen.
+Para el proyecto se desarrollaron una o más reglas por subsistema, de manera de conectar a las unidades de control con los respectivos sensores que informan sobre el estado del invernadero, y para el manejo de alertas a los usuarios. La figura \ref{fig:rule_riego} muestra, a manera de ejemplo, un fragmento de la regla creada para el control de riego a partir de los mensajes recibidos desde los sensores de humedad del suelo. Allí se visualizan los nodos en diferentes colores de acuerdo a su función y las cadenas como las flechas que los unen.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Rule_Soil.jpg}
-	\caption[Regla de automatización para el control de riego]{Regla de automatización para el control de riego.}
+	\includegraphics[width=1\textwidth]{./Figures/chapter3/TB_Rule_Soil 2.jpg}
+	\caption[Fragmento de regla de automatización para el control de riego]{Fragmento de regla de automatización para el control de riego.}
 	\label{fig:rule_riego}
 \end{figure}
 
@@ -560,10 +588,10 @@ Para el proyecto se desarrollaron una o más reglas por subsistema, de manera de
 %\end{itemize}
 
 
-Para permitir que los usuarios conozcan el estado del invernadero vía Internet, se desarrolló una aplicación en Pyhthon que se integra al \textit{bot} de Telegram mediante la librería SDK python-telegram-bot. Este programa fue alojado en la misma Raspberry Pi donde corre Thingsboard.
+Para permitir que los usuarios conozcan el estado del invernadero vía Internet, se desarrolló una aplicación en Python que se integra al \textit{bot} de Telegram mediante la librería SDK python-telegram-bot. Este programa fue alojado en la misma Raspberry Pi donde corre ThingsBoard.
 
 
-Se trata de un bucle que contacta al \textit{bot} de Telegram periódicamente en busca de mensajes nuevos. Al detectar la llegada de alguno, el programa identifica si corresponde con alguno de los comandos definidos y de ser así, envía una solicitud HTTP a la aplicación central. Basado en la respuesta recibida la interfaz confecciona un mensaje que es enviado al usuario por medio del \textit{bot}. La figura \ref{fig:telegram_status} muestra un ejemplo del mensaje de estado del invernadero.
+Se trata de un bucle que contacta al \textit{bot} de Telegram periódicamente en busca de mensajes nuevos. Al detectar la llegada de alguno, el programa identifica si se corresponde con alguno de los comandos definidos y de ser así, envía una solicitud HTTP a la aplicación central. En base a la respuesta recibida, la interfaz confecciona un mensaje que es enviado al usuario por medio del \textit{bot}. La figura \ref{fig:telegram_status} muestra un ejemplo del mensaje de estado del invernadero.
 
 Además, el servicio de \textit{bot} se utilizó para el envío de alertas a  usuarios. Para ello se crearon nodos en las reglas de automatización de la aplicación central que, ante ciertos eventos, disparan una solicitud HTTP POST al \textit{bot} con el mensaje de alerta como se ilustra en la figura \ref{fig:telegram_alerts}.
 
