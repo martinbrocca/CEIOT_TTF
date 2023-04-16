@@ -352,7 +352,7 @@ En este caso, debido a que ThingsBoard no permite ajustar los períodos de reten
 Luego del inicio, el programa realiza una llamada HTTP para obtener el valor del tiempo de hibernación. A continuación lleva a cabo la lectura de los sensores según el caso:
 \begin{itemize}
 \item Sensor simple: lee el valor del pin de conversión analógica a digital (ADC).
-\item Sensor doble: como el chip ESP8266 posee un único pin ADC compartido por ambas sondas, se procede al energizado secuencial de los sensores, al activar la salida GPIO correspondiente, como se mostró en la figura \ref{fig:soilschem2}. 
+\item Sensor doble: como el chip ESP8266 posee un único pin ADC compartido por ambas sondas, se procede al energizado secuencial de los sensores al activar la salida GPIO correspondiente, como se mostró en la figura \ref{fig:soilschem2}. 
 
 \end{itemize}
 
@@ -386,7 +386,7 @@ La ejecución inicia con la carga de variables, entre las que se destacan:
 \item Estado de bomba: controla la GPIO de la bomba.
 \end{itemize}
 
-Luego de la conexión a la red Wi-Fi, el firmware se registra con la aplicación y se subscribe a los \textit{getter} y \textit{setter topics} para reportar los estados a la aplicación o recibir comandos.
+Luego de la conexión a la red Wi-Fi, el firmware se registra con la aplicación y se suscribe a los \textit{getter} y \textit{setter topics} para reportar los estados a la aplicación o recibir comandos.
 
 
 En el caso de recibir un mensaje de pedido de información, el código reporta el o los valores de las variables solicitadas en el \textit{topic} de respuesta. Por otro lado, si el mensaje recibido indica realizar un cambio de estado, se pueden presentar las siguientes situaciones:
@@ -397,7 +397,7 @@ En el caso de recibir un mensaje de pedido de información, el código reporta e
 \item Pedido de apertura o cierre de válvula:
     \begin{itemize}
     \item Apertura: procede a abrir la válvula seleccionada y  comprueba si la bomba se encuentra en estado de pedido de encendido (bomba lista), en cuyo caso ordena el encendido.
-    \item Cierre: verifica si otras válvulas están abiertas y en caso afirmativo, procede con el cierre. Si se trata de la última, ordena el apagado de la bomba y luego la cierra.
+    \item Cierre: verifica si otras válvulas están abiertas y en caso afirmativo, procede con el cierre. En caso contrario, si es la única, ordena el apagado de la bomba y luego el cierre de la válvula.
     
     \end{itemize}
 
@@ -510,19 +510,7 @@ La figura \ref{fig:tb_devices3} muestra la pantalla con los dispositivos creados
 
 
 
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices2.jpg}
-%	\caption[Dispositivos configurados para el proyecto]{Dispositivos configurados para el proyecto.}
-%	\label{fig:tb_devices}
-%\end{figure}
-%
-%\begin{figure}[!h]
-%	\centering
-%	\includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices3.jpg}
-%	\caption[Dispositivos configurados para el proyecto]{Dispositivos configurados para el proyecto.}
-%	\label{fig:tb_devices2}
-%\end{figure}
+
 
 
 
@@ -530,14 +518,14 @@ La figura \ref{fig:tb_devices3} muestra la pantalla con los dispositivos creados
      \centering
      \begin{subfigure}[b]{0.75\textwidth}
 		\centering
-	    \includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices4.jpg}
+	    \includegraphics[width=1\textwidth]{./Figures/chapter3/TB_Devices4.jpg}
 	    \caption[Listado de dispositivos del proyecto]{Listado de dispositivos del proyecto.}
 	    \label{fig:tb_devices3}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.75\textwidth}
 	     \centering
-	     \includegraphics[width=0.9\textwidth]{./Figures/chapter3/TB_Devices5.jpg}
+	     \includegraphics[width=1\textwidth]{./Figures/chapter3/TB_Devices5.jpg}
 	     \caption[Configuración de las características de un sensor]{Configuración de las características de un sensor.}
 	    \label{fig:tb_devices4}
      \end{subfigure}
@@ -608,7 +596,7 @@ Además, el servicio de \textit{bot} se utilizó para el envío de alertas a  us
      \begin{subfigure}[b]{0.45\textwidth}
 	    \centering
 	    \includegraphics[width=0.9\textwidth]{./Figures/Telegram_Status.jpg}
-	     \caption[Reporte de estado mediante]{Reporte de estado mediante.}
+	     \caption[Reporte de estado]{Reporte de estado.}
 	     \label{fig:telegram_status}
      \end{subfigure}
      \hfill
