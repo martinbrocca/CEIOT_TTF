@@ -207,6 +207,8 @@
 \RequirePackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 \RequirePackage{xcolor}
 \RequirePackage{subcaption}
+\RequirePackage{tabularx}
+\RequirePackage{tikz}
 
 \addbibresource{references.bib} % The filename of the bibliography
 
@@ -265,6 +267,20 @@
 \newcommand{\decoRule}{\rule{.8\textwidth}{.4pt}} % New command for a rule to be used under figures
 
 \renewcommand{\abovechapterspace}{\vspace*{10pt}} % Reduce the whitespace above a chapter heading
+
+% ------------ Martin's add -----------
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=1.5cm, minimum height=0.75cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=1.5cm, minimum height=0.8cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=1.5cm, minimum height=0.5cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+%-----------------------------------------
+
 
 \setcounter{tocdepth}{3} % The depth to which the document sections are printed to the table of contents
 \providecommand\addchaptertocentry[1]{%
