@@ -70,40 +70,43 @@ Para las pruebas manuales de accionamiento de los diferentes sistemas se empleó
 
 
 \pagebreak
-\section{Pruebas unitarias}
-\label{sec:Pruebas unitarias}
+\section{Pruebas individuales}
+\label{sec:Pruebas individuales}
 
-A continuación se detallan las principales pruebas realizadas a los módulos durante la fase de construcción del prototipo a fin de garantizar su correcto funcionamiento o el cumplimiento de requerimientos no funcionales.
+Se detallan las principales pruebas realizadas a los módulos a fin de garantizar su correcto funcionamiento y/o el cumplimiento de requerimientos.
 
 
 \subsection{Pruebas a módulos sensores}
 \label{sec:Pruebas a módulos sensores}
 
 \begin{itemize}
-\item Conexión a sensores y de su correcta lectura: Con el módulo conectado a la computadora principal se procedió a reportar por la consola serial los diferentes valores leídos. Se expuso a los sensores a diferentes condiciones, como por ejemplo mayor temperatura para el sensor de clima, o sumergirlo en agua al de humedad de suelo, y se corrobora que las mediciones reflejan los cambios realizados.
-\item Resistencia al agua y a salpicaduras: Requerimiento no funcional explícito en el proyecto para los sensores de humedad del suelo, se procedió a realizar una medición continua de los mismos, al tiempo que se sumergieron los sensores en un recipiente con agua, luego se procedió a realizar aspersiones continuas por alrededor de 30 segundos con  atomizadores en diferentes ángulos. 
+\item Conexión a los sensores y valores obtenidos: Se conectaron individualmente los módulos a la computadora mediante la consola serial de Arduino IDE y se constataron los valores obtenidos frente a cambios inducidos sobre la magnitud a medir.
+
+\item Resistencia al agua y a salpicaduras: Requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas por alrededor de 30 segundos con atomizadores desde diferentes ángulos.
+La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba mencionado.
+
+  
 \end{itemize}
-En la figura \ref{fig:soil_test} se observan los distintos elementos que conformaron las pruebas para los sensores de humedad del suelo.
+
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.50\textwidth]{./Figures/chapter4/soil_testing.jpg}
-	\caption[Elementos para las pruebas de sensores de humedad del suelo]{Elementos para las pruebas de sensores de humedad del suelo.}
+	\includegraphics[width=0.50\textwidth]{./Figures/chapter4/soil_testing3.jpg}
+	\caption[Prueba de resistencia al agua]{Prueba de resistencia al agua.}
 	\label{fig:soil_test}
 \end{figure}
 
 \subsection{Pruebas a módulos actuadores}
 \label{sec:Pruebas a módulos actuadores}
 
+Se conectaron las salidas de los pines de GPIO a leds para visualizar el encendido y apagado del actuador. 
+A fin de enviar las señales de comando se desarrolló una interfaz simple en ThingsBoard que envía mensajes RPC sobre MQTT al módulo. El microcontrolador recibe la orden y ejecuta la acción, reflejada en el estado de los leds correspondientes.
 
-\begin{itemize} 
-\item Correcto accionamiento de sistemas: Se conectaron las salidas de los pines de GPIO mediante el uso de leds y resistencias para corroborar el correcto encendido o apagado de los mismos. Para la activación de estos, se desarrolló una interfaz simple en ThingsBoard que emita las señales de encendido y apagado por comandos RPC sobre MQTT. El microcontrolador, al subscribirse a los canales correspondientes recibe la señal y confirma la acción al prender or apagar los leds.
-\end{itemize}
 
 
 \begin{figure}[htpb]
      \centering
-       \begin{subfigure}[b]{0.45\textwidth}
+       \begin{subfigure}[b]{0.50\textwidth}
 	    \centering
 		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/control_unit_test_1.jpg}
 		\caption{Ventana de control.}
@@ -112,15 +115,44 @@ En la figura \ref{fig:soil_test} se observan los distintos elementos que conform
           \hfill
      \begin{subfigure}[b]{0.45\textwidth}
 		\centering
-		\includegraphics[width=0.70\textwidth]{./Figures/chapter4/control_test.jpg}
-		\caption{Verificación de encendido de leds.}
-		\label{fig:control_test1}
+		\includegraphics[width=0.70\textwidth]{./Figures/chapter4/control_test2.jpg}
+		\caption{Verificación del actuador mediante leds.}
+		\label{fig:control_test2}
      \end{subfigure}
      \hfill
         \caption[Pruebas unitarias sobre controladores]{Pruebas unitarias sobre controladores.}
         \label{fig:control_test}
 \end{figure}
 
+
+\subsection{Pruebas de acceso concurrente a la aplicación}
+\label{sec:Pruebas de acceso concurrente a la aplicación}
+
+
+
+Las pruebas de concurrencia se realizaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar diferentes acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
+ 
+La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu} la del celular.
+
+\begin{figure}[htpb]
+     \centering
+       \begin{subfigure}[b]{0.53\textwidth}
+	    \centering
+		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/tb_compu.jpg}
+		\caption{Vista sobre acceso por computadora.}
+		\label{fig:tb_compu}
+     \end{subfigure}
+          \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.40\textwidth]{./Figures/chapter4/tb_celu.jpg}
+		\caption{Vista sobre acceso por teléfono celular.}
+		\label{fig:tb_celu}
+     \end{subfigure}
+     \hfill
+        \caption[Pruebas unitarias sobre acceso concurrente]{Pruebas unitarias sobre acceso concurrente.}
+        \label{fig:tb_concurrencia}
+\end{figure}
 
 \section{Pruebas de sistema}
 \label{sec:Pruebas de sistema}
