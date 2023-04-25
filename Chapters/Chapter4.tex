@@ -100,7 +100,8 @@ La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba menc
 \label{sec:Pruebas a módulos actuadores}
 
 Se conectaron las salidas de los pines de GPIO a leds para visualizar el encendido y apagado del actuador. 
-A fin de enviar las señales de comando se desarrolló una interfaz simple en ThingsBoard que envía mensajes RPC sobre MQTT al módulo. El microcontrolador recibe la orden y ejecuta la acción, reflejada en el estado de los leds correspondientes.
+
+Se desarrolló una interfaz simple en ThingsBoard a fin de enviar las señales de comando al módulo La aplicación por medio de mensajes RPC sobre MQTT. El microcontrolador recibe la orden y ejecuta la acción, reflejada en el estado de los leds correspondientes.
 
 
 
@@ -130,7 +131,7 @@ A fin de enviar las señales de comando se desarrolló una interfaz simple en Th
 
 
 
-Las pruebas de concurrencia se realizaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar diferentes acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
+Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar diferentes acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
  
 La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu} la del celular.
 
@@ -157,10 +158,135 @@ La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del order
 \section{Pruebas de sistema}
 \label{sec:Pruebas de sistema}
 
-\textcolor{gray} {Aquí se describen las pruebas de sistema en donde interactúan dos o más componentes}
+El objetivo de las pruebas de integración es verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Para este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
+
+Las reglas de control son similares en construcción y consisten en un nodo de espera de mensajes, seguido de un filtro de información para capturar la telemetría de los sensores. Esta es comparada con un valor de referencia configurado en la aplicación, y conforme se cumpla la condición se dispara una alerta de notificación al cliente y se informa al actuador que comience una acción. Si la comparación resultase negativa, se limpia cualquier alerta presente, se verifica si hay que frenar al actuador, y se retorna al comienzo.
+El esquema de una regla de control genérica puede verse en la fig \ref{fig:basic_rule}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{./Figures/chapter4/ReglaBasica.jpg}
+	\caption[Regla de automatización genérica]{Regla de automatización genérica.}
+	\label{fig:basic_rule}
+\end{figure}
+
+\pagebreak
+
+\subsection{Control de clima}
+\label{sec:Control de clima}
+
+Se definió una regla de control con un límite máximo de 28 °C de temperatura que cuando se supera, realiza el envío de un mensaje de encendido de ventiladores y dispara una notificación al usuario. Cuando la temperatura se mantiene por debajo del umbral, se cancelan las alarmas y se retorna al estado de espera de mensajes. La regla implementada puede verse en la figura \ref{fig:temp_rule}.  
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{./Figures/chapter4/temp_rule.jpg}
+	\caption[Regla de control de clima]{Regla de control de clima.}
+	\label{fig:temp_rule}
+\end{figure}
+
+Para la prueba se procedió a incrementar la temperatura artificialmente por medio de una pistola de calor y observar la reacción del sistema. La figura \ref{fig:temp_graph} indica el punto donde el cambio de temperatura dispara la acción del sistema y se encendieron los ventiladores, mientras que en la figura \ref{fig:temp_alarm} se indica la alarma creada por este evento.  
+
+
+
+
+
+
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{./Figures/chapter4/ventrule.jpg}
+%	\caption[Regla de automatización de ventilador]{Regla de automatización de ventilador.}
+%	\label{fig:temp_rule}
+%\end{figure}
+
+
+\begin{figure}[htpb]
+     \centering
+       \begin{subfigure}[b]{0.8\textwidth}
+	    \centering
+		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/temperature.jpg}
+		\caption{Vista del historial de temperatura.}
+		\label{fig:temp_graph}
+     \end{subfigure}
+          \hfill
+     \begin{subfigure}[b]{0.80\textwidth}
+		\centering
+		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/temp_alarm.jpg}
+		\caption{Alarmas generadas al superar los límites.}
+		\label{fig:temp_alarm}
+     \end{subfigure}
+     \hfill
+        \caption[Generación de alarmas por exceso de temperatura]{Generación de alarmas por exceso de temperatura.}
+        \label{fig:tb_concurrencia}
+\end{figure}
+
+
+\pagebreak
+\subsection{Control de riego}
+\label{sec:Control de riego}
+
+La prueba de integración del sistema de riego consistió de una regla de control en la que se reciben mensajes de lectura de valores provenientes de los sensores de humedad del suelo. Como primer paso, se identifica la zona a la que pertenecen las sondas y luego se evalúa la telemetría contra un valor de referencia. Si el valor es inferior al definido, lo que indica un suelo seco, se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido. 
+
+Para evaluar la regla se plantearon los siguientes parametros de configuración:
+\begin{itemize}
+\item Sensor seco: Sonda expuesto al aire, limpio y sin rastros de humedad.
+\item Sensor saturado: Sensor introducido un recipiente con agua.
+\item Sensor húmedo: Sensor introducido en tierra húmeda con una humedad aproximada del 30%
+\end{itemize}
+
+%\begin{tabular}{lllllll}
+%\toprule
+%\multicolumn{2}{l}\textbf{Zona 1}      & \multicolumn{2}{l}\textbf{Zona 2}        & \textbfRiego 1 & \textbf{Riego} 2 & \textbf{Resultado} \\
+%\midrule
+%Sensor seco   & Sensor saturado & Sensor saturado & Sensor saturado & No      & No      & OK        \\
+%Sensor seco   & Sensor seco     & Sensor saturado & Sensor saturado & Sí      & No      & OK        \\
+%Sensor seco   & Sensor saturado & Sensor seco     & Sensor saturado & No      & No      & OK        \\
+%Sensor seco   & Sensor saturado & Sensor seco     & Sensor seco     & No      & Si      & OK        \\
+%Sensor seco   & Sensor húmedo   & Sensor seco     & Sensor húmedo   & No      & No      & OK        \\
+%Sensor húmedo & Sensor húmedo   & Sensor húmedo   & Sensor húmedo   & No      & No      & OK        \\
+%Sensor húmedo & Sensor húmedo   & Sensor seco     & Sensor seco     & No      & Si      & OK  
+%\bottomrule
+%\hline
+%\end{tabular}
+%\label{tab:riego_test}
+%\end{table}
+
+\begin{table}[]
+\begin{tabular}{lllllll}
+\hline
+\multicolumn{2}{l}{\textbf{Zona 1}} & \multicolumn{2}{l}{\textbf{Zona 2}} & \textbf{Riego 1} & \textbf{Riego 2} & \textbf{Resultado} \\ \hline
+Sensor seco   & Sensor saturado & Sensor saturado & Sensor saturado & No & No & OK \\
+Sensor seco   & Sensor seco     & Sensor saturado & Sensor saturado & Sí & No & OK \\
+Sensor seco   & Sensor saturado & Sensor seco     & Sensor saturado & No & No & OK \\
+Sensor seco   & Sensor saturado & Sensor seco     & Sensor seco     & No & Si & OK \\
+Sensor seco   & Sensor húmedo   & Sensor seco     & Sensor húmedo   & No & No & OK \\
+Sensor húmedo & Sensor húmedo   & Sensor húmedo   & Sensor húmedo   & No & No & OK \\
+Sensor húmedo & Sensor húmedo   & Sensor seco     & Sensor seco     & No & Si & OK
+\end{tabular}
+\end{table}
+
+
+\begin{figure}[htpb]
+     \centering
+       \begin{subfigure}[b]{0.8\textwidth}
+	    \centering
+		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/soil_chart.jpg}
+		\caption{Vista del historial de humedad del suelo.}
+		\label{fig:temp_graph}
+     \end{subfigure}
+          \hfill
+     \begin{subfigure}[b]{0.80\textwidth}
+		\centering
+		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/soil_alarm.jpg}
+		\caption{Alarmas generadas al superar los límites.}
+		\label{fig:temp_alarm}
+     \end{subfigure}
+     \hfill
+        \caption[Generación de alarmas por exceso de temperatura]{Generación de alarmas por exceso de temperatura.}
+        \label{fig:tb_concurrencia}
+\end{figure}
 
 
 \section{Comparativa con el estado de arte}
 \label{sec:Comparativa con el estado de arte}
 
-\textcolor{gray} {Aquí se describe la comparación entre el modelo armado y lo informado en el capítulo 1}
