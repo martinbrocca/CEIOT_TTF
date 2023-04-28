@@ -80,14 +80,36 @@ Se detallan las principales pruebas realizadas a los módulos a fin de garantiza
 \label{sec:Pruebas a módulos sensores}
 
 \begin{itemize}
-\item Conexión a los sensores y valores obtenidos: Se conectaron individualmente los módulos a la computadora mediante la consola serial de Arduino IDE y se constataron los valores obtenidos frente a cambios inducidos sobre la magnitud a medir.
+\item Conexión a los sensores y valores obtenidos: se conectaron individualmente los módulos a la computadora mediante la consola serial de Arduino IDE y se constataron los valores obtenidos frente a cambios inducidos sobre la magnitud a medir.
 
-\item Resistencia al agua y a salpicaduras: Requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas por alrededor de 30 segundos con atomizadores desde diferentes ángulos.
+
+\item Conexión a la aplicación y envío de telemetría: se cargó el firmware en los módulos sensores conforme a lo descrito en las secciones \ref{Firmware módulos sensores de humedad del suelo} y \ref{Firmware módulo sensor de temperatura y humedad}, mientras que se configuró la instancia instalada de ThingsBoard de acuerdo a lo explicado en \ref{sec:Configuración de la aplicación}. Se construyó un \textit{dashboard} (tablero de visualización) en donde se incluyeron los \textit{widgets} (componentes visuales) necesarios para visualizar la telemetría en tiempo real.
+Desde la consola serial del módulo, se comprobó la  conexión del microcontrolador a la red Wi-Fi. Posteriormente se verificó la vinculación del dispositivo con la aplicación y se constató la correcta recepción de los valores en el \textit{dashboard}. La figura \ref{fig:dashboard} muestra una captura de pantalla de la visualización de las series de tiempo correspondientes
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.95\textwidth]{./Figures/chapter4/dashboard.jpg}
+	\caption[Dashboard de visualización de telemetría]{Dashboard de visualización de telemetría.}
+	\label{fig:dashboard}
+\end{figure}
+
+
+%\item Sincronización  y control de dispositivos mediante atributos compartidos: Para comprobar la correcta comunicación entre la aplicación y TB, se crearon atributos de configuracion como los valores minimos y maximos que pueden ser leidos por un sensor de humedad del suelo. luego se creo un dashboard en TB para poder modificar esos valores, y se comprobo en el disposivo la correcta recepcion de los mismos por consola serial.
+
+
+\item Sincronización de los sensores de humedad: como se indicó en la sección \ref{Protocolos de comunicación} la comunicación con la aplicación central es bidireccional. Para constatar la correcta recepción de mensajes por parte del módulo, se establecieron atributos compartidos capaces de ser modificados desde ThingsBoard y por medio de  un \textit{dashboard} se realizaron variaciones de los valores de calibración de los sensores y diferentes tiempos para el \textit{deep sleep}.
+Se comprobó la recepción de los parámetros por consola serial y la acción en consecuencia por parte del módulo.
+En la figura \ref{fig:soil_calib} se observa el estado de humedad del suelo en dos sensores, los valores de ajuste y la configuración del tiempo de hibernación.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.80\textwidth]{./Figures/chapter4/soil_calib.jpg}
+	\caption[Atributos de sensores de humedad del suelo]{Atributos de sensores de humedad del suelo.}
+	\label{fig:soil_calib}
+\end{figure}
+
+\item Resistencia al agua y a salpicaduras: requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas por alrededor de 30 segundos con atomizadores desde diferentes ángulos.
 La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba mencionado.
-
-  
-\end{itemize}
-
 
 \begin{figure}[h]
 	\centering
@@ -95,13 +117,22 @@ La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba menc
 	\caption[Prueba de resistencia al agua]{Prueba de resistencia al agua.}
 	\label{fig:soil_test}
 \end{figure}
+  
+\end{itemize}
+
+
+
+
+
+
+
 
 \subsection{Pruebas a módulos actuadores}
 \label{sec:Pruebas a módulos actuadores}
 
 Se conectaron las salidas de los pines de GPIO a leds para visualizar el encendido y apagado del actuador. 
 
-Se desarrolló una interfaz simple en ThingsBoard a fin de enviar las señales de comando al módulo La aplicación por medio de mensajes RPC sobre MQTT. El microcontrolador recibe la orden y ejecuta la acción, reflejada en el estado de los leds correspondientes.
+La figura \ref{fig:control_test1} muestra la interfaz desarrollada en ThingsBoard a fin de enviar las señales de comando al módulo por medio de mensajes RPC sobre MQTT. El microcontrolador recibe la orden y ejecuta la acción, reflejada en el estado de los leds correspondientes como se observa en la figura \ref{fig:control_test2}.
 
 
 
@@ -158,9 +189,9 @@ La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del order
 \section{Pruebas de sistema}
 \label{sec:Pruebas de sistema}
 
-El objetivo de las pruebas de integración es verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Para este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
+El objetivo de las pruebas de integración es verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
 
-Las reglas de control son similares en construcción y consisten en un nodo de espera de mensajes, seguido de un filtro de información para capturar la telemetría de los sensores. Esta es comparada con un valor de referencia configurado en la aplicación, y conforme se cumpla la condición se dispara una alerta de notificación al cliente y se informa al actuador que comience una acción. Si la comparación resultase negativa, se limpia cualquier alerta presente, se verifica si hay que frenar al actuador, y se retorna al comienzo.
+Las reglas de control son similares en construcción y consisten en un nodo de espera de mensajes, seguido de un filtro de información para capturar la telemetría de los sensores. Esta es comparada con un valor de referencia configurado en la aplicación, y conforme se cumpla la condición, se dispara una alerta de notificación al cliente y se informa al actuador que comience una acción. Si la comparación resultase negativa, se limpia cualquier alerta presente, se verifica si hay que detener al actuador, y se retorna al comienzo.
 El esquema de una regla de control genérica puede verse en la fig \ref{fig:basic_rule}.
 
 \begin{figure}[h]
@@ -175,7 +206,7 @@ El esquema de una regla de control genérica puede verse en la fig \ref{fig:basi
 \subsection{Control de clima}
 \label{sec:Control de clima}
 
-Se definió una regla de control con un límite máximo de 28 °C de temperatura que cuando se supera, realiza el envío de un mensaje de encendido de ventiladores y dispara una notificación al usuario. Cuando la temperatura se mantiene por debajo del umbral, se cancelan las alarmas y se retorna al estado de espera de mensajes. La regla implementada puede verse en la figura \ref{fig:temp_rule}.  
+Se definió una regla de control con un límite máximo de 28 °C de temperatura que, cuando se supera, envía un mensaje de encendido de ventiladores e inicia el proceso de notificación  al usuario. Por el contrario, si la temperatura se mantiene por debajo del umbral, se cancelan las alarmas y retorna al estado de espera de mensajes. La regla implementada puede verse en la figura \ref{fig:temp_rule}.  
 
 \begin{figure}[h]
 	\centering
@@ -184,7 +215,7 @@ Se definió una regla de control con un límite máximo de 28 °C de temperatura
 	\label{fig:temp_rule}
 \end{figure}
 
-Para la prueba se procedió a incrementar la temperatura artificialmente por medio de una pistola de calor y observar la reacción del sistema. La figura \ref{fig:temp_graph} indica el punto donde el cambio de temperatura dispara la acción del sistema y se encendieron los ventiladores, mientras que en la figura \ref{fig:temp_alarm} se indica la alarma creada por este evento.  
+Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 °C para luego incrementar la temperatura artificialmente por medio de una pistola de calor y observar la reacción del sistema. La figura \ref{fig:temp_graph} corresponde al diagrama histórico de temperatura y humedad del invernadero, en el recuadro rojo se muestra el instante en donde el cambio de temperatura dispara la acción del sistema y se encendieron los ventiladores, mientras que en las figuras \ref{fig:temp_alarm} y \ref{fig:temp_alarm_user} se observan las alarmas en el dispositivo y de usuario creadas por este evento.  
 
 
 
@@ -200,7 +231,7 @@ Para la prueba se procedió a incrementar la temperatura artificialmente por med
 %\end{figure}
 
 
-\begin{figure}[htpb]
+\begin{figure}[!h]
      \centering
        \begin{subfigure}[b]{0.8\textwidth}
 	    \centering
@@ -209,15 +240,21 @@ Para la prueba se procedió a incrementar la temperatura artificialmente por med
 		\label{fig:temp_graph}
      \end{subfigure}
           \hfill
-     \begin{subfigure}[b]{0.80\textwidth}
+     \begin{subfigure}[b]{0.50\textwidth}
 		\centering
-		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/temp_alarm.jpg}
-		\caption{Alarmas generadas al superar los límites.}
+		\includegraphics[width=1\textwidth]{./Figures/chapter4/temp_alarm.jpg}
+		\caption{Alarmas en el dispositivo.}
 		\label{fig:temp_alarm}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/temp_user_alarm.jpg}
+		\caption{Alarmas recibida por el usuario.}
+		\label{fig:temp_alarm_user}
      \end{subfigure}
      \hfill
         \caption[Generación de alarmas por exceso de temperatura]{Generación de alarmas por exceso de temperatura.}
-        \label{fig:tb_concurrencia}
+        \label{fig:tb_clima_automation}
 \end{figure}
 
 
@@ -225,68 +262,102 @@ Para la prueba se procedió a incrementar la temperatura artificialmente por med
 \subsection{Control de riego}
 \label{sec:Control de riego}
 
-La prueba de integración del sistema de riego consistió de una regla de control en la que se reciben mensajes de lectura de valores provenientes de los sensores de humedad del suelo. Como primer paso, se identifica la zona a la que pertenecen las sondas y luego se evalúa la telemetría contra un valor de referencia. Si el valor es inferior al definido, lo que indica un suelo seco, se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido. 
+La prueba de integración del sistema de riego consistió de una regla de control en la que se reciben mensajes de lectura de valores provenientes de dos módulos sensores de humedad del suelo. Como primer paso, se identifica la zona a la que pertenecen las sondas y luego se evalúa la telemetría contra un valor de referencia. De ser este inferior al definido, lo que indica un suelo seco, se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido. 
 
-Para evaluar la regla se plantearon los siguientes parametros de configuración:
+Para evaluar la regla se plantearon los siguientes parámetros de configuración de sensor:
 \begin{itemize}
-\item Sensor seco: Sonda expuesto al aire, limpio y sin rastros de humedad.
-\item Sensor saturado: Sensor introducido un recipiente con agua.
-\item Sensor húmedo: Sensor introducido en tierra húmeda con una humedad aproximada del 30%
+\item Seco: Sonda expuesto al aire, limpio y sin rastros de humedad.
+\item Saturado: Sensor introducido un recipiente con agua.
+\item Húmedo: Sensor introducido en tierra húmeda con una humedad aproximada del 35\%
 \end{itemize}
 
-%\begin{tabular}{lllllll}
-%\toprule
-%\multicolumn{2}{l}\textbf{Zona 1}      & \multicolumn{2}{l}\textbf{Zona 2}        & \textbfRiego 1 & \textbf{Riego} 2 & \textbf{Resultado} \\
-%\midrule
-%Sensor seco   & Sensor saturado & Sensor saturado & Sensor saturado & No      & No      & OK        \\
-%Sensor seco   & Sensor seco     & Sensor saturado & Sensor saturado & Sí      & No      & OK        \\
-%Sensor seco   & Sensor saturado & Sensor seco     & Sensor saturado & No      & No      & OK        \\
-%Sensor seco   & Sensor saturado & Sensor seco     & Sensor seco     & No      & Si      & OK        \\
-%Sensor seco   & Sensor húmedo   & Sensor seco     & Sensor húmedo   & No      & No      & OK        \\
-%Sensor húmedo & Sensor húmedo   & Sensor húmedo   & Sensor húmedo   & No      & No      & OK        \\
-%Sensor húmedo & Sensor húmedo   & Sensor seco     & Sensor seco     & No      & Si      & OK  
-%\bottomrule
-%\hline
-%\end{tabular}
-%\label{tab:riego_test}
-%\end{table}
+En la tabla \ref{tab:tb_riego} se registró el resultado de las diferentes pruebas realizadas, considerando estas exitosas solamente cuando en ambos sensores del módulo se indique un suelo seco y se dispare el sistema de riego para el sector correspondiente.
+La figura \ref{fig:soil_graph} muestra el gráfico histórico de humedad de suelo en donde se indica el instante en que ambas sondas se encuentran por debajo del umbral configurado y la correspondiente alarma generada se indica en la figura \ref{fig:soil_alarm}.
 
-\begin{table}[]
-\begin{tabular}{lllllll}
-\hline
-\multicolumn{2}{l}{\textbf{Zona 1}} & \multicolumn{2}{l}{\textbf{Zona 2}} & \textbf{Riego 1} & \textbf{Riego 2} & \textbf{Resultado} \\ \hline
-Sensor seco   & Sensor saturado & Sensor saturado & Sensor saturado & No & No & OK \\
-Sensor seco   & Sensor seco     & Sensor saturado & Sensor saturado & Sí & No & OK \\
-Sensor seco   & Sensor saturado & Sensor seco     & Sensor saturado & No & No & OK \\
-Sensor seco   & Sensor saturado & Sensor seco     & Sensor seco     & No & Si & OK \\
-Sensor seco   & Sensor húmedo   & Sensor seco     & Sensor húmedo   & No & No & OK \\
-Sensor húmedo & Sensor húmedo   & Sensor húmedo   & Sensor húmedo   & No & No & OK \\
-Sensor húmedo & Sensor húmedo   & Sensor seco     & Sensor seco     & No & Si & OK
-\end{tabular}
+
+\begin{table}[!h]
+  \centering
+  \caption[Pruebas de sistema de riego]{Pruebas de sistema de riego.}
+  \begin{tabular}{llllccc}
+  \toprule
+  \multicolumn{2}{c}{\textbf{Zona 1}} &
+    \multicolumn{2}{c}{\textbf{Zona 2}} &
+    \multicolumn{1}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Riego \\ zona 1\end{tabular}}}} &
+    \multicolumn{1}{c}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Riego \\ zona 2\end{tabular}}}} &
+    \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Resultado}}} \\ %\cline{1-4}
+  \textbf{Sensor 1} &
+  \textbf{Sensor 2} &
+  \textbf{Sensor 1} &
+  \textbf{Sensor 2} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} &
+  \multicolumn{1}{c}{} \\ \midrule
+  Seco   & Saturado & Saturado & Saturado & No & No & OK \\
+  Seco   & Seco     & Saturado & Saturado & Sí & No & OK \\
+  Seco   & Saturado & Seco     & Saturado & No & No & OK \\
+  Seco   & Saturado & Seco     & Seco     & No & Si & OK \\
+  Seco   & Húmedo   & Seco     & Húmedo   & No & No & OK \\
+  Húmedo & Húmedo   & Húmedo   & Húmedo   & No & No & OK \\
+  Húmedo & Húmedo   & Seco     & Seco     & No & Si & OK \\
+  \bottomrule
+  \hline
+  \end{tabular}
+\label{tab:tb_riego}
 \end{table}
 
 
-\begin{figure}[htpb]
+
+\begin{figure}[!h]
      \centering
        \begin{subfigure}[b]{0.8\textwidth}
 	    \centering
 		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/soil_chart.jpg}
 		\caption{Vista del historial de humedad del suelo.}
-		\label{fig:temp_graph}
+		\label{fig:soil_graph}
      \end{subfigure}
           \hfill
      \begin{subfigure}[b]{0.80\textwidth}
 		\centering
 		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/soil_alarm.jpg}
 		\caption{Alarmas generadas al superar los límites.}
-		\label{fig:temp_alarm}
+		\label{fig:soil_alarm}
      \end{subfigure}
      \hfill
-        \caption[Generación de alarmas por exceso de temperatura]{Generación de alarmas por exceso de temperatura.}
-        \label{fig:tb_concurrencia}
+        \caption[Prueba del sistema de riego]{Prueba del sistema de riego.}
+        \label{fig:tb_riego}
 \end{figure}
 
-
+\pagebreak
 \section{Comparativa con el estado de arte}
 \label{sec:Comparativa con el estado de arte}
 
+
+
+Esta tabla no me gusta para nada, la voy a pasar a bullets o algun otro formato, pero estaba viendo como quedaba.
+basicamente aca voy a poner algo como (copio porquerias de ChatGPT :
+
+El invernadero inteligente tipo DIY es asequible, personalizable y ofrece una mayor flexibilidad de expansión, pero puede requerir un mayor conocimiento técnico. Las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos personalizables. En última instancia, la elección entre ambas opciones dependerá de las necesidades y objetivos específicos del usuario.
+
+
+En el caso de las soluciones comerciales, estas suelen contar con una amplia gama de características integradas en el sistema, lo que puede hacerlas más atractivas para usuarios que buscan una solución completa y lista para usar. En cambio, en el caso de un invernadero inteligente tipo DIY, el usuario debe elegir y configurar los módulos de sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
+
+
+
+
+\begin{table}[htbp]
+    \centering
+
+    %\begin{tabularx}{\textwidth}{| X | X | X |}
+    \begin{tabularx}{\textwidth}{sbb}
+        \toprule
+        Característica  & Trabajo realizado & Soluciones comerciales \\ 
+        \midrule
+    Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
+    Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
+    Capacidad de expansión &   Mayor flexibilidad para ser ampliado y personalizado con la incorporación de nuevos módulos de sensores y dispositivos. &    Limitaciones en cuanto a la expansión y personalización, aunque puede ofrecer más opciones de integración con otros sistemas. \\
+    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir una curva de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
+    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
+    \bottomrule
+    \hline
+    \end{tabularx}
+\end{table}

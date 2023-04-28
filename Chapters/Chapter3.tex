@@ -105,7 +105,7 @@ Las interacciones principales entre los bloques componentes son:
 En esta sección se describen en detalle los esquemas de conexión de los distintos módulos y las consideraciones de diseño y construcción empleadas. 
 
 \subsection{Módulos sensores de humedad del suelo}
-\label{Módulos sensores de humedad del suelo}
+\label{Hardware módulos sensores de humedad del suelo}
 
 
 En el proyecto se desarrollaron dos configuraciones diferentes de módulos para medir la humedad del suelo en macetas de diverso tipo y tamaño. Ambas opciones utilizan el microcontrolador ESP8266, pero incorporan distintas cantidades de sensores. En la figura \ref{fig:soilschem1} se muestra el esquema de conexión para la versión simple (con un único sensor) y en la figura \ref{fig:soilschem2} se ilustra la configuración doble.
@@ -183,7 +183,7 @@ Dado que los sensores están expuestos a salpicaduras, se los recubrió con tubo
 \pagebreak
 
 \subsection{Módulo controlador del riego}
-\label{Módulo controlador del riego}
+\label{Hardware módulo controlador del riego}
 
 Se compone de un microcontrolador ESP32, una placa de interfaz de relé de cuatro canales, una pantalla LCD/OLED SSH1106 y un regulador de voltaje DC-DC \textit{step down} LM2596. El esquema de conexiones entre estos componentes se detalla en la figura \ref{fig:riegochem}.
 
@@ -244,7 +244,7 @@ Para la construcción del prototipo se realizó la integración del microcontrol
 \pagebreak
 
 \subsection{Módulo sensor de temperatura y humedad}
-\label{Módulo sensor de temperatura y humedad}
+\label{Hardware módulo sensor de temperatura y humedad}
 
 Está compuesto por un microcontrolador ESP8266, un sensor DHT22 y una pantalla LCD/OLED SSH1106 para visualizar los valores de temperatura y humedad  \textit{in situ} en tiempo real. El esquema de conexión de los componentes se puede ver en la figura \ref{fig:tempschem}.
 
@@ -274,7 +274,7 @@ Para proteger los componentes se utilizó una caja de polipropileno transparente
 
 
 \subsection{Módulo controlador de clima}
-\label{Módulo controlador de clima}
+\label{Hardware módulo controlador de clima}
 
 Es el responsable de accionar los ventiladores en el invernadero. Para el diseño se utilizó un chip ESP8266 conectado a un relé de una vía como se muestra en la figura \ref{fig:ventschem}. 
 
@@ -343,7 +343,7 @@ Desde el mismo Arduino IDE se transfiere el código generado a la memoria no vol
 
 
 \subsection{Módulos sensores de humedad del suelo}
-\label{Módulos sensores de humedad del suelo}
+\label{Firmware módulos sensores de humedad del suelo}
 
 
 
@@ -374,7 +374,7 @@ El flujo de ejecución del código para un módulo doble se visualiza en la figu
 
 
 \subsection{Módulo controlador del riego}
-\label{Módulo controlador del riego}
+\label{Firmware módulo controlador del riego}
 
 Es el módulo de mayor complejidad, tal como se refleja en las figuras \ref{fig:flow_riegocontrol}, \ref{fig:flow_valvecontrol}  y \ref{fig:flow_bombacontrol}.
 
@@ -483,7 +483,7 @@ En el caso de recibir un mensaje de pedido de información, el código reporta e
 
 \pagebreak
 \subsection{Módulo sensor de temperatura y humedad}
-\label{Módulo sensor de temperatura y humedad}
+\label{Firmware módulo sensor de temperatura y humedad}
 
 La figura \ref{fig:flow_tempsensor} describe el funcionamiento de este módulo. Luego del ciclo de inicio y del setup, el código se encarga de obtener las medidas de temperatura y humedad, valores que despliega en la pantalla del módulo. Periódicamente estos valores se envían a la aplicación de acuerdo con un contador de ciclos. 
 
@@ -499,7 +499,7 @@ La figura \ref{fig:flow_tempsensor} describe el funcionamiento de este módulo. 
 
 
 \subsection{Módulo de control de clima}
-\label{Módulo de control de clima}
+\label{Firmware módulo de control de clima}
 
 Es el encargado del encendido y apagado de los ventiladores para controlar el clima.
 Luego del inicio, el programa se conecta a la red, se subscribe en los \textit{topics} correspondientes e ingresa en la función de loop a la espera de mensajes. En caso de recibir un pedido de reporte, responde con el estado del pin GPIO asociado con el ventilador. Si recibe una orden de encendido o apagado, realiza la acción correspondiente y retorna al inicio del bucle.
@@ -512,7 +512,6 @@ En la figura \ref{fig:flow_climacontrol} se describe el flujo del código para e
 	\caption[Diagrama de flujo del firmware del módulo de control de clima]{Diagrama de flujo del firmware del módulo de control de clima.}
 	\label{fig:flow_climacontrol}
 \end{figure}
-
 
 
 

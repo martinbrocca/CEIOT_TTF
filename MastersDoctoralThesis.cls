@@ -269,6 +269,7 @@
 \renewcommand{\abovechapterspace}{\vspace*{10pt}} % Reduce the whitespace above a chapter heading
 
 % ------------ Martin's add -----------
+\RequirePackage{multirow}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \newcolumntype{b}{X}
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
