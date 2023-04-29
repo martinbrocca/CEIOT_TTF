@@ -271,8 +271,9 @@
 % ------------ Martin's add -----------
 \RequirePackage{multirow}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
-\newcolumntype{b}{X}
-\newcolumntype{s}{>{\hsize=.5\hsize}X}
+%\renewcommand{\arraystretch}{2}
+\newcolumntype{b}{>{\hsize=1.2\hsize}X}
+\newcolumntype{s}{>{\hsize=.6\hsize}X}
 \usetikzlibrary{shapes.geometric, arrows}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=1.5cm, minimum height=0.75cm,text centered, draw=black, fill=red!30]
 \tikzstyle{process} = [rectangle, minimum width=1.5cm, minimum height=0.8cm, text centered, draw=black, fill=orange!30]

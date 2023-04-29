@@ -346,26 +346,28 @@ Húmedo	&Húmedo	&Húmedo	&Húmedo	&No	&No	&Ok \\
 \section{Comparativa con el estado de arte}
 \label{sec:Comparativa con el estado de arte}
 
+El proyecto realizado permite corroborar que el desarrollo de un invernadero inteligente de tipo hogareño es capaz de satisfacer los requerimientos iniciales a pesar de las limitaciones de conexión y presupuesto del cliente.   
 
 
-Esta tabla no me gusta para nada, la voy a pasar a bullets o algun otro formato, pero estaba viendo como quedaba.
-basicamente aca voy a poner algo como (copio porquerias de ChatGPT :
+El trabajo resultante es asequible, personalizable y con posibilidades de expansión, pero requiere conocimientos en diversos dominios que incluyen los sistemas informáticos, la electrónica y botánica, entre otros. En contrapartida, las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos personalizables.
 
-El invernadero inteligente tipo DIY es asequible, personalizable y ofrece una mayor flexibilidad de expansión, pero puede requerir un mayor conocimiento técnico. Las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos personalizables. En última instancia, la elección entre ambas opciones dependerá de las necesidades y objetivos específicos del usuario.
-
-
-En el caso de las soluciones comerciales, estas suelen contar con una amplia gama de características integradas en el sistema, lo que puede hacerlas más atractivas para usuarios que buscan una solución completa y lista para usar. En cambio, en el caso de un invernadero inteligente tipo DIY, el usuario debe elegir y configurar los módulos de sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
-
+En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el proyecto realizado y las soluciones comerciales existentes.
 
 
 
 \begin{table}[htbp]
     \centering
+	\caption[Comparación con el estado del arte]{Comparación con el estado del arte.}
+    %\begin{tabularx}{\textwidth}{sbb }
+    \begin{tabular}{>{\raggedright}p{0.19\textwidth} p{0.36\textwidth} p{0.36\textwidth}}
+%	\begin{tabular}{p{0.6\hsize} p{1.2\hsize} p{1.2\hsize}}
 
-    %\begin{tabularx}{\textwidth}{| X | X | X |}
-    \begin{tabularx}{\textwidth}{sbb}
+%	\begin{tabular} {cll}
         \toprule
-        Característica  & Trabajo realizado & Soluciones comerciales \\ 
+%        Característica  & Trabajo realizado & Soluciones comerciales \\ 
+		\multicolumn{1}{c}{\textbf{Característica}} &
+  		\multicolumn{1}{c}{\textbf{Trabajo realizado}} &
+  		\multicolumn{1}{c}{\textbf{Soluciones comerciales}} \\
         \midrule
     Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
     Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
@@ -374,5 +376,6 @@ En el caso de las soluciones comerciales, estas suelen contar con una amplia gam
     Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
     \bottomrule
     \hline
-    \end{tabularx}
+    \end{tabular}
+    \label{tab:comp_arte}
 \end{table}
