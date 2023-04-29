@@ -88,7 +88,7 @@ Desde la consola serial del módulo, se comprobó la  conexión del microcontrol
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.95\textwidth]{./Figures/chapter4/dashboard.jpg}
+	\includegraphics[width=0.90\textwidth]{./Figures/chapter4/dashboard.jpg}
 	\caption[Dashboard de visualización de telemetría]{Dashboard de visualización de telemetría.}
 	\label{fig:dashboard}
 \end{figure}
@@ -162,7 +162,7 @@ La figura \ref{fig:control_test1} muestra la interfaz desarrollada en ThingsBoar
 
 
 
-Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar diferentes acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
+Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar distintas acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
  
 La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu} la del celular.
 
@@ -191,12 +191,23 @@ La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del order
 
 El objetivo de las pruebas de integración es verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
 
-Las reglas de control son similares en construcción y consisten en un nodo de espera de mensajes, seguido de un filtro de información para capturar la telemetría de los sensores. Esta es comparada con un valor de referencia configurado en la aplicación, y conforme se cumpla la condición, se dispara una alerta de notificación al cliente y se informa al actuador que comience una acción. Si la comparación resultase negativa, se limpia cualquier alerta presente, se verifica si hay que detener al actuador, y se retorna al comienzo.
-El esquema de una regla de control genérica puede verse en la fig \ref{fig:basic_rule}.
+Estas reglas, cuyo esquema se muestra en la figura \ref{fig:basic_rule}, son similares en construcción y constan de los siguientes nodos y relaciones:
+
+\begin{itemize}
+\item Recepción de mensajes desde los módulos sensores.
+\item Determinación del emisor en base a la metadata del mensaje.
+\item Lectura de la telemetría.
+\item Comparación con valor de referencia.
+\item[] Si la comparación resulta exitosa, dispara una alerta de notificación al cliente e informa al microcontrolador que comience una acción. Caso contrario, limpia cualquier alerta presente y de ser necesario, detiene la acción en el actuador.
+\end{itemize}
+
+
+
+
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{./Figures/chapter4/ReglaBasica.jpg}
+	\includegraphics[width=0.8\textwidth]{./Figures/chapter4/ReglaBasica.jpg}
 	\caption[Regla de automatización genérica]{Regla de automatización genérica.}
 	\label{fig:basic_rule}
 \end{figure}
@@ -206,7 +217,7 @@ El esquema de una regla de control genérica puede verse en la fig \ref{fig:basi
 \subsection{Control de clima}
 \label{sec:Control de clima}
 
-Se definió una regla de control con un límite máximo de 28 °C de temperatura que, cuando se supera, envía un mensaje de encendido de ventiladores e inicia el proceso de notificación  al usuario. Por el contrario, si la temperatura se mantiene por debajo del umbral, se cancelan las alarmas y retorna al estado de espera de mensajes. La regla implementada puede verse en la figura \ref{fig:temp_rule}.  
+Se definió una regla de control con un límite máximo de 28 °C de temperatura que, cuando se supera, envía un mensaje de encendido de ventiladores e inicia el proceso de notificación  al usuario. Por el contrario, si la temperatura se mantiene por debajo del umbral, se cancelan las alarmas y retorna al estado de espera de mensajes. La regla implementada se muestra en la figura \ref{fig:temp_rule}.  
 
 \begin{figure}[h]
 	\centering
@@ -262,13 +273,15 @@ Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 
 \subsection{Control de riego}
 \label{sec:Control de riego}
 
-La prueba de integración del sistema de riego consistió de una regla de control en la que se reciben mensajes de lectura de valores provenientes de dos módulos sensores de humedad del suelo. Como primer paso, se identifica la zona a la que pertenecen las sondas y luego se evalúa la telemetría contra un valor de referencia. De ser este inferior al definido, lo que indica un suelo seco, se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido. 
+La prueba de integración del sistema de riego se realizó sobre la maqueta descripta en la sección  \ref{sec:Banco de pruebas} empleando un módulo sensor doble por circuito de riego. La utilización de dos sondas por módulo pretende que el riego sea uniforme sobre diferentes disposiciones de macetas. 
+
+Se construyó una regla de control según lo descrito en la sección \ref{sec:Pruebas de sistema} donde se reciben las lecturas provenientes desde los dos módulos sensores. Como primer paso, se identifica la zona a la que pertenecen las sondas. Si el valor recibido es inferior a la referencia corresponde a un suelo seco, por lo tanto se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido.
+
 
 Para evaluar la regla se plantearon los siguientes parámetros de configuración de sensor:
 \begin{itemize}
-\item Seco: Sonda expuesto al aire, limpio y sin rastros de humedad.
-\item Saturado: Sensor introducido un recipiente con agua.
-\item Húmedo: Sensor introducido en tierra húmeda con una humedad aproximada del 35\%
+\item Seco: Sonda expuesta al aire, limpia y sin rastros de humedad.
+\item Húmedo: Sensor introducido en tierra con una humedad aproximada del 35\%
 \end{itemize}
 
 En la tabla \ref{tab:tb_riego} se registró el resultado de las diferentes pruebas realizadas, considerando estas exitosas solamente cuando en ambos sensores del módulo se indique un suelo seco y se dispare el sistema de riego para el sector correspondiente.
@@ -292,13 +305,15 @@ La figura \ref{fig:soil_graph} muestra el gráfico histórico de humedad de suel
   \multicolumn{1}{c}{} &
   \multicolumn{1}{c}{} &
   \multicolumn{1}{c}{} \\ \midrule
-  Seco   & Saturado & Saturado & Saturado & No & No & OK \\
-  Seco   & Seco     & Saturado & Saturado & Sí & No & OK \\
-  Seco   & Saturado & Seco     & Saturado & No & No & OK \\
-  Seco   & Saturado & Seco     & Seco     & No & Si & OK \\
-  Seco   & Húmedo   & Seco     & Húmedo   & No & No & OK \\
-  Húmedo & Húmedo   & Húmedo   & Húmedo   & No & No & OK \\
-  Húmedo & Húmedo   & Seco     & Seco     & No & Si & OK \\
+Seco	&Seco	&Seco	&Seco	&Activa	&Activa	&Ok \\
+Seco	&Seco	&Seco	&Húmedo	&Activa	&No	&Ok \\
+Seco	&Seco	&Húmedo	&Húmedo	&Activa	&No	&Ok \\
+Seco	&Húmedo	&Seco	&Seco	&No	&Activa	&Ok \\
+Seco	&Húmedo	&Seco	&Húmedo	&No	&No	&Ok \\
+Seco	&Húmedo	&Húmedo	&Húmedo	&No	&No	&Ok \\
+Húmedo	&Húmedo	&Seco	&Seco	&No	&Activa	&Ok \\
+Húmedo	&Húmedo	&Seco	&Húmedo	&No	&No	&Ok \\
+Húmedo	&Húmedo	&Húmedo	&Húmedo	&No	&No	&Ok \\
   \bottomrule
   \hline
   \end{tabular}
