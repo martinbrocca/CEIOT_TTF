@@ -13,12 +13,50 @@
 
 
 En este capítulo se muestran las conclusiones sobre el trabajo realizado. A su vez
-se presentan algunas modificaciones o mejoras como posible trabajo futuro
+se presentan algunas modificaciones o mejoras como posible trabajo futuro.
 \section{Resultados obtenidos }
+
+En este trabajo se completó el diseño, desarrollo, testing e implementación de un
+prototipo de sistema escalable que automatiza el control y monitoreo de un invernadero inteligente de tipo hogareño de acuerdo con el cronograma y costos establecidos, al tiempo que se logró satisfacer todos los requerimientos del cliente.
+
+
+En el caso de las soluciones comerciales, estas suelen contar con una amplia gama de características integradas en el sistema, lo que puede hacerlas más atractivas para usuarios que buscan una solución completa y lista para usar. En cambio, en el caso de un invernadero inteligente como el realizado, aporta una mayor flexibilidad, posibilidades de expansión donde el usuario debe elegir y configurar los módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos. Es por esto que el aporte de la especialización en torno al manejo de protocolos de IoT, programación y desarrollo de sistemas resultaron fundamentales para llevar a cabo las tareas de integración entre la capa física y la de aplicación.
+
+Durante la implementación del prototipo surgieron riesgos no contemplados en la planificación que si bien fueron resueltos, merecen ser mencionados:
+\begin{itemize}
+\item El desarrollo en escala introdujo complicaciones en los sistemas hidráulicos, por lo que se debieron emplear mangueras y conectores neumáticos para eliminar los riesgos de roturas.
+
+\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado \citep{soilcalibration} se basa en una ecuación lineal que relaciona la capacitancia medida por el sensor con la humedad del suelo. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión de la calibración puede verse comprometida si estos factores varían en el entorno en el que se encuentra el sensor.
+
+Además, este modelo se basa en una configuración fija del sensor, y no es fácilmente adaptable a diferentes configuraciones o atributos del sensor. Esto significa que si se desea cambiar la configuración del módulo o ajustar sus atributos, se deberá realizar una nueva calibración, lo que puede ser costoso y requerir tiempo adicional.
+\end{itemize}
+
+
+El trabajo entregado permite contar al cliente con un prototipo de invernadero sobre la cual se pueden extender capacidades de monitoreo de diferentes variables o expandir el control con nuevos actuadores.
+
+
+
+
+
+
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 \section{Trabajo futuro}
 
-Acá se indica cómo se podría continuar el trabajo más adelante.
+Para dar continuidad al esfuerzo realizado hasta el momento y poder obtener un
+producto comercialmente atractivo surgen los siguientes puntos:
+
+\begin{itemize}
+\item Evaluar el rediseño o compra de los módulos físicos a fin de unificar los componentes electrónicos internos en una placa de circuito impreso o PCB (por las siglas en ingles printed circuit board) más pequeña, considerando estándares de fabricación de placas electrónicas para uso comercial.
+
+\item Configurar una red de tipo \textit{ad hoc} sobre la placa inalámbrica de la Raspberry PI y emplear la red Ethernet para el acceso a Internet, de forma de separar las redes personales de la del invernadero.
+
+\item Evaluar diferentes opciones que permitan garantizar autenticación basada en certificados entre los dispositivos y la aplicación, como así también entre los usuarios y la aplicación para reducir exposiciones.
+
+\item Continuar el análisis sobre la medición de humedad del suelo mediante sensores capacitivos, de forma de poder identificar mejoras o simplificaciones en la calibración del sistema conforme se varíe el tipo de suelo y de plantas empleadas. 
+
+\item Expandir el sistema mediante la incorporación de nuevos actuadores, tales como tomacorrientes, que sean controlados por la aplicación y mediante los cuales pueda incorporar nuevos subsitemas entre los que se encuentran humidificadores y luces. 
+
+\end{itemize}

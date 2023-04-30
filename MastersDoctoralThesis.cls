@@ -270,6 +270,7 @@
 
 % ------------ Martin's add -----------
 \RequirePackage{multirow}
+\RequirePackage{tabularray}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 %\renewcommand{\arraystretch}{2}
 \newcolumntype{b}{>{\hsize=1.2\hsize}X}

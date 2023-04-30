@@ -354,28 +354,51 @@ El trabajo resultante es asequible, personalizable y con posibilidades de expans
 En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el proyecto realizado y las soluciones comerciales existentes.
 
 
+%
+%\begin{table}[htbp]
+%    \centering
+%	\caption[Comparación con el estado del arte]{Comparación con el estado del arte.}
+%    %\begin{tabularx}{\textwidth}{sbb }
+%    \begin{tabular}{>{\raggedright}p{0.19\textwidth} p{0.36\textwidth} p{0.36\textwidth}}
+%%	\begin{tabular}{p{0.6\hsize} p{1.2\hsize} p{1.2\hsize}}
+%
+%%	\begin{tabular} {cll}
+%        \toprule
+%%        Característica  & Trabajo realizado & Soluciones comerciales \\ 
+%		\multicolumn{1}{c}{\textbf{Característica}} &
+%  		\multicolumn{1}{c}{\textbf{Trabajo realizado}} &
+%  		\multicolumn{1}{c}{\textbf{Soluciones comerciales}} \\
+%        \midrule
+%    Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
+%    Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
+%    Capacidad de expansión &   Mayor flexibilidad para ser ampliado y personalizado con la incorporación de nuevos módulos de sensores y dispositivos. &    Limitaciones en cuanto a la expansión y personalización, aunque puede ofrecer más opciones de integración con otros sistemas. \\
+%    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir una curva de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
+%    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
+%    \bottomrule
+%    \hline
+%    \end{tabular}
+%    \label{tab:comp_arte}
+%\end{table}
 
 \begin{table}[htbp]
     \centering
 	\caption[Comparación con el estado del arte]{Comparación con el estado del arte.}
-    %\begin{tabularx}{\textwidth}{sbb }
-    \begin{tabular}{>{\raggedright}p{0.19\textwidth} p{0.36\textwidth} p{0.36\textwidth}}
-%	\begin{tabular}{p{0.6\hsize} p{1.2\hsize} p{1.2\hsize}}
 
-%	\begin{tabular} {cll}
-        \toprule
-%        Característica  & Trabajo realizado & Soluciones comerciales \\ 
-		\multicolumn{1}{c}{\textbf{Característica}} &
-  		\multicolumn{1}{c}{\textbf{Trabajo realizado}} &
-  		\multicolumn{1}{c}{\textbf{Soluciones comerciales}} \\
-        \midrule
-    Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
+\begin{tblr}{
+ column{1}={0.19\textwidth}, column{2}={0.36\textwidth}, column{3}={0.36\textwidth},
+ rowsep=3pt,
+ hline{1} = {0.8pt,solid}, 
+ hline{2} = {0.6pt,solid}, 
+ hline{7} = {1.3pt,solid},
+ colspec = {X[l]X[l]X[l]},
+ row{1} = {font=\bfseries}, rowhead = 1,
+ } 
+ Característica	&	Trabajo realizado	 &	Soluciones comerciales \\
+ Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
     Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
     Capacidad de expansión &   Mayor flexibilidad para ser ampliado y personalizado con la incorporación de nuevos módulos de sensores y dispositivos. &    Limitaciones en cuanto a la expansión y personalización, aunque puede ofrecer más opciones de integración con otros sistemas. \\
     Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir una curva de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
     Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
-    \bottomrule
-    \hline
-    \end{tabular}
+\end{tblr}
     \label{tab:comp_arte}
 \end{table}
