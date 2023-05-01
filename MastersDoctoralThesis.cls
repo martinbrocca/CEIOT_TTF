@@ -269,6 +269,10 @@
 \renewcommand{\abovechapterspace}{\vspace*{10pt}} % Reduce the whitespace above a chapter heading
 
 % ------------ Martin's add -----------
+\newenvironment{consigna}[1]{%
+    \leavevmode\color{#1}\ignorespaces%
+}{%
+}%
 \RequirePackage{multirow}
 \RequirePackage{tabularray}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}

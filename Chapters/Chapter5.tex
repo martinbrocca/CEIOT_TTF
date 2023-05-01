@@ -20,15 +20,58 @@ En este trabajo se completó el diseño, desarrollo, testing e implementación d
 prototipo de sistema escalable que automatiza el control y monitoreo de un invernadero inteligente de tipo hogareño de acuerdo con el cronograma y costos establecidos, al tiempo que se logró satisfacer todos los requerimientos del cliente.
 
 
-En el caso de las soluciones comerciales, estas suelen contar con una amplia gama de características integradas en el sistema, lo que puede hacerlas más atractivas para usuarios que buscan una solución completa y lista para usar. En cambio, en el caso de un invernadero inteligente como el realizado, aporta una mayor flexibilidad, posibilidades de expansión donde el usuario debe elegir y configurar los módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos. Es por esto que el aporte de la especialización en torno al manejo de protocolos de IoT, programación y desarrollo de sistemas resultaron fundamentales para llevar a cabo las tareas de integración entre la capa física y la de aplicación.
+En el caso de las soluciones comerciales, estas suelen contar con una amplia gama de características integradas en el sistema, lo que puede hacerlas más atractivas para usuarios que buscan una solución completa y lista para usar. En cambio, en el caso de un invernadero inteligente como el realizado, aporta una mayor flexibilidad, posibilidades de expansión donde el usuario debe elegir y configurar los módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos. 
+
+
+Durante el desarrollo de este trabajo final se aplicaron conocimiento adquiridos
+a lo largo de todo el año de la Especialización en Internet de las Cosas. 
+
+\begin{consigna}{red}
+las asignaturas cursadas aportaron conocimientos necesarios y experiencia para
+la práctica profesional en el área del desarrollo web. Sin embargo, se resaltan a
+continuación aquellas materias de mayor relevancia para este trabajo:
+
+Gestión de Proyectos: la elaboración de un plan de proyecto para organizar
+el trabajo final, facilitó la realización del mismo y evitó demoras innecesarias.
+
+Protocolos de Internet: se aplicaron conceptos aprendidos para la programación
+del servidor con los protocolos MQTT y HTTP.
+
+Desarrollo de aplicaciones multiplataforma: se adquirieron conocimientos
+de programación para la plataforma web adaptable a cualquier dispositivo
+que pueda ejecutar un navegador web.
+
+Arquitectura de datos: se desarrolló la base de datos teniendo en cuenta las
+especificaciones y técnicas aprendidas.
+
+Ciberseguridad en IoT: se utilizaron técnicas de seguridad para proteger al
+sistema frente a posible ataques cibernéticos.
+
+En esta sección se presentan las materias de la carrera que más influyeron en el
+desarrollo de este trabajo. Son enumeradas con su aporte al trabajo:
+Gestión de proyectos: se elaboró un plan de trabajo y el relevamiento de
+requerimientos.
+Protocolos de Internet, Protocolos de IoT y Diseño de aplicaciones para IOT:
+se utilizaron los conceptos aprendidos sobre MQTT.
+Arquitectura de datos: se utilizó los conceptos sobre bases de datos.
+Ciberseguridad en Internet de las Cosas: se utilizaron los conceptos sobre
+seguridad, principalmente en la página web de configuración.
+Testing de sistemas de IoT: se utilizó la técnica de testing del backend utilizando
+Postman.
+Diseño de páginas Web, Diseño de aplicaciones multiplataformas y Diseño
+de aplicaciones para Iot: se utilizaron los frameworks, las técnicas y los
+lenguajes de programación.
+\end{consigna}
+
+Es por esto que el aporte de la especialización en torno al manejo de protocolos de IoT, programación y desarrollo de sistemas resultaron fundamentales para llevar a cabo las tareas de integración entre la capa física y la de aplicación.
 
 Durante la implementación del prototipo surgieron riesgos no contemplados en la planificación que si bien fueron resueltos, merecen ser mencionados:
 \begin{itemize}
 \item El desarrollo en escala introdujo complicaciones en los sistemas hidráulicos, por lo que se debieron emplear mangueras y conectores neumáticos para eliminar los riesgos de roturas.
 
-\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado \citep{soilcalibration} se basa en una ecuación lineal que relaciona la capacitancia medida por el sensor con la humedad del suelo. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión de la calibración puede verse comprometida si estos factores varían en el entorno en el que se encuentra el sensor.
+\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado \citep{soilcalibration} se basa en una relación lineal entre la capacitancia medida por el sensor y la humedad del suelo. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión de la calibración puede verse comprometida si estos factores varían en el entorno en el que se encuentra el sensor.
 
-Además, este modelo se basa en una configuración fija del sensor, y no es fácilmente adaptable a diferentes configuraciones o atributos del sensor. Esto significa que si se desea cambiar la configuración del módulo o ajustar sus atributos, se deberá realizar una nueva calibración, lo que puede ser costoso y requerir tiempo adicional.
+Además, este modelo se basa en una configuración fija del dispositivo, y no es fácilmente adaptable a diferentes configuraciones o atributos del sensor. Esto significa que si se desea llevar  a cabo alguna de estas acciones, resultará necesaria una nueva calibración, lo que puede ser costoso y requerir tiempo adicional.
 \end{itemize}
 
 
@@ -46,10 +89,10 @@ El trabajo entregado permite contar al cliente con un prototipo de invernadero s
 \section{Trabajo futuro}
 
 Para dar continuidad al esfuerzo realizado hasta el momento y poder obtener un
-producto comercialmente atractivo surgen los siguientes puntos:
+producto atractivo surgen los siguientes puntos:
 
 \begin{itemize}
-\item Evaluar el rediseño o compra de los módulos físicos a fin de unificar los componentes electrónicos internos en una placa de circuito impreso o PCB (por las siglas en ingles printed circuit board) más pequeña, considerando estándares de fabricación de placas electrónicas para uso comercial.
+\item Evaluar el rediseño o compra de los módulos físicos a fin de unificar los componentes electrónicos internos en una placa de circuito impreso más pequeña, considerando estándares de fabricación de placas electrónicas para uso comercial.
 
 \item Configurar una red de tipo \textit{ad hoc} sobre la placa inalámbrica de la Raspberry PI y emplear la red Ethernet para el acceso a Internet, de forma de separar las redes personales de la del invernadero.
 
