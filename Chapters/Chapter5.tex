@@ -18,7 +18,7 @@ se presentan algunas modificaciones o mejoras como posible trabajo futuro.
 
 
 En este trabajo se completó el diseño, desarrollo, evaluación e implementación de un
-prototipo de sistema escalable que automatiza el control y monitoreo de un invernadero inteligente de tipo hogareño, de acuerdo con el cronograma y los costos establecidos, al tiempo que se logró satisfacer todos los requerimientos del cliente.
+prototipo de sistema escalable que automatiza el control y monitoreo de un invernadero inteligente de tipo hogareño, de acuerdo con el cronograma y los costos establecidos, al tiempo que se lograron satisfacer todos los requerimientos del cliente.
 
 Para su realización fueron de gran utilidad los conocimientos adquiridos a lo largo de la especialización, en particular resaltan:
 \begin{itemize}
@@ -34,18 +34,20 @@ Durante la implementación del prototipo surgieron imprevistos que, si bien fuer
 \begin{itemize}
 \item El desarrollo en escala introdujo complicaciones en los sistemas hidráulicos, por lo que se debieron emplear mangueras y conectores de alta presión para eliminar los riesgos de roturas.
 
-\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado  se basa en una relación lineal entre la capacitancia medida por el sensor y la humedad del suelo \citep{soilcalibration}. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, tales como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión de la calibración puede verse comprometida si estos factores varían en el entorno en el que se encuentra el sensor.
+\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado se basa en una relación lineal entre la capacitancia medida por el sensor y la humedad del suelo \citep{soilcalibration}. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, tales como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión del ajuste puede verse comprometida si estos varían en el entorno en el que se encuentra el sensor.
 
 Además, este modelo se basa en una configuración fija del dispositivo y no es fácilmente adaptable. Esto significa que si se desea introducir alguna modificación, resultará necesaria una nueva calibración, lo que puede ser costoso y requerir tiempo adicional.
+
+\item El correcto ajuste de los parámetros del invernadero requiere conocimientos botánicos para asegurar condiciones de riego y temperatura adecuadas para las plantas en cultivo. 
 \end{itemize}
 
 
-\section{Conclusiones}
-Las soluciones disponibles en el mercado suelen contar con una amplia gama de características integradas que pueden hacerlas más atractivas para quienes buscan una solución rápida y lista para usar. Sin embargo, el usuario queda supeditado a lo que ofrezca el producto y a las posibles ampliaciones determinadas por el fabricante.
+\section{Corolario}
+Las ofertas disponibles en el mercado suelen contar con una amplia gama de características integradas que pueden hacerlas más atractivas para quienes buscan una solución rápida y lista para usar. Sin embargo, suelen presentar un costo elevado y el usuario queda supeditado a lo que ofrezca el producto y a las posibles ampliaciones determinadas por el fabricante.
 
-Por el contrario, un invernadero inteligente como el realizado aporta flexibilidad, posibilidades de expansión y adaptabilidad a nuevos dispositivos que se desarrollen o adopten a futuro. Bastará con elegir y configurar los módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
+%Por el contrario, un invernadero inteligente como el realizado aporta flexibilidad, posibilidades de expansión y adaptabilidad a dispositivos que se desarrollen o adopten a futuro. Bastará con elegir y configurar los nuevos módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
 
-
+En cambio, un invernadero inteligente como el que se ha construido proporciona flexibilidad, opciones de crecimiento y capacidad de adaptación a futuros componentes que se desarrollen o adopten. Para lograrlo, simplemente se necesitará seleccionar y configurar los nuevos módulos de sensores y herramientas a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
 
 
 
@@ -57,8 +59,8 @@ Por el contrario, un invernadero inteligente como el realizado aporta flexibilid
 %----------------------------------------------------------------------------------------
 \section{Trabajo futuro}
 
-Para dar continuidad al esfuerzo realizado hasta el momento y poder obtener un
-producto atractivo surgen los siguientes puntos:
+Para dar continuidad al esfuerzo realizado hasta el momento y poder obtener un producto más completo se proponen
+ las siguientes mejoras:
 
 \begin{itemize}
 \item Evaluar el rediseño o compra de los módulos físicos a fin de unificar los componentes electrónicos internos en una placa de circuito impreso más pequeña, considerando estándares de fabricación de placas electrónicas para uso comercial.
@@ -67,8 +69,8 @@ producto atractivo surgen los siguientes puntos:
 
 \item Evaluar diferentes opciones que permitan garantizar autenticación basada en certificados entre los dispositivos y la aplicación, como así también entre los usuarios y la aplicación para reducir exposiciones.
 
-\item Continuar el análisis sobre la medición de humedad del suelo mediante sensores capacitivos, de forma de poder identificar mejoras o simplificaciones en la calibración del sistema conforme se varíe el tipo de suelo y de plantas empleadas. 
+\item Continuar el análisis sobre la medición de humedad del suelo mediante sensores capacitivos, de forma de poder identificar mejoras o simplificaciones en la calibración del sistema conforme se varíe el tipo de suelo y plantas empleadas. 
 
-\item Expandir el sistema mediante la incorporación de nuevos actuadores, tales como tomacorrientes, que sean controlados por la aplicación y mediante los cuales pueda incorporar nuevos subsitemas entre los que se encuentran humidificadores y luces. 
+\item Expandir el sistema para incorporar de nuevos actuadores, tales como tomacorrientes, que sean controlados por la aplicación y mediante los cuales pueda incorporar nuevos subsistemas entre los que se encuentran humidificadores y luces. 
 
 \end{itemize}

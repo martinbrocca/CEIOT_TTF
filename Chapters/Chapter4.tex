@@ -7,15 +7,15 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-En este capítulo se explica la metodología de pruebas aplicada tanto a los componentes individuales como al sistema implementado para finalizar con una comparación con el estado del arte.
+En este capítulo se explica la metodología de pruebas aplicada tanto a los componentes individuales como al sistema implementado, para finalizar con una comparación con el estado del arte.
 
 
 \section{Banco de pruebas}
 \label{sec:Banco de pruebas}
 %
-La verificación del correcto funcionamiento de los módulos que componen el sistema se realizó mediante una maqueta que se muestra en la figura \ref{fig:maqueta} y representa en escala reducida al invernadero del cliente.
+La verificación del correcto funcionamiento de los módulos que componen el sistema se realizó mediante una maqueta que se muestra en la figura \ref{fig:maqueta} y representa el invernadero del cliente en escala reducida.
 
-El modelo cuenta con una bomba de agua conectada a tres válvulas para alimentar a los circuitos de riego. 
+El modelo cuenta con una bomba de agua conectada a tres válvulas para alimentar los circuitos de riego. 
 Se utilizaron mangueras y conexiones neumáticas de aluminio de acople rápido y el conjunto armado puede verse en la figura \ref{fig:pump}. 
   
 El ensamblado se muestra en las figuras \ref{fig:gh1}, \ref{fig:gh2} y \ref{fig:gh3} donde se observa la implementación de dos circuitos de riego independientes. También se configuró un tercer circuito cerrado para pruebas de accionamiento de bomba y válvula a fin de evitar desperdicios durante las fases de calibración.
@@ -30,7 +30,7 @@ El ensamblado se muestra en las figuras \ref{fig:gh1}, \ref{fig:gh2} y \ref{fig:
 
 Además se incorporaron a la maqueta dos módulos sensores de humedad del suelo, uno de temperatura y humedad y un actuador para el encendido de los ventiladores.
 
-Para las pruebas manuales de accionamiento de los diferentes sistemas se empleó una computadora portátil y un celular para las pruebas de acceso concurrente a la aplicación central.
+Para las pruebas manuales de accionamiento de los diferentes sistemas se emplearon una computadora portátil y un celular para verificar el acceso concurrente a la aplicación central.
 
 \begin{figure}[htpb]
      \centering
@@ -84,12 +84,12 @@ Se detallan las principales pruebas realizadas a los módulos a fin de garantiza
 
 
 \item Conexión a la aplicación y envío de telemetría: se cargó el firmware en los módulos sensores conforme a lo descrito en las secciones \ref{Firmware módulos sensores de humedad del suelo} y \ref{Firmware módulo sensor de temperatura y humedad}, mientras que se configuró la instancia instalada de ThingsBoard de acuerdo a lo explicado en \ref{sec:Configuración de la aplicación}. Se construyó un \textit{dashboard} (tablero de visualización) en donde se incluyeron los \textit{widgets} (componentes visuales) necesarios para visualizar la telemetría en tiempo real.
-Desde la consola serial del módulo, se comprobó la  conexión del microcontrolador a la red Wi-Fi. Posteriormente se verificó la vinculación del dispositivo con la aplicación y se constató la correcta recepción de los valores en el \textit{dashboard}. La figura \ref{fig:dashboard} muestra una captura de pantalla de la visualización de las series de tiempo correspondientes
+Desde la consola serial del módulo, se comprobó la  conexión del microcontrolador a la red Wi-Fi. Posteriormente se verificó la vinculación del dispositivo con la aplicación y se constató la correcta recepción de los valores en el \textit{dashboard}. La figura \ref{fig:dashboard} muestra una captura de pantalla de las series de tiempo correspondientes.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.90\textwidth]{./Figures/chapter4/dashboard.jpg}
-	\caption[Dashboard de visualización de telemetría]{Dashboard de visualización de telemetría.}
+	\caption[\textit{Dashboard} de visualización de telemetría]{\textit{Dashboard} de visualización de telemetría.}
 	\label{fig:dashboard}
 \end{figure}
 
@@ -97,7 +97,7 @@ Desde la consola serial del módulo, se comprobó la  conexión del microcontrol
 %\item Sincronización  y control de dispositivos mediante atributos compartidos: Para comprobar la correcta comunicación entre la aplicación y TB, se crearon atributos de configuracion como los valores minimos y maximos que pueden ser leidos por un sensor de humedad del suelo. luego se creo un dashboard en TB para poder modificar esos valores, y se comprobo en el disposivo la correcta recepcion de los mismos por consola serial.
 
 
-\item Sincronización de los sensores de humedad: como se indicó en la sección \ref{Protocolos de comunicación} la comunicación con la aplicación central es bidireccional. Para constatar la correcta recepción de mensajes por parte del módulo, se establecieron atributos compartidos capaces de ser modificados desde ThingsBoard y por medio de  un \textit{dashboard} se realizaron variaciones de los valores de calibración de los sensores y diferentes tiempos para el \textit{deep sleep}.
+\item Sincronización de los sensores de humedad: como se indicó en la sección \ref{Protocolos de comunicación}, la comunicación con la aplicación central es bidireccional. Para constatar la correcta recepción de mensajes por parte del módulo, se establecieron atributos compartidos capaces de ser modificados desde ThingsBoard. Por medio de  un \textit{dashboard} se realizaron variaciones de los valores de calibración de los sensores y diferentes tiempos para el \textit{deep sleep}.
 Se comprobó la recepción de los parámetros por consola serial y la acción en consecuencia por parte del módulo.
 En la figura \ref{fig:soil_calib} se observa el estado de humedad del suelo en dos sensores, los valores de ajuste y la configuración del tiempo de hibernación.
 
@@ -108,7 +108,7 @@ En la figura \ref{fig:soil_calib} se observa el estado de humedad del suelo en d
 	\label{fig:soil_calib}
 \end{figure}
 
-\item Resistencia al agua y a salpicaduras: requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas por alrededor de 30 segundos con atomizadores desde diferentes ángulos.
+\item Resistencia al agua y a salpicaduras: requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas durante alrededor de 30 segundos con atomizadores desde diferentes ángulos.
 La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba mencionado.
 
 \begin{figure}[h]
@@ -162,23 +162,23 @@ La figura \ref{fig:control_test1} muestra la interfaz desarrollada en ThingsBoar
 
 
 
-Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios mediante una computadora portátil y un teléfono celular. Los ensayos consistieron en realizar distintas acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
+Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios. Los ensayos consistieron en realizar distintas acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
  
-La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu} la del celular.
+La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu}, la del celular.
 
 \begin{figure}[htpb]
      \centering
        \begin{subfigure}[b]{0.53\textwidth}
 	    \centering
 		 \includegraphics[width=0.9\textwidth]{./Figures/chapter4/tb_compu.jpg}
-		\caption{Vista sobre acceso por computadora.}
+		\caption{Vista del acceso por computadora.}
 		\label{fig:tb_compu}
      \end{subfigure}
           \hfill
      \begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=0.40\textwidth]{./Figures/chapter4/tb_celu.jpg}
-		\caption{Vista sobre acceso por teléfono celular.}
+		\caption{Vista del acceso por teléfono celular.}
 		\label{fig:tb_celu}
      \end{subfigure}
      \hfill
@@ -186,19 +186,19 @@ La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del order
         \label{fig:tb_concurrencia}
 \end{figure}
 
-\section{Pruebas de sistema}
+\section{Pruebas de integración}
 \label{sec:Pruebas de sistema}
 
-El objetivo de las pruebas de integración es verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
+Tienen por objetivo verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
 
 Estas reglas, cuyo esquema se muestra en la figura \ref{fig:basic_rule}, son similares en construcción y constan de los siguientes nodos y relaciones:
 
 \begin{itemize}
 \item Recepción de mensajes desde los módulos sensores.
-\item Determinación del emisor en base a la metadata del mensaje.
+\item Identificación del emisor en base a los metadatos del mensaje.
 \item Lectura de la telemetría.
 \item Comparación con valor de referencia.
-\item[] Si la comparación resulta exitosa, dispara una alerta de notificación al cliente e informa al microcontrolador que comience una acción. Caso contrario, limpia cualquier alerta presente y de ser necesario, detiene la acción en el actuador.
+\item[] Si la comparación resulta exitosa, dispara una alerta de notificación al cliente e informa al microcontrolador que comience una acción. En caso contrario, limpia cualquier alerta presente y de ser necesario, detiene la acción en el actuador.
 \end{itemize}
 
 
@@ -226,7 +226,7 @@ Se definió una regla de control con un límite máximo de 28 °C de temperatura
 	\label{fig:temp_rule}
 \end{figure}
 
-Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 °C para luego incrementar la temperatura artificialmente por medio de una pistola de calor y observar la reacción del sistema. La figura \ref{fig:temp_graph} corresponde al diagrama histórico de temperatura y humedad del invernadero, en el recuadro rojo se muestra el instante en donde el cambio de temperatura dispara la acción del sistema y se encendieron los ventiladores, mientras que en las figuras \ref{fig:temp_alarm} y \ref{fig:temp_alarm_user} se observan las alarmas en el dispositivo y de usuario creadas por este evento.  
+Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 °C para luego incrementar la temperatura artificialmente por medio de una pistola de calor y observar la reacción del sistema. La figura \ref{fig:temp_graph} corresponde al diagrama histórico de temperatura y humedad del invernadero. En el recuadro rojo se muestra el instante en donde el cambio de temperatura dispara la acción del sistema y se encienden los ventiladores, mientras que en las figuras \ref{fig:temp_alarm} y \ref{fig:temp_alarm_user} se observan las alarmas del dispositivo y de usuario creadas por este evento.  
 
 
 
@@ -260,7 +260,7 @@ Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 
      \begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=0.80\textwidth]{./Figures/chapter4/temp_user_alarm.jpg}
-		\caption{Alarmas recibida por el usuario.}
+		\caption{Alarma recibida por el usuario.}
 		\label{fig:temp_alarm_user}
      \end{subfigure}
      \hfill
@@ -280,12 +280,12 @@ Se construyó una regla de control según lo descrito en la sección \ref{sec:Pr
 
 Para evaluar la regla se plantearon los siguientes parámetros de configuración de sensor:
 \begin{itemize}
-\item Seco: Sonda expuesta al aire, limpia y sin rastros de humedad.
-\item Húmedo: Sensor introducido en tierra con una humedad aproximada del 35\%
+\item Seco: sonda expuesta al aire, limpia y sin rastros de humedad.
+\item Húmedo: sensor introducido en tierra con una humedad aproximada del 35\%.
 \end{itemize}
 
 En la tabla \ref{tab:tb_riego} se registró el resultado de las diferentes pruebas realizadas, considerando estas exitosas solamente cuando en ambos sensores del módulo se indique un suelo seco y se dispare el sistema de riego para el sector correspondiente.
-La figura \ref{fig:soil_graph} muestra el gráfico histórico de humedad de suelo en donde se indica el instante en que ambas sondas se encuentran por debajo del umbral configurado y la correspondiente alarma generada se indica en la figura \ref{fig:soil_alarm}.
+La figura \ref{fig:soil_graph} muestra el gráfico histórico de humedad de suelo en donde se indica el instante en que ambas sondas se encuentran por debajo del umbral configurado y la correspondiente alarma generada se muestra en la figura \ref{fig:soil_alarm}.
 
 
 \begin{table}[!h]
@@ -346,10 +346,10 @@ Húmedo	&Húmedo	&Húmedo	&Húmedo	&No	&No	&Ok \\
 \section{Comparativa con el estado de arte}
 \label{sec:Comparativa con el estado de arte}
 
-El proyecto realizado permite corroborar que el desarrollo de un invernadero inteligente de tipo hogareño es capaz de satisfacer los requerimientos iniciales a pesar de las limitaciones de conexión y presupuesto del cliente.   
+El proyecto realizado permite corroborar que el desarrollo de un invernadero inteligente de tipo hogareño es capaz de satisfacer los requerimientos iniciales a pesar de las limitaciones de conexión a Internet y presupuesto del cliente.   
 
 
-El trabajo resultante es asequible, personalizable y con posibilidades de expansión, pero requiere conocimientos en diversos dominios que incluyen los sistemas informáticos, la electrónica y botánica, entre otros. En contrapartida, las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos personalizables.
+El trabajo resultante es asequible, personalizable y con posibilidades de expansión, pero requiere conocimientos en diversos dominios que incluyen los sistemas informáticos, la electrónica y botánica, entre otros. En contrapartida, las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos adaptables.
 
 En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el proyecto realizado y las soluciones comerciales existentes.
 
@@ -369,11 +369,11 @@ En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el
 %  		\multicolumn{1}{c}{\textbf{Trabajo realizado}} &
 %  		\multicolumn{1}{c}{\textbf{Soluciones comerciales}} \\
 %        \midrule
-%    Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
+%    Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen del producto seleccionado. \\
 %    Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
 %    Capacidad de expansión &   Mayor flexibilidad para ser ampliado y personalizado con la incorporación de nuevos módulos de sensores y dispositivos. &    Limitaciones en cuanto a la expansión y personalización, aunque puede ofrecer más opciones de integración con otros sistemas. \\
-%    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir una curva de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
-%    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
+%    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir un período de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
+%    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos propios. \\ 
 %    \bottomrule
 %    \hline
 %    \end{tabular}
@@ -394,11 +394,11 @@ En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el
  row{1} = {font=\bfseries}, rowhead = 1,
  } 
  Característica	&	Trabajo realizado	 &	Soluciones comerciales \\
- Costo           & Accesible, con gran variedad de productos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
-    Personalización & Altamente personalizable y ajustable a las necesidades del usuario.  & Limitaciones en cuanto a la personalización.                                 \\
-    Capacidad de expansión &   Mayor flexibilidad para ser ampliado y personalizado con la incorporación de nuevos módulos de sensores y dispositivos. &    Limitaciones en cuanto a la expansión y personalización, aunque puede ofrecer más opciones de integración con otros sistemas. \\
-    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración, pero puede ser más fácil de ajustar y personalizar. & Más fáciles de instalar y configurar, aunque puede requerir una curva de aprendizaje para personalizar y ajustar a las necesidades específicas del usuario. \\
-    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite el desarrollo de las mismas. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
+ Costo           & Accesible, debido a la gran cantidad de componentes electrónicos y módulos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
+    Personalización & Altamente ajustable a las necesidades del usuario.  & Limitada.                                 \\
+    Capacidad de expansión &   Mayor flexibilidad para ser ampliado y adaptado con la incorporación de nuevos módulos de sensores y dispositivos. &    Opciones supeditadas al fabricante. \\
+    Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración. & Más fáciles de instalar y configurar, aunque pueden requerir una curva de aprendizaje para adecuarse a las necesidades específicas del usuario. \\
+    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite su desarrollo. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
 \end{tblr}
     \label{tab:comp_arte}
 \end{table}
