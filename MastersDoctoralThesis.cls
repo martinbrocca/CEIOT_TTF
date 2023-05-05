@@ -274,6 +274,7 @@
 }{%
 }%
 \RequirePackage{multirow}
+\RequirePackage{float}
 \RequirePackage{tabularray}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 %\renewcommand{\arraystretch}{2}

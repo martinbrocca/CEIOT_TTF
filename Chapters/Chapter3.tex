@@ -86,7 +86,7 @@ Las interacciones principales entre los bloques componentes son:
 	
 	\item Sistema de control de riego: las comunicaciones se realizan con la aplicación central de manera bidireccional.
 	El módulo sensor efectúa dos conexiones, una para el envío de las mediciones y otra para recibir valores de atributos tales como la duración del tiempo de riego. Debido a limitaciones en la configuración de la persistencia de los mensajes en las colas de MQTT, se optó por utilizar llamadas HTTP (GET y POST) para realizarlas.
-	Al igual que en el control de clima, la aplicación central inicia el riego por medio de mensajes RCP sobre MQTT hacia el controlador de la bomba y de las válvulas.
+	Al igual que en el control de clima, la aplicación central inicia el riego por medio de mensajes RPC sobre MQTT hacia el controlador de la bomba y de las válvulas.
 	
 	\item Sistema de acceso remoto: la interfaz se comunica con la aplicación por medio de pedidos HTTP GET y POST para consultar el reporte de estado de los diferentes componentes. A continuación este se envía hacia la interfaz de usuario por medio de una solicitud HTTP POST.
  
@@ -278,7 +278,7 @@ Para proteger los componentes se utilizó una caja de polipropileno transparente
 
 Es el responsable de accionar los ventiladores en el invernadero. Para el diseño se utilizó un chip ESP8266 conectado a un relé de una vía como se muestra en la figura \ref{fig:ventschem}. 
 
-Dado que la salida del microcontrolador es de 3,3 V para el prototipo se seleccionó un relé que pueda ser accionado con ese valor de tensión, para evitar el uso de componentes adicionales tal como un convertidor de tensión DC-DC \textit{step up}. 
+Dado que la salida del microcontrolador es de 3,3 V, se seleccionó un relé que pueda ser accionado con ese valor de tensión y evitar el uso de componentes adicionales, tal como un convertidor de tensión DC-DC \textit{step up}. 
 
 En la figura \ref{fig:ventcontrol} se ilustra el proceso de construcción del módulo. 
 
@@ -443,7 +443,7 @@ En el caso de recibir un mensaje de pedido de información, el código reporta e
 \item Pedido de apertura o cierre de válvula:
     \begin{itemize}
     \item Apertura: procede a abrir la válvula seleccionada y  comprueba si la bomba se encuentra en estado de pedido de encendido (bomba lista), en cuyo caso ordena el encendido.
-    \item Cierre: verifica si otras válvulas están abiertas y en caso afirmativo procede con el cierre. En caso contrario, si es la única, ordena el apagado de la bomba y luego el cierre de la válvula.
+    \item Cierre: verifica si otras válvulas están abiertas y de ser así, procede con el cierre. En caso contrario, si es la única, ordena el apagado de la bomba y luego el cierre de la válvula.
     
     \end{itemize}
 

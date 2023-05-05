@@ -15,22 +15,22 @@ En este capítulo se explica la metodología de pruebas aplicada tanto a los com
 %
 La verificación del correcto funcionamiento de los módulos que componen el sistema se realizó mediante una maqueta que se muestra en la figura \ref{fig:maqueta} y representa el invernadero del cliente en escala reducida.
 
-El modelo cuenta con una bomba de agua conectada a tres válvulas para alimentar los circuitos de riego. 
-Se utilizaron mangueras y conexiones neumáticas de aluminio de acople rápido y el conjunto armado puede verse en la figura \ref{fig:pump}. 
-  
-El ensamblado se muestra en las figuras \ref{fig:gh1}, \ref{fig:gh2} y \ref{fig:gh3} donde se observa la implementación de dos circuitos de riego independientes. También se configuró un tercer circuito cerrado para pruebas de accionamiento de bomba y válvula a fin de evitar desperdicios durante las fases de calibración.
-
-
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.50\textwidth]{./Figures/chapter4/maqueta.jpg}
 	\caption[Modelo completo del invernadero]{Modelo completo del invernadero.}
 	\label{fig:maqueta}
 \end{figure}
 
+El modelo cuenta con una bomba de agua conectada a tres válvulas para alimentar los circuitos de riego en los que se utilizaron mangueras neumáticas y conexiones de aluminio de acople rápido. El conjunto armado puede verse en la figura \ref{fig:pump}. 
+  
+El ensamblado se muestra en las figuras \ref{fig:gh1}, \ref{fig:gh2} y \ref{fig:gh3} donde se observa la implementación de dos circuitos de riego independientes. También se configuró un tercer circuito cerrado para pruebas de accionamiento de bomba y válvula a fin de evitar desperdicios durante las fases de calibración.
+
+
+
 Además se incorporaron a la maqueta dos módulos sensores de humedad del suelo, uno de temperatura y humedad y un actuador para el encendido de los ventiladores.
 
-Para las pruebas manuales de accionamiento de los diferentes sistemas se emplearon una computadora portátil y un celular para verificar el acceso concurrente a la aplicación central.
+Las pruebas manuales de accionamiento de los diferentes sistemas y las de acceso concurrente a la aplicación central se realizaron mediante una computadora portátil y un teléfono celular.
 
 \begin{figure}[htpb]
      \centering
@@ -108,7 +108,7 @@ En la figura \ref{fig:soil_calib} se observa el estado de humedad del suelo en d
 	\label{fig:soil_calib}
 \end{figure}
 
-\item Resistencia al agua y a salpicaduras: requerimiento no funcional explícito para los sensores de humedad del suelo. Consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas durante alrededor de 30 segundos con atomizadores desde diferentes ángulos.
+\item Resistencia al agua y a salpicaduras: requerimiento la prueba sobre este requerimiento no funcional consistió en comprobar la integridad y el funcionamiento del módulo al tiempo que se sumergía el sensor en un recipiente con agua o se lo sometía a aspersiones continuas durante alrededor de 30 segundos con atomizadores desde diferentes ángulos.
 La figura \ref{fig:soil_test} esquematiza parcialmente el proceso de prueba mencionado.
 
 \begin{figure}[h]
@@ -162,7 +162,7 @@ La figura \ref{fig:control_test1} muestra la interfaz desarrollada en ThingsBoar
 
 
 
-Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios. Los ensayos consistieron en realizar distintas acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
+Las pruebas de concurrencia se efectuaron mediante el acceso simultáneo de diferentes usuarios desde la computadora y el teléfono celular. Los ensayos consistieron en realizar distintas acciones desde un dispositivo como, por ejemplo, el accionamiento de un circuito de riego por parte de un usuario, y la confirmación del cambio de estado recibida por otro. 
  
 La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del ordernador mientras que la figura  \ref{fig:tb_celu}, la del celular.
 
@@ -182,14 +182,14 @@ La figura \ref{fig:tb_compu} muestra la vista obtenida mediante el uso del order
 		\label{fig:tb_celu}
      \end{subfigure}
      \hfill
-        \caption[Pruebas unitarias sobre acceso concurrente]{Pruebas unitarias sobre acceso concurrente.}
+        \caption[Pruebas unitarias de acceso concurrente]{Pruebas unitarias sobre acceso concurrente.}
         \label{fig:tb_concurrencia}
 \end{figure}
 
 \section{Pruebas de integración}
 \label{sec:Pruebas de sistema}
 
-Tienen por objetivo verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y de temperatura, además de las necesarias para el manejo de alarmas del sistema. 
+Tienen por objetivo verificar el correcto funcionamiento e interacción de los sistemas que conforman el modelo. Con este propósito se desarrollaron reglas de automatización para el control de riego y temperatura, además de las necesarias para el manejo de alarmas del sistema. 
 
 Estas reglas, cuyo esquema se muestra en la figura \ref{fig:basic_rule}, son similares en construcción y constan de los siguientes nodos y relaciones:
 
@@ -275,7 +275,7 @@ Para la prueba se instaló la maqueta en un entorno de ambiente controlado a 25 
 
 La prueba de integración del sistema de riego se realizó sobre la maqueta descripta en la sección  \ref{sec:Banco de pruebas} empleando un módulo sensor doble por circuito de riego. La utilización de dos sondas por módulo pretende que el riego sea uniforme sobre diferentes disposiciones de macetas. 
 
-Se construyó una regla de control según lo descrito en la sección \ref{sec:Pruebas de sistema} donde se reciben las lecturas provenientes desde los dos módulos sensores. Como primer paso, se identifica la zona a la que pertenecen las sondas. Si el valor recibido es inferior a la referencia corresponde a un suelo seco, por lo tanto se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido.
+Se construyó una regla de control según lo descrito en la sección \ref{sec:Pruebas de sistema} donde se reciben las lecturas provenientes desde los dos módulos sensores. Como primer paso, se identifica la zona a la que pertenecen las sondas. Si el valor recibido es inferior a la referencia, corresponde a un suelo seco, por lo tanto se debe iniciar el sistema de bomba y válvula correspondiente al circuito por el tiempo de riego predefinido.
 
 
 Para evaluar la regla se plantearon los siguientes parámetros de configuración de sensor:
@@ -343,13 +343,13 @@ Húmedo	&Húmedo	&Húmedo	&Húmedo	&No	&No	&Ok \\
 \end{figure}
 
 \pagebreak
-\section{Comparativa con el estado de arte}
-\label{sec:Comparativa con el estado de arte}
+\section{Comparativa con el estado del arte}
+\label{sec:Comparativa con el estado del arte}
 
 El proyecto realizado permite corroborar que el desarrollo de un invernadero inteligente de tipo hogareño es capaz de satisfacer los requerimientos iniciales a pesar de las limitaciones de conexión a Internet y presupuesto del cliente.   
 
 
-El trabajo resultante es asequible, personalizable y con posibilidades de expansión, pero requiere conocimientos en diversos dominios que incluyen los sistemas informáticos, la electrónica y botánica, entre otros. En contrapartida, las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos adaptables.
+El trabajo resultante es asequible, personalizable y con posibilidades de expansión, pero requiere conocimientos en diversos dominios que incluyen los sistemas informáticos, la electrónica y la botánica, entre otros. En contrapartida, las soluciones comerciales ofrecen una amplia gama de características integradas, son más fáciles de instalar y configurar, pero son más costosas y menos adaptables.
 
 En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el proyecto realizado y las soluciones comerciales existentes.
 
@@ -394,11 +394,11 @@ En la tabla \ref{tab:comp_arte} se muestran las principales diferencias entre el
  row{1} = {font=\bfseries}, rowhead = 1,
  } 
  Característica	&	Trabajo realizado	 &	Soluciones comerciales \\
- Costo           & Accesible, debido a la gran cantidad de componentes electrónicos y módulos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen de la marca seleccionada. \\
-    Personalización & Altamente ajustable a las necesidades del usuario.  & Limitada.                                 \\
+ Costo           & Accesible, debido a la gran cantidad de componentes electrónicos y módulos disponibles en el mercado. & Costos medios a altos, con soluciones que dependen del producto seleccionado. \\
+    Personalización & Altamente ajustable a las necesidades del usuario.  & Limitada.  \\
     Capacidad de expansión &   Mayor flexibilidad para ser ampliado y adaptado con la incorporación de nuevos módulos de sensores y dispositivos. &    Opciones supeditadas al fabricante. \\
     Dificultad de instalación y ajustes & Requiere conocimientos técnicos para su instalación y configuración. & Más fáciles de instalar y configurar, aunque pueden requerir una curva de aprendizaje para adecuarse a las necesidades específicas del usuario. \\
-    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite su desarrollo. & Poseen una amplia gama de funcionalidades e integración con productos de la propia marca. \\ 
+    Funcionalidades e integración & Posee una limitada cantidad de funcionalidades integradas, aunque permite su desarrollo. & Poseen una amplia gama de funcionalidades e integración con productos propios. \\ 
 \end{tblr}
     \label{tab:comp_arte}
 \end{table}

@@ -28,7 +28,7 @@ Según el modelo TCP/IP \citep{rfc1180} los tres primeros se encuentran en la ca
 \subsection{Protocolo MQTT}
 \label{sec:Protocolo MQTT}
 
-MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es adecuado para el uso en IoT \citep{mqtt:1}.
+MQTT fue desarrollado en 1999 con el objetivo principal de crear un protocolo muy eficiente desde el punto de vista del uso del ancho de banda y de muy bajo consumo de energía. Por estas razones es ampliamente utilizado en IoT \citep{mqtt:1}.
 
 Su funcionamiento se basa en el paradigma de publicación-suscripción \citep{pubsub}, el cual consiste en desvincular un cliente que publica un mensaje (publicador) de otros clientes que reciben el mensaje (suscriptores). Otra característica importante a mencionar es que, al ser un protocolo asincrónico, el cliente puede seguir operando mientras espera un nuevo mensaje.
 
@@ -104,15 +104,57 @@ A pesar de su reducido tamaño, la Raspberry Pi ofrece una capacidad de procesam
 
 En la figura \ref{fig:rpi} se muestra una Raspberry Pi modelo 4B similar a la utilizada en el trabajo y en la tabla \ref{tab:raspberrypi} se listan sus principales características: 
  
-\begin{table}[h]
-\centering
-\caption[Especificaciones técnicas de la Raspberry Pi 4B]{Especificaciones técnicas de la Raspberry Pi 4B.}
+%\begin{table}[h]
+%\centering
+%\caption[Especificaciones técnicas de la Raspberry Pi 4B]{Especificaciones técnicas de la Raspberry Pi 4B.}
+%
+%\begin{tabular}{p{2.5cm} p{7.5cm} } 
+%\toprule
+%\textbf{Categoría} & \textbf{Especificación}\citep{rpi4b}\\
+%
+%\midrule
+%Procesador	& Broadcom BCM2711, quad-core Cortex-A72 (ARM v8) 64 bits SoC @ 1,8 GHz \\
+%Memoria SDRAM	 & 1, 2, 4 u 8 GB LPDDR4-3200 \\
+%Wi-Fi	& 2,4 GHz y 5,0 GHz IEEE 802.11ac \\
+%Bluetooth	&  5.0 y BLE \\
+%Ethernet	& Gigabit, con soporte opcional para POE\\
+%USB	& 2 puertos  3.0 y 2 puertos 2.0\\
+%GPIO	&	Conector de 40 pines\\
+%HDMI	&  2 puertos micro-HDMI\\
+%Alimentación	& 5 V USB y GPIO\\
+%Temperatura de operación	& 0 °C a 50 °C \\
+%\bottomrule
+%\hline
+%\end{tabular}
+%\label{tab:raspberrypi}
+%\end{table}
 
-\begin{tabular}{p{2.5cm} p{7.5cm} } 
-\toprule
-\textbf{Categoría} & \textbf{Especificación}\citep{rpi4b}\\
 
-\midrule
+
+\begin{table}[htbp]
+    \centering
+	\caption[Especificaciones técnicas de la Raspberry Pi 4B]{Especificaciones técnicas de la Raspberry Pi 4B.}
+
+
+%\begin{tblr}{
+% column{1}={0.30\textwidth}, column{2}={0.65\textwidth},
+% rowsep=3pt,
+% hline{1} = {0.8pt,solid}, 
+% hline{2} = {0.6pt,solid}, 
+% hline{12} = {1.3pt,solid},
+% colspec = {X[l]X[l]},
+% row{1} = {font=\bfseries}, rowhead = 1,
+% } 
+\begin{tblr}{
+ column{1}={0.33\textwidth}, column{2}={0.55\textwidth},
+ rowsep=2pt,
+ hline{1} = {0.85pt,solid}, 
+ hline{2} = {0.6pt,solid}, 
+ hline{12} = {1.2pt,solid},
+ colspec = {X[l]X[l]},
+ row{1} = {font=\bfseries}, rowhead = 1,
+ }
+Categoría	& Especificación\citep{rpi4b}\\
 Procesador	& Broadcom BCM2711, quad-core Cortex-A72 (ARM v8) 64 bits SoC @ 1,8 GHz \\
 Memoria SDRAM	 & 1, 2, 4 u 8 GB LPDDR4-3200 \\
 Wi-Fi	& 2,4 GHz y 5,0 GHz IEEE 802.11ac \\
@@ -123,15 +165,14 @@ GPIO	&	Conector de 40 pines\\
 HDMI	&  2 puertos micro-HDMI\\
 Alimentación	& 5 V USB y GPIO\\
 Temperatura de operación	& 0 °C a 50 °C \\
-\bottomrule
-\hline
-\end{tabular}
-\label{tab:raspberrypi}
+
+\end{tblr}
+    \label{tab:raspberrypi}
 \end{table}
  
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.75\textwidth]{./Figures/rpi.png}
+	\includegraphics[width=0.55\textwidth]{./Figures/rpi.png}
 	\caption[Raspberry Pi]{Raspberry Pi\protect\footnotemark.}
 	\label{fig:rpi}
 
@@ -209,18 +250,18 @@ En la figura \ref{fig:esp32} se observa un módulo de desarrollo de la familia E
 %	\label{fig:esp32}
 %
 %\end{figure}
-\pagebreak
+
 
 \subsection{Sensores y actuadores}
 \label{sec:Sensores y actuadores}
 Los principales sensores y actuadores empleados en el sistema del invernadero inteligente son los siguientes:
 \begin{itemize}
 
-\item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 °C a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
+\item DHT22: módulo básico y económico para determinar los valores de temperatura y humedad en forma digital. Utiliza un sensor de humedad capacitivo y un termistor para medir la temperatura en el aire circundante y entrega una señal digital en el pin de datos de acuerdo al valor calculado. Funciona con una alimentación de 3,3 a 6 VDC y su rango de medición es de -40 °C a 80 °C y de 0 a 100 \% de humedad relativa \citep{dht22}.
 
 \item Sensor capacitivo de humedad del suelo: módulo analógico compuesto de un material resistente a la corrosión que mide la humedad del suelo indirectamente por medio de la capacitancia observada. Opera con una alimentación de 3,3 a 5,5 VDC y entrega un valor de tensión que varía entre 0 V para un suelo seco a aproximadamente 3,15 V en un suelo completamente húmedo \citep{soilsensor}.
 
-\item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarlo, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
+\item Válvula solenoide de dos vías: dispositivo neumático para controlar el flujo de líquidos o gases que se acciona eléctricamente. Para poder operarla, se utiliza un relé que es un instrumento electromecánico que actúa como interruptor controlado por un circuito eléctrico \citep{valve}\citep{rele}.
 
 La figura \ref{fig:sensores} muestra imágenes de los componentes listados previamente.
 
@@ -344,12 +385,12 @@ A continuación se listan los principales requerimientos funcionales,  no funcio
 \begin{enumerate}
 \item El rango de tensión de alimentación de los nodos será de 3,3 a 5 VDC.
 \item El sistema de riego operará con una tensión de alimentación de 12 VDC.
-\item El sistema estará basado en software de código abierto.
+\item La aplicación estará basada en software de código abierto.
 \item El firmware deberá desarrollarse en plataformas de código abierto.
 \item El trabajo se realizará sobre dispositivos de bajo costo y fácil reposición.
 \item Los datos se almacenarán localmente.
 \item La aplicación soportará MQTT.
-\item Los sensores de humedad del suelo tendrán una protección IP65 \citep{ip65}. 
+\item Los sensores de humedad del suelo tendrán una protección similar a IP65 \citep{ip65}. 
 \end{enumerate}
 
 

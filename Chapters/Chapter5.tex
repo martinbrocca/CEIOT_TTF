@@ -34,7 +34,7 @@ Durante la implementación del prototipo surgieron imprevistos que, si bien fuer
 \begin{itemize}
 \item El desarrollo en escala introdujo complicaciones en los sistemas hidráulicos, por lo que se debieron emplear mangueras y conectores de alta presión para eliminar los riesgos de roturas.
 
-\item El modelo de calibración para sensores capacitivos de humedad del suelo empleado se basa en una relación lineal entre la capacitancia medida por el sensor y la humedad del suelo \citep{soilcalibration}. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, tales como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión del ajuste puede verse comprometida si estos varían en el entorno en el que se encuentra el sensor.
+\item La calibración de los sensores capacitivos de humedad del suelo empleados se basa en una relación lineal entre la capacitancia medida por el sensor y la humedad del suelo \citep{soilcalibration}. Sin embargo, esta ecuación no toma en cuenta otros factores que pueden afectar la medición, tales como la temperatura, la salinidad y la compactación del suelo. Por lo tanto, la precisión del ajuste puede verse comprometida si estos varían en el entorno en el que se encuentra el sensor.
 
 Además, este modelo se basa en una configuración fija del dispositivo y no es fácilmente adaptable. Esto significa que si se desea introducir alguna modificación, resultará necesaria una nueva calibración, lo que puede ser costoso y requerir tiempo adicional.
 
@@ -47,7 +47,7 @@ Las ofertas disponibles en el mercado generalmente cuentan con una amplia gama d
 
 %Por el contrario, un invernadero inteligente como el realizado aporta flexibilidad, posibilidades de expansión y adaptabilidad a dispositivos que se desarrollen o adopten a futuro. Bastará con elegir y configurar los nuevos módulos sensores y dispositivos a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
 
-En cambio, un invernadero inteligente como el que se ha construido proporciona flexibilidad, opciones de crecimiento y capacidad de adaptación a futuros componentes que se desarrollen o adopten. Para lograrlo, simplemente se necesitará seleccionar y configurar los nuevos módulos de sensores y herramientas a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
+En cambio, un invernadero inteligente como el que se ha construido proporciona flexibilidad, opciones de crecimiento y capacidad de adaptación a futuros componentes que se desarrollen o adopten. Para lograrlo, simplemente se necesitará seleccionar y configurar los nuevos sensores y herramientas a utilizar en el sistema, lo que puede requerir un mayor esfuerzo y conocimientos técnicos.
 
 
 
@@ -64,13 +64,13 @@ Para dar continuidad al esfuerzo realizado hasta el momento y poder obtener un p
 
 \begin{itemize}
 \item Evaluar el rediseño o compra de los módulos físicos a fin de unificar los componentes electrónicos internos en una placa de circuito impreso más pequeña. %, considerando estándares de fabricación de placas electrónicas para uso comercial.
-
-\item Configurar una red de tipo \textit{ad hoc} sobre la placa inalámbrica de la Raspberry PI y emplear la red Ethernet para el acceso a Internet, de forma de separar las redes personales de la del invernadero.
+ 
+\item Configurar una red de tipo \textit{ad hoc} sobre la placa inalámbrica de la Raspberry Pi y emplear la red Ethernet para el acceso a Internet, de forma de separar las redes personales de la del invernadero.
 
 \item Evaluar diferentes opciones que permitan garantizar autenticación basada en certificados entre los dispositivos y la aplicación, como así también entre los usuarios y la aplicación para reducir exposiciones.
 
-\item Continuar el análisis sobre la medición de humedad del suelo mediante sensores capacitivos, de forma de poder identificar mejoras o simplificaciones en la calibración del sistema conforme se varíe el tipo de suelo y plantas empleadas. 
+\item Continuar el análisis sobre la medición de humedad del suelo mediante sensores capacitivos, para identificar mejoras o simplificaciones en la calibración, conforme se varíe el tipo de suelo y plantas empleadas. 
 
-\item Expandir el sistema para incorporar de nuevos actuadores, tales como tomacorrientes, que sean controlados por la aplicación y mediante los cuales puedan incorporar nuevos subsistemas entre los que se encuentran humidificadores y luces. 
+\item Expandir el sistema para incorporar nuevos actuadores, tales como tomacorrientes que sean controlados por la aplicación y mediante los cuales puedan incorporar nuevos subsistemas, entre los que se encuentran humidificadores y luces. 
 
 \end{itemize}
